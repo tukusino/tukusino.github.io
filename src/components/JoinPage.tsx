@@ -55,21 +55,9 @@ export const JoinPage = ({ onNavigate }: JoinPageProps) => {
             <p style={{ fontSize: '0.9375rem', color: 'var(--text-muted)', marginBottom: '12px' }}>
               必要事項をご記入のうえ提出いただきます。※ご記入いただいた個人情報は自治会運営の連絡以外には使用しません。
             </p>
-            {/* 名簿個票変更届の画像サンプル */}
-            <div style={{ width: '100%', maxWidth: '360px', margin: '8px auto', textAlign: 'center' }}>
-              <a href={`${import.meta.env.BASE_URL}区民名簿個票変更届.png`} target="_blank" rel="noopener noreferrer" download="区民名簿個票変更届.png" title="クリックして拡大・ダウンロード" style={{ display: 'block', overflow: 'hidden', borderRadius: '12px', border: '1px solid var(--border)', boxShadow: 'var(--shadow-sm)' }}>
-                <img
-                  src={`${import.meta.env.BASE_URL}区民名簿個票変更届.png`}
-                  alt="区民名簿個票変更届 サンプル"
-                  width="360"
-                  height="509"
-                  loading="lazy"
-                  decoding="async"
-                  style={{ width: '100%', height: 'auto', display: 'block', maxWidth: '100%' }}
-                />
-              </a>
-              <a href={`${import.meta.env.BASE_URL}区民名簿個票変更届.png`} target="_blank" rel="noopener noreferrer" download="区民名簿個票変更届.png" style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', fontSize: '0.875rem', color: 'var(--primary-light)', fontWeight: 700, marginTop: '8px', textDecoration: 'underline' }}>
-                🔍 タップして拡大・ダウンロード
+            <div style={{ marginTop: '10px' }}>
+              <a href={`${import.meta.env.BASE_URL}区民名簿個票変更届.pdf`} target="_blank" rel="noopener noreferrer" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '10px 14px', borderRadius: '8px', background: 'var(--primary-soft)', color: 'var(--primary-dark)', fontSize: '0.9rem', fontWeight: 700, textDecoration: 'none', border: '1px solid var(--primary-light)' }}>
+                📄 区民名簿個票変更届（PDF）を開く
               </a>
             </div>
           </div>
