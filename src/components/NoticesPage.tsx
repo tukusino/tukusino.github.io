@@ -95,25 +95,23 @@ export const NoticesPage = ({ onNavigate }: NoticesPageProps) => {
             left: 0,
             right: 0,
             bottom: 0,
-            backgroundColor: 'rgba(0, 0, 0, 0.88)',
+            backgroundColor: '#ffffff',
             zIndex: 9999,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'center',
-            padding: '8px',
+            display: 'block',
+            overflowY: 'auto',
+            padding: '64px 12px 16px',
             cursor: 'pointer'
           }}
         >
-          <div style={{ position: 'relative', maxWidth: 'calc(100vw - 16px)', maxHeight: 'calc(100dvh - 16px)' }} onClick={(e) => e.stopPropagation()}>
+          <div style={{ position: 'relative', width: '100%', maxWidth: '960px', margin: '0 auto' }} onClick={(e) => e.stopPropagation()}>
             <button
               onClick={() => setSelectedNoticeImage(null)}
               style={{
                 position: 'fixed',
-                top: '16px',
-                right: '16px',
-                background: 'rgba(255, 255, 255, 0.94)',
-                color: '#1a202c',
+                top: '12px',
+                right: '12px',
+                background: '#1a365d',
+                color: '#ffffff',
                 border: 'none',
                 borderRadius: '50%',
                 width: '36px',
@@ -133,11 +131,11 @@ export const NoticesPage = ({ onNavigate }: NoticesPageProps) => {
               src={selectedNoticeImage}
               alt="ポスター全画面表示"
               style={{
-                maxWidth: '100%',
-                maxHeight: 'calc(100dvh - 16px)',
+                width: '100%',
+                maxWidth: '960px',
+                height: 'auto',
                 borderRadius: '2px',
                 boxShadow: '0 8px 32px rgba(0, 0, 0, 0.5)',
-                objectFit: 'contain',
                 display: 'block'
               }}
             />

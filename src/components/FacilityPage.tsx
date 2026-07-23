@@ -163,25 +163,23 @@ export const FacilityPage: React.FC<FacilityPageProps> = ({ onNavigate }) => {
             left: 0,
             right: 0,
             bottom: 0,
-            backgroundColor: 'rgba(0, 0, 0, 0.88)',
+            backgroundColor: '#ffffff',
             zIndex: 9999,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'center',
-            padding: '8px'
+            display: 'block',
+            overflowY: 'auto',
+            padding: '64px 12px 16px'
           }}
         >
-          <div style={{ position: 'relative', width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <div style={{ position: 'relative', width: '100%', maxWidth: '960px', margin: '0 auto' }}>
             <img
               src={selectedImage.url}
               alt={selectedImage.caption}
-              style={{ width: 'auto', maxWidth: 'calc(100vw - 16px)', height: 'auto', maxHeight: 'calc(100dvh - 16px)', objectFit: 'contain', borderRadius: '2px', boxShadow: '0 8px 24px rgba(0,0,0,0.5)' }}
+              style={{ width: '100%', height: 'auto', display: 'block', borderRadius: '4px', boxShadow: '0 2px 12px rgba(0,0,0,0.16)' }}
             />
             <button
               onClick={() => setSelectedImage(null)}
               aria-label="画像を閉じる"
-              style={{ position: 'fixed', top: '16px', right: '16px', width: '42px', height: '42px', backgroundColor: 'rgba(255,255,255,0.94)', color: '#1a202c', border: 'none', borderRadius: '50%', fontSize: '1.25rem', fontWeight: 700, cursor: 'pointer', boxShadow: '0 4px 12px rgba(0,0,0,0.3)' }}
+              style={{ position: 'fixed', top: '12px', right: '12px', width: '42px', height: '42px', backgroundColor: '#1a365d', color: '#ffffff', border: 'none', borderRadius: '50%', fontSize: '1.25rem', fontWeight: 700, cursor: 'pointer', boxShadow: '0 2px 8px rgba(0,0,0,0.24)' }}
             >
               ×
             </button>
