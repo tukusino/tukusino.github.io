@@ -40,34 +40,14 @@ export const FacilityPage: React.FC<FacilityPageProps> = ({ onNavigate }) => {
         <div style={{ background: 'var(--bg)', padding: '14px', borderRadius: '8px', border: '1px solid var(--border)', marginBottom: '14px' }}>
           <strong style={{ fontSize: '0.95rem', color: 'var(--primary-dark)', display: 'block', marginBottom: '8px' }}>公会堂の概要・設備</strong>
           <ul style={{ paddingLeft: '20px', margin: 0, fontSize: '0.88rem', lineHeight: 1.6 }}>
-            <li><strong>所在地:</strong> 掛川市つくし野区域内</li>
-            <li><strong>収容人数:</strong> 約30名（座敷・会議スペース）</li>
-            <li><strong>主な設備:</strong> 長テーブル、折りたたみ椅子、ホワイトボード、演台、ジョイントマット</li>
-            <li><strong>冷暖房設備:</strong> エアコン完備（使用料: 1回 100円）</li>
-            <li><strong>駐車場:</strong> あり（建物前敷地スペース）</li>
+            <li><strong>所在地:</strong> 掛川市細谷736番地の39</li>
+            <li><strong>利用・設備:</strong> 利用条件、設備、使用料は予約時に区長または組長へご確認ください。</li>
+            <li><strong>駐車場:</strong> 利用時の案内に従ってください。</li>
           </ul>
         </div>
 
-        <div style={{ background: 'var(--bg)', padding: '14px', borderRadius: '8px', border: '1px solid var(--border)', marginBottom: '14px' }}>
-          <strong style={{ fontSize: '0.95rem', color: 'var(--primary-dark)', display: 'block', marginBottom: '8px' }}>利用時間区分</strong>
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
-            <div style={{ flex: 1, minWidth: '120px', background: '#fff', padding: '8px 12px', borderRadius: '6px', border: '1px solid var(--border)', textAlign: 'center' }}>
-              <div style={{ fontSize: '0.78rem', color: 'var(--text-muted)', fontWeight: 700 }}>午前</div>
-              <div style={{ fontSize: '0.9rem', fontWeight: 700, color: 'var(--primary-dark)' }}>9:00 〜 12:00</div>
-            </div>
-            <div style={{ flex: 1, minWidth: '120px', background: '#fff', padding: '8px 12px', borderRadius: '6px', border: '1px solid var(--border)', textAlign: 'center' }}>
-              <div style={{ fontSize: '0.78rem', color: 'var(--text-muted)', fontWeight: 700 }}>午後</div>
-              <div style={{ fontSize: '0.9rem', fontWeight: 700, color: 'var(--primary-dark)' }}>13:00 〜 17:00</div>
-            </div>
-            <div style={{ flex: 1, minWidth: '120px', background: '#fff', padding: '8px 12px', borderRadius: '6px', border: '1px solid var(--border)', textAlign: 'center' }}>
-              <div style={{ fontSize: '0.78rem', color: 'var(--text-muted)', fontWeight: 700 }}>夜間</div>
-              <div style={{ fontSize: '0.9rem', fontWeight: 700, color: 'var(--primary-dark)' }}>18:00 〜 21:00</div>
-            </div>
-          </div>
-        </div>
-
         <div style={{ background: '#ebf8ff', padding: '12px 14px', borderRadius: '8px', border: '1px solid #bee3f8', fontSize: '0.85rem', color: '#2b6cb0', lineHeight: 1.5 }}>
-          📝 <strong>公会堂の予約方法</strong>: 利用希望日の1週間前までに、組長または区長へ空き状況をご予約・ご確認ください。使用後は清掃・戸締まり・消し忘れのない現状復帰にご協力をお願いいたします。
+          📝 <strong>公会堂の予約方法</strong>: 利用を希望される場合は、組長または区長へ空き状況と利用条件をご確認ください。使用後は清掃と原状復帰にご協力をお願いいたします。
         </div>
       </div>
 
@@ -160,7 +140,7 @@ export const FacilityPage: React.FC<FacilityPageProps> = ({ onNavigate }) => {
             各組の区民の皆様が毎日気持ちよく利用できるよう、管理・清掃維持されている地域のごみ集積所です。
           </p>
           <ul style={{ paddingLeft: '20px', margin: 0, fontSize: '0.85rem', color: 'var(--text-muted)', lineHeight: 1.5 }}>
-            <li><strong>管理運営:</strong> クリーン推進員（満65歳〜79歳の世帯で月替わり担当）および各組住民</li>
+            <li><strong>管理運営:</strong> クリーン推進員（満65歳以上75歳未満・4月1日時点の対象世帯で月替わり担当）および各組住民</li>
             <li><strong>衛生管理:</strong> カラスネットの設置、収集後の清掃、施錠・ネットの管理点検を行っています。</li>
             <li><strong>利用マナー:</strong> 朝8時までの排出厳守、分別ルールの徹底にご協力お願いいたします。</li>
           </ul>

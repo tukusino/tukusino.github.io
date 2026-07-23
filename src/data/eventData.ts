@@ -151,15 +151,11 @@ export const tsukushinoEvents: SimpleEvent[] = [
     image: "icons/event_nagomi.jpg"
   },
   {
-    dateStr: "8月22日（土）",
-    date: "8月22日（土）",
-    title: "📦 古紙回収 8:00～（雨天8/29）",
-    dateVal: "2026-08-22",
-    startDate: "2026-08-22",
-    time: "8:00〜",
-    location: "各指定集積場所",
-    target: "全区民",
-    rain: "雨天時は8/29へ順延",
+    dateStr: "8月15日（土）",
+    date: "8月15日（土）",
+    title: "リサイクル活動（毎月第3土曜日）",
+    dateVal: "2026-08-15",
+    startDate: "2026-08-15",
     categoryType: "resident"
   },
   {
@@ -209,7 +205,7 @@ export const tsukushinoEvents: SimpleEvent[] = [
   {
     dateStr: "9月19日（土）",
     date: "9月19日（土）",
-    title: "📦 古紙回収 8:00～（雨天10/24）",
+    title: "リサイクル活動（毎月第3土曜日）",
     dateVal: "2026-09-19",
     startDate: "2026-09-19",
     time: "8:00〜",
@@ -242,7 +238,7 @@ export const tsukushinoEvents: SimpleEvent[] = [
   {
     dateStr: "10月17日（土）",
     date: "10月17日（土）",
-    title: "📦 古紙回収 8:00～（雨天10/24）",
+    title: "リサイクル活動（毎月第3土曜日）",
     dateVal: "2026-10-17",
     startDate: "2026-10-17",
     time: "8:00〜",
@@ -270,12 +266,11 @@ export const tsukushinoEvents: SimpleEvent[] = [
     image: "icons/event_kusakari.jpg"
   },
   {
-    dateStr: "11月20日（金）",
-    date: "11月20日（金）",
-    title: "📦 古紙回収 8:00～（雨天11/27）",
-    dateVal: "2026-11-20",
-    startDate: "2026-11-20",
-    time: "8:00〜",
+    dateStr: "11月21日（土）",
+    date: "11月21日（土）",
+    title: "リサイクル活動（毎月第3土曜日）",
+    dateVal: "2026-11-21",
+    startDate: "2026-11-21",
     categoryType: "resident"
   },
   {
@@ -299,7 +294,7 @@ export const tsukushinoEvents: SimpleEvent[] = [
   {
     dateStr: "12月19日（土）",
     date: "12月19日（土）",
-    title: "📦 古紙回収 8:00～（雨天12/26）",
+    title: "リサイクル活動（毎月第3土曜日）",
     dateVal: "2026-12-19",
     startDate: "2026-12-19",
     time: "8:00〜",
@@ -316,7 +311,7 @@ export const tsukushinoEvents: SimpleEvent[] = [
   {
     dateStr: "1月16日（土）",
     date: "1月16日（土）",
-    title: "📦 古紙回収（雨天1/23）",
+    title: "リサイクル活動（毎月第3土曜日）",
     dateVal: "2027-01-16",
     startDate: "2027-01-16",
     categoryType: "resident"
@@ -332,7 +327,7 @@ export const tsukushinoEvents: SimpleEvent[] = [
   {
     dateStr: "2月20日（土）",
     date: "2月20日（土）",
-    title: "📦 古紙回収（雨天2/27）",
+    title: "リサイクル活動（毎月第3土曜日）",
     dateVal: "2027-02-20",
     startDate: "2027-02-20",
     categoryType: "resident"
@@ -348,7 +343,7 @@ export const tsukushinoEvents: SimpleEvent[] = [
   {
     dateStr: "3月20日（土）",
     date: "3月20日（土）",
-    title: "📦 古紙回収（雨天3/27）",
+    title: "リサイクル活動（毎月第3土曜日）",
     dateVal: "2027-03-20",
     startDate: "2027-03-20",
     categoryType: "resident"

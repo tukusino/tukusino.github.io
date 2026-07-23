@@ -34,7 +34,7 @@ export const communityGroups: CommunityGroup[] = [
     summary: 'ゴミ集積所の清潔保持、マナー啓発、リサイクル活動のサポートを組順当番制で推進しています。',
     schedule: 'ゴミ収集日・毎月第3土曜日',
     icon: '🧹',
-    target: '当番世帯（満65歳〜79歳）'
+    target: '当番世帯（満65歳以上75歳未満・4月1日時点）'
   },
   {
     id: 'grp-4',

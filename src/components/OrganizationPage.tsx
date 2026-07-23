@@ -21,13 +21,14 @@ export const OrganizationPage = ({ onNavigate }: OrganizationPageProps) => {
           <div className="org-row" style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', justifyContent: 'center' }}>
             <div className="org-box" style={{ background: 'var(--primary-soft)', border: '1px solid var(--primary-light)', color: 'var(--primary-dark)', padding: '6px 12px', borderRadius: '5px', fontSize: '0.875rem', fontWeight: 700 }}>会計</div>
             <div className="org-box" style={{ background: 'var(--primary-soft)', border: '1px solid var(--primary-light)', color: 'var(--primary-dark)', padding: '6px 12px', borderRadius: '5px', fontSize: '0.875rem', fontWeight: 700 }}>組長 (各組1名)</div>
-            <div className="org-box" style={{ background: 'var(--primary-soft)', border: '1px solid var(--primary-light)', color: 'var(--primary-dark)', padding: '6px 12px', borderRadius: '5px', fontSize: '0.875rem', fontWeight: 700 }}>監査</div>
+            <div className="org-box" style={{ background: 'var(--primary-soft)', border: '1px solid var(--primary-light)', color: 'var(--primary-dark)', padding: '6px 12px', borderRadius: '5px', fontSize: '0.875rem', fontWeight: 700 }}>監事</div>
           </div>
         </div>
       </div>
 
       <div className="unified-card">
         <h2>🛠️ 役員の役割と担当</h2>
+        <p style={{ fontSize: '0.875rem', color: 'var(--text-muted)', lineHeight: 1.55, margin: '0 0 12px' }}>区長・副区長・会計（区三役）および監事の任期は2年、組長の任期は1年です。監事は再任できます。</p>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
           <div>
             <strong>区長 (1名)</strong>
