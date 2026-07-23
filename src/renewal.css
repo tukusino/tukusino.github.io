@@ -1350,6 +1350,86 @@ main {
   }
 }
 
+/* Organization */
+.organization-intro {
+  margin: 0 0 14px;
+  color: var(--text-muted);
+  line-height: 1.7;
+}
+
+.organization-roster-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.organization-roster-group {
+  padding: 14px;
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  background: var(--bg);
+}
+
+.organization-roster-group h3 {
+  margin: 0 0 6px;
+  color: var(--primary-dark);
+  font-size: 1rem;
+}
+
+.organization-roster-group dl,
+.organization-duty-list dl {
+  margin: 0;
+}
+
+.organization-roster-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 12px;
+  padding: 7px 0;
+  border-top: 1px solid var(--border);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.organization-roster-row:first-child { border-top: 0; }
+
+.organization-roster-row dt { color: var(--text-muted); }
+.organization-roster-row dd { margin: 0; color: var(--text); font-weight: 700; text-align: right; }
+
+.organization-duty-list {
+  margin-top: 14px;
+  padding: 12px 14px;
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  background: var(--card-bg);
+}
+
+.organization-duty-list summary {
+  color: var(--primary-dark);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.organization-duty-list dl { margin-top: 8px; }
+
+.organization-note {
+  margin: 14px 0 0;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  line-height: 1.6;
+}
+
+@media (max-width: 640px) {
+  .organization-roster-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .organization-roster-row {
+    gap: 8px;
+    font-size: 0.875rem;
+  }
+}
+
 /* --------------------------------------------------------------------------
    Accessibility and mobile information density
    -------------------------------------------------------------------------- */
@@ -1578,9 +1658,119 @@ main {
   line-height: 1.65;
 }
 
+/* Garbage annual calendar: compact overview without a tall accordion stack. */
+.annual-garbage-calendar > h2 {
+  margin: 0 0 14px;
+  color: var(--primary-dark);
+  font-size: 1.08rem;
+}
+.annual-garbage-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+.annual-garbage-month {
+  display: grid;
+  gap: 3px;
+  min-width: 0;
+  padding: 10px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text-muted);
+  font-size: 0.75rem;
+  line-height: 1.45;
+}
+.annual-garbage-month strong {
+  margin-bottom: 2px;
+  color: var(--primary-dark);
+  font-family: var(--font-serif);
+  font-size: 0.9375rem;
+}
+.annual-garbage-month span { overflow-wrap: anywhere; }
+.annual-garbage-type {
+  display: block;
+  padding: 3px 5px;
+  border-left: 3px solid currentColor;
+  font-weight: 700;
+}
+.annual-garbage-burnable { color: #c2413a; background: #fff1ef; }
+.annual-garbage-plastic { color: #2f6ea5; background: #eef6fc; }
+.annual-garbage-recycle { color: #9a6b1f; background: #fff8e8; }
+.annual-garbage-nonburnable { color: #5d6670; background: #f0f2f4; }
+
+.disaster-official-links {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  margin-bottom: 20px;
+}
+.disaster-official-links a {
+  display: block;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  background: var(--card-bg);
+  color: var(--primary);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  text-align: center;
+  text-decoration: none;
+}
+.disaster-official-links a:hover,
+.disaster-official-links a:focus-visible { border-color: var(--accent); background: var(--paper); }
+
+.disaster-check-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  width: 100%;
+  min-width: 0;
+  cursor: pointer;
+  font-size: 0.9rem;
+  line-height: 1.55;
+}
+.disaster-check-item input[type="checkbox"] {
+  flex: 0 0 auto;
+  width: 20px;
+  height: 20px;
+  margin-top: 1px;
+  cursor: pointer;
+}
+.disaster-check-label {
+  min-width: 0;
+  overflow-wrap: anywhere;
+  color: var(--text);
+}
+.disaster-check-label.is-checked {
+  color: var(--text-muted);
+  text-decoration: line-through;
+}
+
+.disaster-tips-heading h2 { margin: 6px 0 16px; }
+.disaster-tips-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+.disaster-tips-grid article {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 10px;
+  padding: 12px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+}
+.disaster-tips-grid article > span { font-size: 1.35rem; }
+.disaster-tips-grid strong { color: var(--primary-dark); font-size: 0.9rem; }
+.disaster-tips-grid p { margin: 4px 0 0; color: var(--text-muted); font-size: 0.8125rem; line-height: 1.6; }
+.disaster-tips-note { margin: 14px 0 0; color: var(--text-muted); font-size: 0.75rem; line-height: 1.6; }
+
 @media (max-width: 720px) {
   .regional-improvement-list { grid-template-columns: 1fr; }
   .regional-improvement-item p { font-size: 0.8125rem; }
+  .annual-garbage-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px; }
+  .annual-garbage-month { padding: 8px; font-size: 0.75rem; }
+  .disaster-official-links { grid-template-columns: 1fr; }
+  .disaster-tips-grid { grid-template-columns: 1fr; }
 }
 
 .contact-modal-button {

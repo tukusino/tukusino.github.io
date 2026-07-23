@@ -27,7 +27,6 @@ export const Home = ({ onNavigate }: HomeProps) => {
   const [garbage, setGarbage] = useState(() => getNextGarbageDay(new Date()));
   const [event, setEvent] = useState(() => getNextHomeEvent(new Date()));
   const [notices, setNotices] = useState<NoticeItem[]>(() => getHomeNotices(new Date()));
-  const [showAchievements, setShowAchievements] = useState(false);
 
   useEffect(() => {
     const timer = window.setInterval(() => {
@@ -164,61 +163,6 @@ export const Home = ({ onNavigate }: HomeProps) => {
           </p>
           <button className="text-button" onClick={() => onNavigate('reports')}>活動レポートを見る <span aria-hidden="true">→</span></button>
         </div>
-      </section>
-
-      <section className="achievement-section" aria-labelledby="achievement-heading">
-        <div className="section-title-row">
-          <div>
-            <span className="section-kicker">LOCAL IMPROVEMENTS</span>
-            <h2 id="achievement-heading">地域改善実績</h2>
-          </div>
-          <button
-            className="outline-button"
-            onClick={() => setShowAchievements((shown) => !shown)}
-            aria-expanded={showAchievements}
-          >
-            {showAchievements ? '実績を閉じる' : '14件の実績を見る'}
-          </button>
-        </div>
-
-        <div className="achievement-summary">
-          <strong>14</strong>
-          <span>令和7年度に実施した、防犯・防災・施設・生活支援・健康福祉の地域改善実績です。</span>
-        </div>
-
-        {showAchievements && (
-          <div className="achievement-grid">
-            <article>
-              <span className="achievement-mark vermilion">守</span>
-              <h3>防犯・交通安全</h3>
-              <ul>
-                <li>つくし野区入り口に防犯カメラを設置（3月）</li>
-                <li>通学路に減速用の看板を2個設置（6月）</li>
-                <li>7組のT字路に一旦停止の看板を設置（8月）</li>
-                <li>富部交差点に歩行者用の横断旗を設置（7月）</li>
-              </ul>
-            </article>
-            <article>
-              <span className="achievement-mark indigo">備</span>
-              <h3>防災・施設・環境整備</h3>
-              <ul>
-                <li>市の補助金を活用し、防災用テントを購入（6月）</li>
-                <li>公園の滑り台を塗装、ベンチ1台を設置（3月）</li>
-                <li>公会堂の網戸・掲示板を修理、座敷用ジョイントマットを購入</li>
-                <li>ゴミ集積所の施錠解除と環境維持</li>
-              </ul>
-            </article>
-            <article>
-              <span className="achievement-mark gold">結</span>
-              <h3>健康・福祉・生活支援</h3>
-              <ul>
-                <li>移動スーパー「とくし丸」の販売開始（7月）</li>
-                <li>「筋ちゃん体操」を開始（9月）</li>
-                <li>75歳以上の区民へ健康人生設計ノートを配布</li>
-              </ul>
-            </article>
-          </div>
-        )}
       </section>
 
       <aside className="sample-note">

@@ -51,57 +51,7 @@ export const DisasterPage: React.FC<DisasterPageProps> = ({ onNavigate }) => {
         <h1>防災・安全情報</h1>
       </header>
 
-      {/* 1. 現在の防災情報バナー（最上部） */}
-        <div className="emergency-status"
-        style={{ 
-          background: 'linear-gradient(135deg, #1b365d 0%, #2b4c7e 100%)', 
-          color: '#ffffff', 
-          borderRadius: '12px', 
-          padding: '16px 20px', 
-          marginBottom: '20px',
-          boxShadow: '0 4px 12px rgba(27, 54, 93, 0.15)'
-        }}
-      >
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '8px', marginBottom: '8px' }}>
-          <span style={{ background: 'rgba(255, 255, 255, 0.2)', padding: '3px 10px', borderRadius: '12px', fontSize: '0.78rem', fontWeight: 600 }}>
-            平常運用中
-          </span>
-          <span style={{ fontSize: '0.78rem', opacity: 0.85 }}>
-            最終確認: 2026年7月23日 10:30
-          </span>
-        </div>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-          <span style={{ fontSize: '1.8rem', flexShrink: 0 }}>📢</span>
-          <div>
-            <h3 style={{ fontSize: '0.98rem', fontWeight: 700, margin: 0 }}>現在、自治会からの緊急発表はありません</h3>
-            <p style={{ fontSize: '0.85rem', opacity: 0.9, margin: '2px 0 0', lineHeight: 1.4 }}>
-              ※この情報は平常時の案内です。実際の災害発生時は掛川市の最新避難情報を優先してください。
-            </p>
-          </div>
-        </div>
-
-        {/* 公式最新情報リンクボタン (指示通りに修正) */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))', gap: '8px', marginTop: '12px' }}>
-          <a
-            href="https://www.city.kakegawa.shizuoka.jp/gyosei/docs/10928.html"
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{ background: 'rgba(255,255,255,0.15)', color: '#fff', padding: '8px 10px', borderRadius: '6px', fontSize: '0.82rem', textDecoration: 'none', textAlign: 'center', border: '1px solid rgba(255,255,255,0.3)', fontWeight: 600 }}
-          >
-            掛川市 洪水・土砂災害ハザードマップ ↗
-          </a>
-          <a
-            href="https://sipos.pref.shizuoka.jp/"
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{ background: 'rgba(255,255,255,0.15)', color: '#fff', padding: '8px 10px', borderRadius: '6px', fontSize: '0.82rem', textDecoration: 'none', textAlign: 'center', border: '1px solid rgba(255,255,255,0.3)', fontWeight: 600 }}
-          >
-            静岡県 防災サイポス ↗
-          </a>
-        </div>
-      </div>
-
-      {/* 2. 4大クイックアクセスボタン (2列×2段) */}
+      {/* 1. 4大クイックアクセスボタン (2列×2段) */}
       <div className="quick-access-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px', marginBottom: '20px' }}>
         <button 
           onClick={() => { setMainTab('emergency'); setTimeout(() => scrollToSection('sec-shelter'), 100); }}
@@ -453,14 +403,14 @@ export const DisasterPage: React.FC<DisasterPageProps> = ({ onNavigate }) => {
                     { id: 'c7', label: '現金（小銭含む）・身分証のコピー' },
                     { id: 'c8', label: 'マスク・消毒液・雨具' }
                   ].map(item => (
-                    <label key={item.id} style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '0.9rem', cursor: 'pointer' }}>
+                    <label key={item.id} className="disaster-check-item">
                       <input 
                         type="checkbox" 
                         checked={!!checkedItems[item.id]} 
                         onChange={() => toggleCheck(item.id)}
                         style={{ width: '18px', height: '18px', cursor: 'pointer' }} 
                       />
-                      <span style={{ textDecoration: checkedItems[item.id] ? 'line-through' : 'none', color: checkedItems[item.id] ? 'var(--text-muted)' : 'var(--text)' }}>
+                      <span className={checkedItems[item.id] ? 'disaster-check-label is-checked' : 'disaster-check-label'}>
                         {item.label}
                       </span>
                     </label>
@@ -478,14 +428,14 @@ export const DisasterPage: React.FC<DisasterPageProps> = ({ onNavigate }) => {
                     { id: 'h5', label: '生活用水（お風呂の水の汲み置き等）' },
                     { id: 'h6', label: 'トイレットペーパー・ポリ袋・ラップ' }
                   ].map(item => (
-                    <label key={item.id} style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '0.9rem', cursor: 'pointer' }}>
+                    <label key={item.id} className="disaster-check-item">
                       <input 
                         type="checkbox" 
                         checked={!!checkedItems[item.id]} 
                         onChange={() => toggleCheck(item.id)}
                         style={{ width: '18px', height: '18px', cursor: 'pointer' }} 
                       />
-                      <span style={{ textDecoration: checkedItems[item.id] ? 'line-through' : 'none', color: checkedItems[item.id] ? 'var(--text-muted)' : 'var(--text)' }}>
+                      <span className={checkedItems[item.id] ? 'disaster-check-label is-checked' : 'disaster-check-label'}>
                         {item.label}
                       </span>
                     </label>
@@ -502,14 +452,14 @@ export const DisasterPage: React.FC<DisasterPageProps> = ({ onNavigate }) => {
                     { id: 's4', label: '介護用品・大人用おむつ' },
                     { id: 's5', label: '緊急連絡カード（かかりつけ医・家族連絡先）' }
                   ].map(item => (
-                    <label key={item.id} style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '0.9rem', cursor: 'pointer' }}>
+                    <label key={item.id} className="disaster-check-item">
                       <input 
                         type="checkbox" 
                         checked={!!checkedItems[item.id]} 
                         onChange={() => toggleCheck(item.id)}
                         style={{ width: '18px', height: '18px', cursor: 'pointer' }} 
                       />
-                      <span style={{ textDecoration: checkedItems[item.id] ? 'line-through' : 'none', color: checkedItems[item.id] ? 'var(--text-muted)' : 'var(--text)' }}>
+                      <span className={checkedItems[item.id] ? 'disaster-check-label is-checked' : 'disaster-check-label'}>
                         {item.label}
                       </span>
                     </label>
@@ -526,14 +476,14 @@ export const DisasterPage: React.FC<DisasterPageProps> = ({ onNavigate }) => {
                     { id: 'b4', label: '抱っこひも' },
                     { id: 'b5', label: '離乳食・おやつ' }
                   ].map(item => (
-                    <label key={item.id} style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '0.9rem', cursor: 'pointer' }}>
+                    <label key={item.id} className="disaster-check-item">
                       <input 
                         type="checkbox" 
                         checked={!!checkedItems[item.id]} 
                         onChange={() => toggleCheck(item.id)}
                         style={{ width: '18px', height: '18px', cursor: 'pointer' }} 
                       />
-                      <span style={{ textDecoration: checkedItems[item.id] ? 'line-through' : 'none', color: checkedItems[item.id] ? 'var(--text-muted)' : 'var(--text)' }}>
+                      <span className={checkedItems[item.id] ? 'disaster-check-label is-checked' : 'disaster-check-label'}>
                         {item.label}
                       </span>
                     </label>
@@ -549,14 +499,14 @@ export const DisasterPage: React.FC<DisasterPageProps> = ({ onNavigate }) => {
                     { id: 'p3', label: '首輪・リード' },
                     { id: 'p4', label: 'ワクチンの接種記録・写真' }
                   ].map(item => (
-                    <label key={item.id} style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '0.9rem', cursor: 'pointer' }}>
+                    <label key={item.id} className="disaster-check-item">
                       <input 
                         type="checkbox" 
                         checked={!!checkedItems[item.id]} 
                         onChange={() => toggleCheck(item.id)}
                         style={{ width: '18px', height: '18px', cursor: 'pointer' }} 
                       />
-                      <span style={{ textDecoration: checkedItems[item.id] ? 'line-through' : 'none', color: checkedItems[item.id] ? 'var(--text-muted)' : 'var(--text)' }}>
+                      <span className={checkedItems[item.id] ? 'disaster-check-label is-checked' : 'disaster-check-label'}>
                         {item.label}
                       </span>
                     </label>
@@ -628,6 +578,44 @@ export const DisasterPage: React.FC<DisasterPageProps> = ({ onNavigate }) => {
           </div>
         </div>
       </div>
+
+      <section className="unified-card disaster-related-links" aria-labelledby="disaster-related-links-heading">
+        <h2 id="disaster-related-links-heading">🔗 関連リンク</h2>
+        <div className="disaster-official-links">
+          <a href="https://www.city.kakegawa.shizuoka.jp/gyosei/docs/10928.html" target="_blank" rel="noopener noreferrer">
+            掛川市 洪水・土砂災害ハザードマップ ↗
+          </a>
+          <a href="https://sipos.pref.shizuoka.jp/" target="_blank" rel="noopener noreferrer">
+            静岡県 防災サイポス ↗
+          </a>
+        </div>
+      </section>
+
+      <section className="unified-card disaster-tips" aria-labelledby="disaster-tips-heading">
+        <div className="disaster-tips-heading">
+          <span className="section-kicker">防災豆知識</span>
+          <h2 id="disaster-tips-heading">いざという時に役立つ4つのヒント</h2>
+        </div>
+        <div className="disaster-tips-grid">
+          <article>
+            <span aria-hidden="true">💧</span>
+            <div><strong>水は多めに備える</strong><p>飲料水だけでなく、生活用水も必要です。家族の人数分を余裕をもって準備しましょう。</p></div>
+          </article>
+          <article>
+            <span aria-hidden="true">🚽</span>
+            <div><strong>断水時はトイレを流さない</strong><p>排水管の状態が確認できるまで、携帯トイレやポリ袋を使います。</p></div>
+          </article>
+          <article>
+            <span aria-hidden="true">📻</span>
+            <div><strong>情報源を複数用意する</strong><p>スマートフォンだけに頼らず、ラジオやモバイルバッテリーも備えましょう。</p></div>
+          </article>
+          <article>
+            <span aria-hidden="true">👪</span>
+            <div><strong>家族の集合場所を決める</strong><p>連絡が取れない場合に備え、集合場所と連絡方法を平常時に確認します。</p></div>
+          </article>
+        </div>
+        <p className="disaster-tips-note">※一般的な備えのヒントです。実際の災害時は、掛川市など公的機関の最新情報を優先してください。</p>
+      </section>
 
       {/* 5. 画面下部ナビゲーションボタン */}
       <div className="back-btn-action" style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap', marginTop: '24px' }}>

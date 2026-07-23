@@ -564,8 +564,8 @@ export const EventsPage = ({ onNavigate }: EventsPageProps) => {
                     {isOpen && (
                       <div className="accordion-content">
                         <div className="event-list" style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                          {(org.events ?? org.groups).map((event, eIdx) => (
-                            <div key={eIdx} style={{ fontSize: '0.85rem', padding: '6px 0', borderBottom: eIdx < (org.events ?? org.groups).length - 1 ? '1px solid var(--border)' : 'none' }}>
+                          {org.groups.map((event, eIdx) => (
+                            <div key={eIdx} style={{ fontSize: '0.85rem', padding: '6px 0', borderBottom: eIdx < org.groups.length - 1 ? '1px solid var(--border)' : 'none' }}>
                               <strong style={{ color: 'var(--primary)' }}>{event.group ?? event.groupName}:</strong> {event.activity}
                             </div>
                           ))}

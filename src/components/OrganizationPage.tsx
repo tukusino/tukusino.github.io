@@ -2,6 +2,64 @@ interface OrganizationPageProps {
   onNavigate: (page: string) => void;
 }
 
+const officerGroups = [
+  {
+    title: '区役員',
+    members: [
+      ['区長（兼 自主防災会長）', ''],
+      ['副区長（兼 会計）', ''],
+      ['1組 組長', ''],
+      ['2組 組長', ''],
+      ['3組 組長', ''],
+      ['5組 組長', ''],
+      ['6組 組長', ''],
+      ['7組 組長', ''],
+      ['監事', ''],
+    ],
+  },
+  {
+    title: 'まちづくり協議会委員',
+    members: [
+      ['文化部委員', ''],
+      ['体育部委員', ''],
+      ['広報部委員', ''],
+      ['交通安全部委員', ''],
+      ['子育て支援部委員', ''],
+      ['高齢者支援部委員', ''],
+      ['親水公園サポート委員', ''],
+    ],
+  },
+  {
+    title: '掛川市委嘱委員',
+    members: [
+      ['防災委員', ''],
+      ['クリーン推進員', ''],
+    ],
+  },
+  {
+    title: 'その他の委員',
+    members: [
+      ['地区消防団員', ''],
+      ['民生委員・児童委員（つくし野区・高田区担当）', ''],
+    ],
+  },
+];
+
+const monthlyCleanDuty = [
+  ['4月', ''],
+  ['5月', ''],
+  ['6月', ''],
+  ['7月', ''],
+  ['8月', ''],
+  ['9月', ''],
+  ['10月', ''],
+  ['11月', ''],
+  ['12月', ''],
+  ['1月', ''],
+  ['2月', ''],
+  ['3月', ''],
+];
+
 export const OrganizationPage = ({ onNavigate }: OrganizationPageProps) => {
   return (
     <div className="page-container">
@@ -24,6 +82,39 @@ export const OrganizationPage = ({ onNavigate }: OrganizationPageProps) => {
             <div className="org-box" style={{ background: 'var(--primary-soft)', border: '1px solid var(--primary-light)', color: 'var(--primary-dark)', padding: '6px 12px', borderRadius: '5px', fontSize: '0.875rem', fontWeight: 700 }}>監事</div>
           </div>
         </div>
+      </div>
+
+      <div className="unified-card organization-roles-card">
+        <span className="section-kicker">令和8年度</span>
+        <h2>🧭 役員・専門委員</h2>
+        <p className="organization-intro">地域の運営、安全、環境美化、文化・スポーツなどの活動を、役員・専門委員が分担して進めています。</p>
+        <div className="organization-roster-grid">
+          {officerGroups.map((group) => (
+            <section className="organization-roster-group" key={group.title}>
+              <h3>{group.title}</h3>
+              <dl>
+                {group.members.map(([role, name]) => (
+                  <div className="organization-roster-row" key={role}>
+                    <dt>{role}</dt>
+                    {name && <dd>{name}</dd>}
+                  </div>
+                ))}
+              </dl>
+            </section>
+          ))}
+        </div>
+        <details className="organization-duty-list">
+          <summary>当番クリーン推進員（4月〜翌3月）</summary>
+          <dl>
+            {monthlyCleanDuty.map(([month, name]) => (
+              <div className="organization-roster-row" key={month}>
+                <dt>{month}</dt>
+                {name && <dd>{name}</dd>}
+              </div>
+            ))}
+          </dl>
+        </details>
+        <p className="organization-note">民生委員・児童委員の任期は令和10年11月までです。個別のご連絡は、自治会のメールまたはお問い合わせフォームをご利用ください。</p>
       </div>
 
       <div className="unified-card">
@@ -63,7 +154,7 @@ export const OrganizationPage = ({ onNavigate }: OrganizationPageProps) => {
 
       {/* 地域団体・サークル紹介 */}
       <div className="unified-card">
-        <h2>👥 つくし野区の地域団体・活動組織（仮）</h2>
+        <h2>👥 つくし野区の地域団体・活動組織</h2>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '12px' }}>
           <div style={{ background: 'var(--bg)', padding: '12px', borderRadius: '5px', border: '1px solid var(--border)' }}>
             <h3 style={{ fontSize: '0.95rem', color: 'var(--primary-dark)', margin: '0 0 4px', display: 'flex', alignItems: 'center', gap: '6px' }}>
@@ -88,7 +179,7 @@ export const OrganizationPage = ({ onNavigate }: OrganizationPageProps) => {
           </div>
           <div style={{ background: 'var(--bg)', padding: '12px', borderRadius: '5px', border: '1px solid var(--border)' }}>
             <h3 style={{ fontSize: '0.95rem', color: 'var(--primary-dark)', margin: '0 0 4px', display: 'flex', alignItems: 'center', gap: '6px' }}>
-              <span>🏮</span> 祭典保存会
+              <span>🏮</span> 祭典委員会
             </h3>
             <span style={{ fontSize: '0.78rem', background: 'var(--primary-soft)', color: 'var(--primary)', padding: '2px 6px', borderRadius: '5px', fontWeight: 700 }}>伝統・行事</span>
             <p style={{ fontSize: '0.82rem', color: 'var(--text-muted)', margin: '6px 0 0', lineHeight: 1.45 }}>秋のつくし野区祭典での屋台管理や運行を担当しています。</p>

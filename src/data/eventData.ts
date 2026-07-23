@@ -511,6 +511,7 @@ export const organizationMonths: MonthlyOrgActivity[] = [
     groups: [
       { groupName: "まちづくり協議会", group: "まちづくり協議会", activity: "地区内防犯・生活環境パトロール" },
       { groupName: "地区福祉協議会", group: "地区福祉協議会", activity: "第2回ふくし館奉仕作業／第2回和会（和田岡地区）／読み聞かせ・クリスマス会" },
+      { groupName: "親水公園管理委員会", group: "親水公園管理委員会", activity: "施設点検" },
       { groupName: "地域振興支援団体", group: "地域振興支援団体", activity: "味作会 味噌づくり／消防団 防火パトロール" }
     ],
     events: [
@@ -523,6 +524,7 @@ export const organizationMonths: MonthlyOrgActivity[] = [
     groups: [
       { groupName: "まちづくり協議会", group: "まちづくり協議会", activity: "地区内防犯・生活環境パトロール・見守りネットワーク報告会" },
       { groupName: "地区福祉協議会", group: "地区福祉協議会", activity: "節分・鬼退治" },
+      { groupName: "親水公園管理委員会", group: "親水公園管理委員会", activity: "施設点検" },
       { groupName: "地域振興支援団体", group: "地域振興支援団体", activity: "味作会 味噌づくり／朝友会 新年会" }
     ],
     events: [
@@ -534,6 +536,7 @@ export const organizationMonths: MonthlyOrgActivity[] = [
     month: "2月",
     groups: [
       { groupName: "まちづくり協議会", group: "まちづくり協議会", activity: "地区内防犯・生活環境パトロール" },
+      { groupName: "親水公園管理委員会", group: "親水公園管理委員会", activity: "施設点検" },
       { groupName: "地域振興支援団体", group: "地域振興支援団体", activity: "味作会 味噌づくり" }
     ],
     events: [
@@ -545,6 +548,7 @@ export const organizationMonths: MonthlyOrgActivity[] = [
     groups: [
       { groupName: "まちづくり協議会", group: "まちづくり協議会", activity: "生活環境パトロール／各部の理事会・専門部会" },
       { groupName: "地区福祉協議会", group: "地区福祉協議会", activity: "第6回企画委員会／お別れ会・お楽しみ会" },
+      { groupName: "親水公園管理委員会", group: "親水公園管理委員会", activity: "施設点検・役員会" },
       { groupName: "地域振興支援団体", group: "地域振興支援団体", activity: "消防団 入団式" }
     ],
     events: [

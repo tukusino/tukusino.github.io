@@ -8,10 +8,6 @@ interface GarbagePageProps {
 export const GarbagePage = ({ onNavigate }: GarbagePageProps) => {
   const now = new Date();
 
-  // 当月のアコーディオンをデフォルトオープンにする (monthは0-indexed)
-  const currentMonthIndex = now.getMonth();
-  const [openMonth, setOpenMonth] = useState<number | null>(currentMonthIndex);
-
   // 種類別の出し方タップ切替 (デフォルト: 燃えるごみ 'burnable')
   const [activeCategoryTab, setActiveCategoryTab] = useState<'burnable' | 'plastic' | 'recycle' | 'nonburnable'>('burnable');
 
@@ -26,10 +22,6 @@ export const GarbagePage = ({ onNavigate }: GarbagePageProps) => {
 
   // 人気のクイック検索ワード
   const popularKeywords = ['傘', '電池', '布団', 'スプレー缶', '小型家電', '段ボール'];
-
-  const toggleMonth = (month: number) => {
-    setOpenMonth(openMonth === month ? null : month);
-  };
 
   const handleSearchChange = (q: string) => {
     setSearchQuery(q);
@@ -222,60 +214,6 @@ export const GarbagePage = ({ onNavigate }: GarbagePageProps) => {
         </div>
       </div>
 
-      {/* ─── ４．今月・来月の収集予定（直感的な日付チップ表示） ─── */}
-      <div className="unified-card" style={{ borderRadius: '12px' }}>
-        <h2 style={{ fontSize: '1.08rem', fontWeight: 800, color: 'var(--primary-dark)', marginBottom: '12px' }}>
-          🗓️ 今月の収集予定
-        </h2>
-        {yearGarbageMonths
-          .filter((m) => m.month === currentMonthIndex)
-          .map((monthData, idx) => {
-            const burnableDays = garbageData.getRegularCollectionDays(monthData.year, monthData.month, [2, 5]).split('、');
-            const plasticDays = garbageData.getRegularCollectionDays(monthData.year, monthData.month, [3]).split('、');
-
-            return (
-              <div key={idx} style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-                <div>
-                  <strong style={{ fontSize: '0.9rem', color: '#e05252', display: 'block', marginBottom: '6px' }}>
-                    🗑️ 燃えるごみ (火・金)
-                  </strong>
-                  <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
-                    {burnableDays.map((d, i) => (
-                      <span key={i} style={{ background: '#fef2f2', color: '#dc2626', border: '1px solid #fca5a5', padding: '3px 8px', borderRadius: '6px', fontSize: '0.84rem', fontWeight: 700 }}>
-                        {d}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-
-                <div>
-                  <strong style={{ fontSize: '0.9rem', color: '#2563eb', display: 'block', marginBottom: '6px' }}>
-                    ♻️ プラスチック (水)
-                  </strong>
-                  <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
-                    {plasticDays.map((d, i) => (
-                      <span key={i} style={{ background: '#eff6ff', color: '#2563eb', border: '1px solid #93c5fd', padding: '3px 8px', borderRadius: '6px', fontSize: '0.84rem', fontWeight: 700 }}>
-                        {d}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px', paddingTop: '4px' }}>
-                  <div style={{ background: '#fefce8', border: '1px solid #fde047', padding: '8px 10px', borderRadius: '8px' }}>
-                    <strong style={{ fontSize: '0.85rem', color: '#b45309', display: 'block' }}>🥫 資源ごみ (第3水)</strong>
-                    <span style={{ fontSize: '1rem', fontWeight: 800, color: '#b45309' }}>{monthData.recycle} 日</span>
-                  </div>
-                  <div style={{ background: '#f3f4f6', border: '1px solid #d1d5db', padding: '8px 10px', borderRadius: '8px' }}>
-                    <strong style={{ fontSize: '0.85rem', color: '#4b5563', display: 'block' }}>🔋 燃えないごみ (第2月)</strong>
-                    <span style={{ fontSize: '1rem', fontWeight: 800, color: '#374151' }}>{monthData.nonburnable} 日</span>
-                  </div>
-                </div>
-              </div>
-            );
-          })}
-      </div>
-
       {/* ─── ５．種類別の出し方（タップ切り替えアコーディオン） ─── */}
       <div className="unified-card" style={{ borderRadius: '12px' }}>
         <h2 style={{ fontSize: '1.08rem', fontWeight: 800, color: 'var(--primary-dark)', marginBottom: '12px' }}>
@@ -364,48 +302,21 @@ export const GarbagePage = ({ onNavigate }: GarbagePageProps) => {
         </div>
       </div>
 
-      {/* ─── ６．年間カレンダー (アコーディオン) ─── */}
-      <div className="unified-card" style={{ borderRadius: '12px' }}>
-        <h2 style={{ fontSize: '1.08rem', fontWeight: 800, color: 'var(--primary-dark)', marginBottom: '12px' }}>
-          🗓️ 2026年度 年間カレンダー (全12ヶ月)
-        </h2>
+      {/* ─── ５．年間カレンダー（12か月を一覧表示） ─── */}
+      <div className="unified-card annual-garbage-calendar">
+        <h2>🗓️ 年間カレンダー</h2>
 
-        <div className="accordion">
+        <div className="annual-garbage-grid">
           {yearGarbageMonths.map((monthData, idx) => {
             const burnableDays = garbageData.getRegularCollectionDays(monthData.year, monthData.month, [2, 5]);
             const plasticDays  = garbageData.getRegularCollectionDays(monthData.year, monthData.month, [3]);
-            const isOpen = openMonth === monthData.month;
             return (
-              <div key={idx} className={`accordion-item${isOpen ? ' open' : ''}`}>
-                <button
-                  className="accordion-header"
-                  onClick={() => toggleMonth(monthData.month)}
-                  aria-expanded={isOpen}
-                  style={{ minHeight: '44px', height: 'auto' }}
-                >
-                  {monthData.label}の収集予定
-                  <span className="accordion-icon">▼</span>
-                </button>
-                {isOpen && (
-                  <div className="accordion-content" style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.9rem', padding: '6px 0', borderBottom: '1px solid var(--border)' }}>
-                      <strong>🗑️ 燃えるごみ:</strong>
-                      <span>{burnableDays}</span>
-                    </div>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.9rem', padding: '6px 0', borderBottom: '1px solid var(--border)' }}>
-                      <strong>♻️ プラスチック:</strong>
-                      <span>{plasticDays}</span>
-                    </div>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.9rem', padding: '6px 0', borderBottom: '1px solid var(--border)' }}>
-                      <strong>🥫 資源ごみ:</strong>
-                      <span>{monthData.recycle}日</span>
-                    </div>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.9rem', padding: '6px 0' }}>
-                      <strong>🔋 燃えないごみ:</strong>
-                      <span>{monthData.nonburnable}日</span>
-                    </div>
-                  </div>
-                )}
+              <div key={idx} className="annual-garbage-month">
+                <strong>{monthData.label}</strong>
+                <span className="annual-garbage-type annual-garbage-burnable">燃える {burnableDays}</span>
+                <span className="annual-garbage-type annual-garbage-plastic">プラ {plasticDays}</span>
+                <span className="annual-garbage-type annual-garbage-recycle">資源 {monthData.recycle}日</span>
+                <span className="annual-garbage-type annual-garbage-nonburnable">不燃 {monthData.nonburnable}日</span>
               </div>
             );
           })}
