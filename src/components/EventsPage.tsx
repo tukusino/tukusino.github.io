@@ -19,9 +19,6 @@ export const EventsPage = ({ onNavigate }: EventsPageProps) => {
   // 過去行事の折りたたみ表示ステート
   const [showPastEvents, setShowPastEvents] = useState<boolean>(false);
 
-  // ポスタータップ全画面表示モーダル用のステート
-  const [selectedPosterImage, setSelectedPosterImage] = useState<string | null>(null);
-
   const toggleOrgMonth = (month: string | number) => {
     const parsedMonth = parseInt(String(month).replace(/[^0-9]/g, ''), 10);
     if (Number.isNaN(parsedMonth)) return;
@@ -116,10 +113,6 @@ export const EventsPage = ({ onNavigate }: EventsPageProps) => {
             <img
               src={`${import.meta.env.BASE_URL}${event.image}`}
               alt={event.title}
-              onClick={(e) => {
-                e.stopPropagation();
-                setSelectedPosterImage(`${import.meta.env.BASE_URL}${event.image}`);
-              }}
               style={{
                 width: '72px',
                 height: '54px',
@@ -127,9 +120,8 @@ export const EventsPage = ({ onNavigate }: EventsPageProps) => {
                 objectFit: 'cover',
                 border: '1px solid var(--border)',
                 flexShrink: 0,
-                cursor: 'pointer'
+                cursor: 'default'
               }}
-              title="タップで拡大表示"
             />
           )}
 
@@ -156,23 +148,15 @@ export const EventsPage = ({ onNavigate }: EventsPageProps) => {
                 <img
                   src={`${import.meta.env.BASE_URL}${event.image}`}
                   alt={event.title}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setSelectedPosterImage(`${import.meta.env.BASE_URL}${event.image}`);
-                  }}
                   style={{
                     maxWidth: '100%',
                     maxHeight: '350px',
                     borderRadius: '8px',
                     border: '1px solid var(--border)',
                     boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
-                    cursor: 'pointer'
+                    cursor: 'default'
                   }}
-                  title="タップで拡大表示"
                 />
-                <span style={{ display: 'block', fontSize: '0.76rem', color: 'var(--primary)', marginTop: '4px', fontWeight: 700 }}>
-                  🔍 タップで全画面表示
-                </span>
               </div>
             )}
             {event.location && <p style={{ margin: '0 0 4px 0' }}>📍 <strong>会場:</strong> {event.location}</p>}
@@ -234,19 +218,16 @@ export const EventsPage = ({ onNavigate }: EventsPageProps) => {
                 <img
                   src={`${import.meta.env.BASE_URL}${nextEvent.image}`}
                   alt={`${nextEvent.title} ポスター`}
-                  onClick={() => setSelectedPosterImage(`${import.meta.env.BASE_URL}${nextEvent.image}`)}
                   style={{
                     width: '100%',
                     borderRadius: '10px',
                     boxShadow: '0 6px 16px rgba(0,0,0,0.35)',
                     border: '2px solid rgba(255,255,255,0.3)',
                     display: 'block',
-                    cursor: 'pointer'
+                    cursor: 'default'
                   }}
-                  title="タップで全画面表示"
                 />
                 <span style={{ fontSize: '0.76rem', color: 'rgba(255,255,255,0.85)', display: 'block', marginTop: '4px' }}>
-                  🔍 タップで全画面表示
                 </span>
               </div>
             )}
@@ -490,7 +471,6 @@ export const EventsPage = ({ onNavigate }: EventsPageProps) => {
                   <img
                     src={`${import.meta.env.BASE_URL}icons/nouryousai_poster.jpg`}
                     alt="8/9 納涼祭 公式チラシ・ポスター"
-                    onClick={() => setSelectedPosterImage(`${import.meta.env.BASE_URL}icons/nouryousai_poster.jpg`)}
                     style={{
                       width: '100%',
                       maxWidth: '360px',
@@ -499,12 +479,10 @@ export const EventsPage = ({ onNavigate }: EventsPageProps) => {
                       border: '1px solid var(--border)',
                       display: 'block',
                       margin: '0 auto',
-                      cursor: 'pointer'
+                      cursor: 'default'
                     }}
-                    title="タップで全画面表示"
                   />
                   <span style={{ fontSize: '0.78rem', color: 'var(--text-muted)', display: 'block', marginTop: '4px' }}>
-                    🔍 タップで全画面表示
                   </span>
                 </div>
 
@@ -607,64 +585,6 @@ export const EventsPage = ({ onNavigate }: EventsPageProps) => {
         <button onClick={() => onNavigate('home')} className="back-btn">🏠 ホームに戻る</button>
       </div>
 
-      {/* ─── 🖼️ ポスター画像 全画面表示モーダル ─── */}
-      {selectedPosterImage && (
-        <div
-          onClick={() => setSelectedPosterImage(null)}
-          style={{
-            position: 'fixed',
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            backgroundColor: 'rgba(0, 0, 0, 0.45)',
-            zIndex: 9999,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            padding: '16px',
-            cursor: 'pointer'
-          }}
-        >
-          <div style={{ position: 'relative' }} onClick={(e) => e.stopPropagation()}>
-            <button
-              onClick={() => setSelectedPosterImage(null)}
-              style={{
-                position: 'absolute',
-                top: '-12px',
-                right: '-12px',
-                background: '#ffffff',
-                color: '#1a365d',
-                border: 'none',
-                borderRadius: '50%',
-                width: '36px',
-                height: '36px',
-                fontSize: '1.2rem',
-                cursor: 'pointer',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                fontWeight: 700
-              }}
-              title="閉じる"
-            >
-              ✕
-            </button>
-            <img
-              src={selectedPosterImage}
-              alt="ポスター全画面表示"
-              style={{
-                width: 'min(90vw, 720px)',
-                maxHeight: '85dvh',
-                borderRadius: '2px',
-                boxShadow: '0 8px 24px rgba(0, 0, 0, 0.3)',
-                objectFit: 'contain',
-                display: 'block'
-              }}
-            />
-          </div>
-        </div>
-      )}
     </div>
   );
 };

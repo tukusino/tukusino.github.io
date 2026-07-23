@@ -7,7 +7,6 @@ interface NoticesPageProps {
 
 export const NoticesPage = ({ onNavigate }: NoticesPageProps) => {
   const [notices] = useState<NoticeItem[]>(() => getActiveNotices(new Date()));
-  const [selectedNoticeImage, setSelectedNoticeImage] = useState<string | null>(null);
   const selectedNoticeId = new URLSearchParams(window.location.search).get('notice');
   const visibleNotices = selectedNoticeId
     ? notices.filter((notice) => notice.id === selectedNoticeId)
@@ -51,20 +50,14 @@ export const NoticesPage = ({ onNavigate }: NoticesPageProps) => {
                 <img
                   src={`${import.meta.env.BASE_URL}${notice.image}`}
                   alt={notice.title}
-                  onClick={() => setSelectedNoticeImage(`${import.meta.env.BASE_URL}${notice.image}`)}
                   style={{
                     maxWidth: '100%',
                     maxHeight: '400px',
                     borderRadius: '8px',
                     border: '1px solid var(--border)',
                     boxShadow: '0 4px 12px rgba(0,0,0,0.08)',
-                    cursor: 'pointer'
                   }}
-                  title="タップで全画面表示"
                 />
-                <span style={{ display: 'block', fontSize: '0.78rem', color: 'var(--primary)', fontWeight: 700, marginTop: '4px' }}>
-                  🔍 タップでポスターを全画面拡大表示
-                </span>
               </div>
             )}
           </div>
@@ -85,64 +78,6 @@ export const NoticesPage = ({ onNavigate }: NoticesPageProps) => {
         <button onClick={() => onNavigate('home')} className="back-btn">🏠 ホームに戻る</button>
       </div>
 
-      {/* 🖼️ お知らせ用 ポスター画像 全画面表示モーダル */}
-      {selectedNoticeImage && (
-        <div
-          onClick={() => setSelectedNoticeImage(null)}
-          style={{
-            position: 'fixed',
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            backgroundColor: 'rgba(0, 0, 0, 0.45)',
-            zIndex: 9999,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            padding: '16px',
-            cursor: 'pointer'
-          }}
-        >
-          <div style={{ position: 'relative' }} onClick={(e) => e.stopPropagation()}>
-            <button
-              onClick={() => setSelectedNoticeImage(null)}
-              style={{
-                position: 'absolute',
-                top: '-12px',
-                right: '-12px',
-                background: '#ffffff',
-                color: '#1a365d',
-                border: 'none',
-                borderRadius: '50%',
-                width: '36px',
-                height: '36px',
-                fontSize: '1.2rem',
-                cursor: 'pointer',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                fontWeight: 700
-              }}
-              title="閉じる"
-            >
-              ✕
-            </button>
-            <img
-              src={selectedNoticeImage}
-              alt="ポスター全画面表示"
-              style={{
-                width: 'min(90vw, 720px)',
-                maxHeight: '85dvh',
-                borderRadius: '2px',
-                boxShadow: '0 8px 24px rgba(0, 0, 0, 0.3)',
-                objectFit: 'contain',
-                display: 'block'
-              }}
-            />
-          </div>
-        </div>
-      )}
     </div>
   );
 };

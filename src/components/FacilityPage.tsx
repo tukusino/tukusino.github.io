@@ -1,13 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 interface FacilityPageProps {
   onNavigate: (page: string) => void;
 }
 
 export const FacilityPage: React.FC<FacilityPageProps> = ({ onNavigate }) => {
-  // 画像拡大表示モーダル用ステート
-  const [selectedImage, setSelectedImage] = useState<{ url: string; caption: string } | null>(null);
-
   return (
     <div className="page-container" style={{ maxWidth: '850px', margin: '0 auto' }}>
       <header className="page-header">
@@ -25,16 +22,12 @@ export const FacilityPage: React.FC<FacilityPageProps> = ({ onNavigate }) => {
         </h2>
 
         {/* 公会堂写真 */}
-        <div style={{ width: '100%', maxWidth: '480px', margin: '0 auto 16px', overflow: 'hidden', borderRadius: '8px', boxShadow: 'var(--shadow-sm)', cursor: 'pointer' }}
-             onClick={() => setSelectedImage({ url: `${import.meta.env.BASE_URL}hall.jpg`, caption: 'つくし野区公会堂 外観' })}>
+        <div style={{ width: '100%', maxWidth: '480px', margin: '0 auto 16px', overflow: 'hidden', borderRadius: '8px', boxShadow: 'var(--shadow-sm)' }}>
           <img
             src={`${import.meta.env.BASE_URL}hall.jpg`}
             alt="つくし野区公会堂 外観"
             style={{ width: '100%', height: 'auto', display: 'block', objectFit: 'cover' }}
           />
-          <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)', display: 'block', textAlign: 'center', marginTop: '4px' }}>
-            🔍 タップで拡大表示
-          </span>
         </div>
 
         <div style={{ background: 'var(--bg)', padding: '14px', borderRadius: '8px', border: '1px solid var(--border)', marginBottom: '14px' }}>
@@ -58,17 +51,13 @@ export const FacilityPage: React.FC<FacilityPageProps> = ({ onNavigate }) => {
         </h2>
 
         <div 
-          style={{ width: '100%', maxWidth: '520px', margin: '0 auto 14px', overflow: 'hidden', borderRadius: '8px', boxShadow: 'var(--shadow-sm)', cursor: 'pointer' }}
-          onClick={() => setSelectedImage({ url: `${import.meta.env.BASE_URL}icons/facility_park.png`, caption: 'つくしの公園（つくし野区公園）' })}
+          style={{ width: '100%', maxWidth: '520px', margin: '0 auto 14px', overflow: 'hidden', borderRadius: '8px', boxShadow: 'var(--shadow-sm)' }}
         >
           <img
             src={`${import.meta.env.BASE_URL}icons/facility_park.png`}
             alt="つくしの公園"
             style={{ width: '100%', height: 'auto', display: 'block', objectFit: 'cover' }}
           />
-          <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)', display: 'block', textAlign: 'center', marginTop: '4px' }}>
-            🔍 タップで拡大表示
-          </span>
         </div>
 
         <div style={{ background: 'var(--bg)', padding: '14px', borderRadius: '8px', border: '1px solid var(--border)' }}>
@@ -90,17 +79,13 @@ export const FacilityPage: React.FC<FacilityPageProps> = ({ onNavigate }) => {
         </h2>
 
         <div 
-          style={{ width: '100%', maxWidth: '520px', margin: '0 auto 14px', overflow: 'hidden', borderRadius: '8px', boxShadow: 'var(--shadow-sm)', cursor: 'pointer' }}
-          onClick={() => setSelectedImage({ url: `${import.meta.env.BASE_URL}icons/facility_yatai.png`, caption: '屋台小屋（お祭り屋台保管庫）' })}
+          style={{ width: '100%', maxWidth: '520px', margin: '0 auto 14px', overflow: 'hidden', borderRadius: '8px', boxShadow: 'var(--shadow-sm)' }}
         >
           <img
             src={`${import.meta.env.BASE_URL}icons/facility_yatai.png`}
             alt="屋台小屋"
             style={{ width: '100%', height: 'auto', display: 'block', objectFit: 'cover' }}
           />
-          <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)', display: 'block', textAlign: 'center', marginTop: '4px' }}>
-            🔍 タップで拡大表示
-          </span>
         </div>
 
         <div style={{ background: 'var(--bg)', padding: '14px', borderRadius: '8px', border: '1px solid var(--border)' }}>
@@ -122,17 +107,13 @@ export const FacilityPage: React.FC<FacilityPageProps> = ({ onNavigate }) => {
         </h2>
 
         <div 
-          style={{ width: '100%', maxWidth: '520px', margin: '0 auto 14px', overflow: 'hidden', borderRadius: '8px', boxShadow: 'var(--shadow-sm)', cursor: 'pointer' }}
-          onClick={() => setSelectedImage({ url: `${import.meta.env.BASE_URL}icons/facility_garbage.png`, caption: 'ゴミ集積所（ごみステーション）' })}
+          style={{ width: '100%', maxWidth: '520px', margin: '0 auto 14px', overflow: 'hidden', borderRadius: '8px', boxShadow: 'var(--shadow-sm)' }}
         >
           <img
             src={`${import.meta.env.BASE_URL}icons/facility_garbage.png`}
             alt="ゴミ集積所"
             style={{ width: '100%', height: 'auto', display: 'block', objectFit: 'cover' }}
           />
-          <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)', display: 'block', textAlign: 'center', marginTop: '4px' }}>
-            🔍 タップで拡大表示
-          </span>
         </div>
 
         <div style={{ background: 'var(--bg)', padding: '14px', borderRadius: '8px', border: '1px solid var(--border)' }}>
@@ -153,40 +134,6 @@ export const FacilityPage: React.FC<FacilityPageProps> = ({ onNavigate }) => {
         <button onClick={() => onNavigate('home')} className="back-btn">🏠 ホームに戻る</button>
       </div>
 
-      {/* 画像全画面拡大モーダル（ライトボックス） */}
-      {selectedImage && (
-        <div
-          onClick={() => setSelectedImage(null)}
-          style={{
-            position: 'fixed',
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            backgroundColor: 'rgba(0, 0, 0, 0.45)',
-            zIndex: 9999,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            padding: '16px'
-          }}
-        >
-          <div style={{ position: 'relative' }}>
-            <img
-              src={selectedImage.url}
-              alt={selectedImage.caption}
-              style={{ width: 'min(90vw, 720px)', maxHeight: '85dvh', display: 'block', objectFit: 'contain', borderRadius: '6px', boxShadow: '0 8px 24px rgba(0,0,0,0.3)' }}
-            />
-            <button
-              onClick={() => setSelectedImage(null)}
-              aria-label="画像を閉じる"
-              style={{ position: 'absolute', top: '-12px', right: '-12px', width: '36px', height: '36px', backgroundColor: '#ffffff', color: '#1a365d', border: 'none', borderRadius: '50%', fontSize: '1.1rem', fontWeight: 700, cursor: 'pointer', boxShadow: '0 2px 8px rgba(0,0,0,0.24)' }}
-            >
-              ×
-            </button>
-          </div>
-        </div>
-      )}
     </div>
   );
 };
