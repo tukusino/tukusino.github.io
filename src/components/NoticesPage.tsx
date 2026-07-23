@@ -101,19 +101,19 @@ export const NoticesPage = ({ onNavigate }: NoticesPageProps) => {
             flexDirection: 'column',
             alignItems: 'center',
             justifyContent: 'center',
-            padding: '16px',
+            padding: '8px',
             cursor: 'pointer'
           }}
         >
-          <div style={{ position: 'relative', maxWidth: 'calc(100vw - 24px)', maxHeight: 'calc(100vh - 20px)' }} onClick={(e) => e.stopPropagation()}>
+          <div style={{ position: 'relative', maxWidth: 'calc(100vw - 16px)', maxHeight: 'calc(100dvh - 16px)' }} onClick={(e) => e.stopPropagation()}>
             <button
               onClick={() => setSelectedNoticeImage(null)}
               style={{
-                position: 'absolute',
-                top: '-40px',
-                right: '0',
-                background: 'rgba(255, 255, 255, 0.25)',
-                color: '#fff',
+                position: 'fixed',
+                top: '16px',
+                right: '16px',
+                background: 'rgba(255, 255, 255, 0.94)',
+                color: '#1a202c',
                 border: 'none',
                 borderRadius: '50%',
                 width: '36px',
@@ -134,16 +134,13 @@ export const NoticesPage = ({ onNavigate }: NoticesPageProps) => {
               alt="ポスター全画面表示"
               style={{
                 maxWidth: '100%',
-                maxHeight: 'calc(100vh - 64px)',
+                maxHeight: 'calc(100dvh - 16px)',
                 borderRadius: '2px',
                 boxShadow: '0 8px 32px rgba(0, 0, 0, 0.5)',
                 objectFit: 'contain',
                 display: 'block'
               }}
             />
-            <p style={{ color: '#ffffff', textAlign: 'center', fontSize: '0.75rem', marginTop: '4px', opacity: 0.72 }}>
-              画面をタップすると閉じます
-            </p>
           </div>
         </div>
       )}

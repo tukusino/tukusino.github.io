@@ -169,36 +169,23 @@ export const FacilityPage: React.FC<FacilityPageProps> = ({ onNavigate }) => {
             flexDirection: 'column',
             alignItems: 'center',
             justifyContent: 'center',
-            padding: '20px'
+            padding: '8px'
           }}
         >
-          <div style={{ position: 'relative', maxWidth: 'calc(100vw - 24px)', maxHeight: 'calc(100vh - 20px)' }}>
+          <div style={{ position: 'relative', width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
             <img
               src={selectedImage.url}
               alt={selectedImage.caption}
-              style={{ width: 'auto', maxWidth: 'calc(100vw - 24px)', height: 'auto', maxHeight: 'calc(100vh - 72px)', objectFit: 'contain', borderRadius: '2px', boxShadow: '0 8px 24px rgba(0,0,0,0.5)' }}
+              style={{ width: 'auto', maxWidth: 'calc(100vw - 16px)', height: 'auto', maxHeight: 'calc(100dvh - 16px)', objectFit: 'contain', borderRadius: '2px', boxShadow: '0 8px 24px rgba(0,0,0,0.5)' }}
             />
-            <p style={{ color: '#ffffff', textAlign: 'center', marginTop: '4px', fontSize: '0.8rem', fontWeight: 600, opacity: 0.8 }}>
-              {selectedImage.caption}
-            </p>
+            <button
+              onClick={() => setSelectedImage(null)}
+              aria-label="画像を閉じる"
+              style={{ position: 'fixed', top: '16px', right: '16px', width: '42px', height: '42px', backgroundColor: 'rgba(255,255,255,0.94)', color: '#1a202c', border: 'none', borderRadius: '50%', fontSize: '1.25rem', fontWeight: 700, cursor: 'pointer', boxShadow: '0 4px 12px rgba(0,0,0,0.3)' }}
+            >
+              ×
+            </button>
           </div>
-          <button
-            onClick={() => setSelectedImage(null)}
-            style={{
-              marginTop: '16px',
-              padding: '10px 24px',
-              backgroundColor: '#ffffff',
-              color: '#1a202c',
-              border: 'none',
-              borderRadius: '24px',
-              fontSize: '0.9rem',
-              fontWeight: 700,
-              cursor: 'pointer',
-              boxShadow: '0 4px 12px rgba(0,0,0,0.3)'
-            }}
-          >
-            ✕ 閉じる
-          </button>
         </div>
       )}
     </div>
