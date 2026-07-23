@@ -92,20 +92,16 @@ test.describe('つくし野区自治会サイト スマホ対応検証テスト'
     await expect(firstAccordionContent).toContainText('まちづくり');
   });
 
-  test('GarbagePage (ゴミの日) 12ヶ月アコーディオンが動作すること', async ({ page }) => {
+  test('GarbagePage (ゴミの日) 年間カレンダーに12か月分の収集予定が表示されること', async ({ page }) => {
     await page.click('button:has-text("次のゴミ収集")');
     await expect(page).toHaveTitle(/ゴミの日/);
 
-    // 最初のアコーディオンヘッダーをクリック
-    const firstAccordionHeader = page.locator('.accordion-header').first();
-    await expect(firstAccordionHeader).toBeVisible();
-    
-    // 展開・格納の動作を確認
-    const initialExpanded = await firstAccordionHeader.getAttribute('aria-expanded') === 'true';
-    await firstAccordionHeader.click();
-    await page.waitForTimeout(500);
-    const afterExpanded = await firstAccordionHeader.getAttribute('aria-expanded') === 'true';
-    expect(afterExpanded).toBe(!initialExpanded);
+    const annualCalendar = page.locator('.annual-garbage-calendar');
+    await expect(annualCalendar).toBeVisible();
+    await expect(annualCalendar.getByRole('heading', { name: /年間カレンダー/ })).toBeVisible();
+    await expect(annualCalendar.locator('.annual-garbage-month')).toHaveCount(12);
+    await expect(annualCalendar).toContainText('燃える');
+    await expect(annualCalendar).toContainText('資源');
   });
 
   test('DisasterPage (防災) に掛川市のハザードマップリンクが設置されていること', async ({ page }) => {
