@@ -163,18 +163,22 @@ export const FacilityPage: React.FC<FacilityPageProps> = ({ onNavigate }) => {
             left: 0,
             right: 0,
             bottom: 0,
-            backgroundColor: '#ffffff',
+            backgroundColor: '#eaf1f4',
             zIndex: 9999,
             display: 'block',
             overflowY: 'auto',
             padding: 0
           }}
         >
-          <div style={{ position: 'relative', width: '100%', height: '100dvh' }}>
+          <div style={{ position: 'relative', width: '100%', height: '100dvh', overflow: 'hidden' }}>
+            <div
+              aria-hidden="true"
+              style={{ position: 'absolute', inset: '-24px', backgroundImage: `url(${selectedImage.url})`, backgroundSize: 'cover', backgroundPosition: 'center', filter: 'blur(18px)', opacity: 0.48, transform: 'scale(1.08)' }}
+            />
             <img
               src={selectedImage.url}
               alt={selectedImage.caption}
-              style={{ width: '100%', height: '100dvh', display: 'block', objectFit: 'cover', objectPosition: 'center', borderRadius: 0 }}
+              style={{ position: 'relative', zIndex: 1, width: '100%', height: '100dvh', display: 'block', objectFit: 'contain', objectPosition: 'center' }}
             />
             <button
               onClick={() => setSelectedImage(null)}
