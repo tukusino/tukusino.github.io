@@ -45,16 +45,9 @@ export const GarbagePage = ({ onNavigate }: GarbagePageProps) => {
   return (
     <div className="page-container">
       {/* ─── ページヘッダー (水彩アイコン付き) ─── */}
-      <header className="page-header" style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-        <img
-          src={`${import.meta.env.BASE_URL}icons/icon_garbage.jpg`}
-          alt="ゴミの日"
-          style={{ width: '48px', height: '48px', borderRadius: '10px', objectFit: 'cover', flexShrink: 0 }}
-        />
-        <div>
-          <span className="eyebrow">掛川区域・グループK（令和8年度）</span>
-          <h1 style={{ margin: 0 }}>ゴミの日・分別案内</h1>
-        </div>
+      <header className="page-header">
+        <span className="eyebrow">掛川区域・グループK（令和8年度）</span>
+        <h1>ゴミの日・分別案内</h1>
       </header>
 
       {/* ─── １．次のゴミ収集日カード（本日・明日・あと〇日バッジ付き） ─── */}
@@ -458,4 +451,3 @@ export const GarbagePage = ({ onNavigate }: GarbagePageProps) => {
     </div>
   );
 };
-
