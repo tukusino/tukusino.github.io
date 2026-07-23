@@ -21,6 +21,13 @@ export interface ArchiveDocument {
   summary: string;
 }
 
+export interface RegionalImprovement {
+  id: string;
+  category: string;
+  title: string;
+  summary: string;
+}
+
 // 令和7年度事業報告に基づく活動レポート
 export const mockActivityReports: ActivityReport[] = [
   {
@@ -47,6 +54,24 @@ export const mockActivityReports: ActivityReport[] = [
     id: 'r7-festival', year: 2025, dateStr: '2025年10月', title: 'つくし野区祭典を開催しました', category: 'event', categoryLabel: '行事',
     summary: 'つくし野区祭典は例年になく盛り上がり、無事に終了しました。世代を超えた交流と地域のつながりを深める機会となりました。', image: 'icons/icon_event.jpg'
   }
+];
+
+// ホームの「地域改善実績」に掲載している令和7年度の14項目
+export const regionalImprovements: RegionalImprovement[] = [
+  { id: 'improvement-01', category: '防犯・交通安全', title: '防犯カメラを設置', summary: 'つくし野区入り口に防犯カメラを設置しました（3月）。' },
+  { id: 'improvement-02', category: '防犯・交通安全', title: '減速用看板を設置', summary: '通学路に減速用の看板を2個設置しました（6月）。' },
+  { id: 'improvement-03', category: '防犯・交通安全', title: '一旦停止看板を設置', summary: '7組のT字路に一旦停止の看板を設置しました（8月）。' },
+  { id: 'improvement-04', category: '防犯・交通安全', title: '横断旗を設置', summary: '富部交差点に歩行者用の横断旗を設置しました（7月）。' },
+  { id: 'improvement-05', category: '防災', title: '防災用テントを購入', summary: '市の補助金を活用し、防災用テントを購入しました（6月）。' },
+  { id: 'improvement-06', category: '環境整備', title: '公園の滑り台を塗装', summary: '公園の滑り台を塗装しました（3月）。' },
+  { id: 'improvement-07', category: '環境整備', title: '公園にベンチを設置', summary: '公園にベンチ1台を設置しました。' },
+  { id: 'improvement-08', category: '施設整備', title: '公会堂の網戸を修理', summary: '公会堂の網戸を修理しました。' },
+  { id: 'improvement-09', category: '施設整備', title: '公会堂の掲示板を修理', summary: '公会堂の掲示板を修理しました。' },
+  { id: 'improvement-10', category: '施設整備', title: '座敷用マットを購入', summary: '公会堂の座敷用ジョイントマットを購入しました。' },
+  { id: 'improvement-11', category: '生活支援', title: 'ゴミ集積所の施錠を解除', summary: 'ゴミ集積所の施錠を取りやめ、良好な利用環境の維持に取り組みました。' },
+  { id: 'improvement-12', category: '生活支援', title: '移動スーパーの販売を開始', summary: '移動スーパー「とくし丸」の販売を開始しました（7月）。' },
+  { id: 'improvement-13', category: '健康・福祉', title: '筋ちゃん体操を開始', summary: '「筋ちゃん体操」を開始しました（9月）。' },
+  { id: 'improvement-14', category: '健康・福祉', title: '健康人生設計ノートを配布', summary: '75歳以上の区民へ健康人生設計ノートを配布しました。' },
 ];
 
 // モック年度別アーカイブ資料データ（※個人名・訃報等は排除済み）

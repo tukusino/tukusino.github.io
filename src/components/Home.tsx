@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { getNextGarbageDay } from '../data/garbageData';
 import { getNextHomeEvent } from '../data/eventData';
 import { getHomeNotices, type NoticeItem } from '../data/noticeData';
+import { CURRENT_YEAR } from '../config';
 
 type View =
   | 'home' | 'notices' | 'duty' | 'events'
@@ -55,7 +56,7 @@ export const Home = ({ onNavigate }: HomeProps) => {
 
         <div className="hero-visual">
           <img src={`${import.meta.env.BASE_URL}festival-wide.jpg`} alt="つくし野区のお祭り屋台" />
-          <span className="hero-year" aria-hidden="true">2026</span>
+          <span className="hero-year" aria-hidden="true">{CURRENT_YEAR}</span>
         </div>
       </section>
 

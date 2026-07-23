@@ -14,8 +14,9 @@ import { CircularPage } from './components/CircularPage';
 import { ReportPage } from './components/ReportPage';
 import { HomeMenuPage } from './components/HomeMenuPage';
 import { ContactModal } from './components/ContactModal';
+import { CURRENT_YEAR, LAST_UPDATED as DEFAULT_LAST_UPDATED } from './config';
 
-const LAST_UPDATED = typeof __BUILD_DATE__ !== 'undefined' ? __BUILD_DATE__ : '2026年7月23日';
+const LAST_UPDATED = typeof __BUILD_DATE__ !== 'undefined' ? __BUILD_DATE__ : DEFAULT_LAST_UPDATED;
 
 type ViewType =
   | 'home' | 'notices' | 'duty' | 'events'
@@ -169,12 +170,6 @@ export default function App() {
             </span>
           </button>
 
-          <div className="header-actions">
-            <span className="header-date">最終更新 {LAST_UPDATED}</span>
-            <a className="line-link" href="https://lin.ee/uVJlHBH" target="_blank" rel="noreferrer">
-              LINE公式
-            </a>
-          </div>
         </div>
 
         <nav className="primary-nav" aria-label="メインナビゲーション">
@@ -249,16 +244,16 @@ export default function App() {
 
           <div className="footer-contact">
             <h3>つながる</h3>
-            <a className="footer-line-button" href="https://lin.ee/uVJlHBH" target="_blank" rel="noreferrer">LINEで友だち追加</a>
+            <a className="footer-line-button" href="https://lin.ee/uVJlHBH" target="_blank" rel="noreferrer">LINE公式</a>
             <button className="footer-contact-button" onClick={() => setContactModalOpen(true)}>
-              ご意見・お問い合わせ（仮）
+              ✉️ ご意見・お問い合わせ
             </button>
           </div>
         </div>
 
         <div className="container footer-bottom">
           <span>最終更新：{LAST_UPDATED}</span>
-          <span>© 2026 つくし野区自治会</span>
+          <span>© {CURRENT_YEAR} つくし野区自治会</span>
         </div>
       </footer>
 

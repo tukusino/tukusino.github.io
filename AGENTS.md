@@ -262,3 +262,13 @@ npm ci
 npm run lint
 npm run build
 npm run test:e2e
+
+## 10. ローカル開発サーバー
+
+ローカル確認時は、一時実行セルに紐づく `npm run dev` ではなく、Viteを直接バックグラウンド起動してください。
+
+```powershell
+Start-Process node.exe -ArgumentList @('node_modules/vite/bin/vite.js','--host','127.0.0.1') -WorkingDirectory (Get-Location) -WindowStyle Hidden
+```
+
+起動後に `http://127.0.0.1:5173/` の待受を確認し、確認用URLを案内してください。

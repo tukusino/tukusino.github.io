@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { mockActivityReports, mockArchiveDocuments } from '../data/reportData';
+import { mockActivityReports, mockArchiveDocuments, regionalImprovements } from '../data/reportData';
 
 interface ReportPageProps {
   onNavigate: (page: string) => void;
@@ -114,6 +114,29 @@ export const ReportPage = ({ onNavigate }: ReportPageProps) => {
                 </div>
               </div>
             ))
+          )}
+          {selectedYear === 2025 && (
+            <section className="unified-card regional-improvements-card" aria-labelledby="regional-improvements-heading">
+              <div className="report-section-heading">
+                <div>
+                  <span className="eyebrow">令和7年度</span>
+                  <h2 id="regional-improvements-heading">地域改善実績（14件）</h2>
+                </div>
+                <span className="report-count">14件</span>
+              </div>
+              <div className="regional-improvement-list">
+                {regionalImprovements.map((item, index) => (
+                  <article key={item.id} className="regional-improvement-item">
+                    <span className="regional-improvement-number">{String(index + 1).padStart(2, '0')}</span>
+                    <div>
+                      <span className="regional-improvement-category">{item.category}</span>
+                      <h3>{item.title}</h3>
+                      <p>{item.summary}</p>
+                    </div>
+                  </article>
+                ))}
+              </div>
+            </section>
           )}
         </div>
       ) : (

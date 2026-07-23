@@ -1489,6 +1489,100 @@ main {
 .contact-modal-textarea { resize: vertical; background: var(--white); }
 .contact-modal-actions { justify-content: flex-end; gap: 8px; }
 
+.contact-modal-options {
+  display: grid;
+  gap: 10px;
+  margin: 20px 0;
+}
+
+.contact-modal-option {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: 12px;
+  align-items: center;
+  min-height: 62px;
+  padding: 12px 14px;
+  border: 1px solid var(--border);
+  background: var(--card-bg);
+  color: var(--primary-dark);
+  text-decoration: none;
+}
+
+.contact-modal-option:hover,
+.contact-modal-option:focus-visible {
+  border-color: var(--accent);
+  background: var(--paper);
+}
+
+.contact-modal-option-primary {
+  border-color: var(--primary);
+  background: var(--primary-soft);
+}
+
+.contact-modal-option-icon { font-size: 1.4rem; }
+.contact-modal-option strong,
+.contact-modal-option small { display: block; }
+.contact-modal-option strong { font-size: 0.9375rem; }
+.contact-modal-option small { margin-top: 3px; color: var(--text-muted); font-size: 0.8125rem; }
+
+/* Annual activity report: keep the 14 improvements scannable on mobile. */
+.regional-improvements-card { margin-top: 4px; }
+.report-section-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 18px;
+}
+.report-section-heading h2 { margin: 6px 0 0; }
+.report-count {
+  flex: 0 0 auto;
+  padding: 5px 9px;
+  border: 1px solid var(--accent);
+  color: var(--accent-dark);
+  font-size: 0.8125rem;
+  font-weight: 700;
+}
+.regional-improvement-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px 18px;
+}
+.regional-improvement-item {
+  display: grid;
+  grid-template-columns: 30px minmax(0, 1fr);
+  gap: 10px;
+  padding: 12px 0;
+  border-top: 1px solid var(--border);
+}
+.regional-improvement-number {
+  color: var(--accent);
+  font-family: var(--font-serif);
+  font-size: 0.875rem;
+  font-weight: 800;
+}
+.regional-improvement-category {
+  color: var(--primary);
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+.regional-improvement-item h3 {
+  margin: 3px 0 4px;
+  color: var(--primary-dark);
+  font-size: 0.95rem;
+}
+.regional-improvement-item p {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 0.8125rem;
+  line-height: 1.65;
+}
+
+@media (max-width: 720px) {
+  .regional-improvement-list { grid-template-columns: 1fr; }
+  .regional-improvement-item p { font-size: 0.8125rem; }
+}
+
 .contact-modal-button {
   min-height: 42px;
   padding: 10px 18px;
