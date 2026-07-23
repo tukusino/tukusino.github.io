@@ -617,23 +617,24 @@ export const EventsPage = ({ onNavigate }: EventsPageProps) => {
             left: 0,
             right: 0,
             bottom: 0,
-            backgroundColor: '#ffffff',
+            backgroundColor: 'rgba(0, 0, 0, 0.45)',
             zIndex: 9999,
-            display: 'block',
-            overflowY: 'auto',
-            padding: '64px 12px 16px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: '16px',
             cursor: 'pointer'
           }}
         >
-          <div style={{ position: 'relative', width: '100%', maxWidth: '960px', margin: '0 auto' }} onClick={(e) => e.stopPropagation()}>
+          <div style={{ position: 'relative' }} onClick={(e) => e.stopPropagation()}>
             <button
               onClick={() => setSelectedPosterImage(null)}
               style={{
-                position: 'fixed',
-                top: '12px',
-                right: '12px',
-                background: '#1a365d',
-                color: '#ffffff',
+                position: 'absolute',
+                top: '-12px',
+                right: '-12px',
+                background: '#ffffff',
+                color: '#1a365d',
                 border: 'none',
                 borderRadius: '50%',
                 width: '36px',
@@ -653,11 +654,11 @@ export const EventsPage = ({ onNavigate }: EventsPageProps) => {
               src={selectedPosterImage}
               alt="ポスター全画面表示"
               style={{
-                width: '100%',
-                maxWidth: '960px',
-                height: 'auto',
+                width: 'min(90vw, 720px)',
+                maxHeight: '85dvh',
                 borderRadius: '2px',
-                boxShadow: '0 8px 32px rgba(0, 0, 0, 0.5)',
+                boxShadow: '0 8px 24px rgba(0, 0, 0, 0.3)',
+                objectFit: 'contain',
                 display: 'block'
               }}
             />

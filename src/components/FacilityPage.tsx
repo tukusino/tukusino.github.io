@@ -163,27 +163,24 @@ export const FacilityPage: React.FC<FacilityPageProps> = ({ onNavigate }) => {
             left: 0,
             right: 0,
             bottom: 0,
-            backgroundColor: '#eaf1f4',
+            backgroundColor: 'rgba(0, 0, 0, 0.45)',
             zIndex: 9999,
-            display: 'block',
-            overflowY: 'auto',
-            padding: 0
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: '16px'
           }}
         >
-          <div style={{ position: 'relative', width: '100%', height: '100dvh', overflow: 'hidden' }}>
-            <div
-              aria-hidden="true"
-              style={{ position: 'absolute', inset: '-24px', backgroundImage: `url(${selectedImage.url})`, backgroundSize: 'cover', backgroundPosition: 'center', filter: 'blur(18px)', opacity: 0.48, transform: 'scale(1.08)' }}
-            />
+          <div style={{ position: 'relative' }}>
             <img
               src={selectedImage.url}
               alt={selectedImage.caption}
-              style={{ position: 'relative', zIndex: 1, width: '100%', height: '100dvh', display: 'block', objectFit: 'contain', objectPosition: 'center' }}
+              style={{ width: 'min(90vw, 720px)', maxHeight: '85dvh', display: 'block', objectFit: 'contain', borderRadius: '6px', boxShadow: '0 8px 24px rgba(0,0,0,0.3)' }}
             />
             <button
               onClick={() => setSelectedImage(null)}
               aria-label="画像を閉じる"
-              style={{ position: 'fixed', top: '12px', right: '12px', width: '42px', height: '42px', backgroundColor: '#1a365d', color: '#ffffff', border: 'none', borderRadius: '50%', fontSize: '1.25rem', fontWeight: 700, cursor: 'pointer', boxShadow: '0 2px 8px rgba(0,0,0,0.24)' }}
+              style={{ position: 'absolute', top: '-12px', right: '-12px', width: '36px', height: '36px', backgroundColor: '#ffffff', color: '#1a365d', border: 'none', borderRadius: '50%', fontSize: '1.1rem', fontWeight: 700, cursor: 'pointer', boxShadow: '0 2px 8px rgba(0,0,0,0.24)' }}
             >
               ×
             </button>
