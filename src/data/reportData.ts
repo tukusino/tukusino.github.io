@@ -21,62 +21,31 @@ export interface ArchiveDocument {
   summary: string;
 }
 
-// モック活動レポートデータ
+// 令和7年度事業報告に基づく活動レポート
 export const mockActivityReports: ActivityReport[] = [
   {
-    id: 'rep-1',
-    year: 2026,
-    dateStr: '2026.07.15',
-    title: '【サンプル（仮）】夏季一斉草刈り奉仕作業を実施しました',
-    category: 'environment',
-    categoryLabel: '環境整備',
-    summary: '区内の各組にて一斉草刈り作業を実施いたしました。早朝からの作業により、公会堂周辺や通学路、主要道路沿いの美化と視界の確保が完了いたしました。ご協力ありがとうございました。',
-    participantCount: '約120名参加',
-    image: 'icons/icon_garbage.jpg'
+    id: 'r7-safety', year: 2025, dateStr: '令和7年度', title: '防犯・交通安全の改善を実施しました', category: 'safety', categoryLabel: '安全対策',
+    summary: 'つくし野区入り口への防犯カメラ設置、県道271号吉岡団地北側カーブへの減速看板2基設置、富部交差点への横断旗設置、7組T字路への一旦停止看板設置を行いました。', image: 'icons/icon_disaster.jpg'
   },
   {
-    id: 'rep-2',
-    year: 2026,
-    dateStr: '2026.06.20',
-    title: '【サンプル（仮）】防災倉庫の資機材点検・動作確認を完了しました',
-    category: 'disaster',
-    categoryLabel: '防災',
-    summary: '自主防災隊および役員にて、防災倉庫内の非常用発電機、投光器、大型テント、災害用簡易トイレの点検および試運転を実施しました。すべての資機材が正常に作動することを確認済みです。',
-    participantCount: '役員・自主防災隊 15名',
-    image: 'icons/icon_disaster.jpg'
+    id: 'r7-disaster', year: 2025, dateStr: '2025年6月', title: '防災用テントを整備しました', category: 'disaster', categoryLabel: '防災',
+    summary: '市の補助金を活用し、大型テントとトイレ用テント（トイレ付き）を購入しました。災害時の避難所運営に備えるための資機材整備です。', image: 'icons/icon_disaster.jpg'
   },
   {
-    id: 'rep-3',
-    year: 2026,
-    dateStr: '2026.05.18',
-    title: '【サンプル（仮）】土砂災害避難訓練（市内一斉）を実施しました',
-    category: 'disaster',
-    categoryLabel: '防災',
-    summary: '大雨・土砂災害を想定した市内一斉避難訓練に参加しました。一次集合場所（つくしの公園）への安否確認伝達、および指定避難所への連絡手順を迅速に行いました。',
-    participantCount: '45世帯参加',
-    image: 'icons/icon_disaster.jpg'
+    id: 'r7-facility', year: 2025, dateStr: '2025年6月〜8月', title: '公会堂・公園の環境を整備しました', category: 'environment', categoryLabel: '環境整備',
+    summary: '公会堂の網戸張り替え、掲示板修理、座敷用ジョイントマット購入を実施。公園では滑り台の塗装と、背もたれのないベンチ1台の設置を行いました。', image: 'hall.jpg'
   },
   {
-    id: 'rep-4',
-    year: 2025,
-    dateStr: '2025.10.05',
-    title: '【サンプル（仮）】令和7年度 つくし野区祭典が盛大に開催されました',
-    category: 'event',
-    categoryLabel: '行事',
-    summary: '秋晴れのもと、つくし野区祭典が開催されました。屋台の引き回しや公会堂前での催し物を通して、子どもからシニアまで世代を超えた交流と親睦を深めました。',
-    participantCount: '区民多数参加',
-    image: 'icons/icon_event.jpg'
+    id: 'r7-living', year: 2025, dateStr: '2025年3月〜7月', title: '暮らしを支える取り組みを進めました', category: 'environment', categoryLabel: '生活支援',
+    summary: '3月からゴミ集積所の施錠を取りやめ、良好な利用環境の維持に取り組みました。7月には移動スーパー「とくし丸」の販売も始まりました。', image: 'icons/icon_garbage.jpg'
   },
   {
-    id: 'rep-5',
-    year: 2025,
-    dateStr: '2025.08.10',
-    title: '【サンプル（仮）】和田岡地区 納涼祭に参加・協力いたしました',
-    category: 'event',
-    categoryLabel: '行事',
-    summary: '和田岡小学校グラウンドにて開催された納涼祭へ参加しました。つくし野区からも多くの皆様にご来場いただき、夜店や手持ち花火を楽しみました。',
-    participantCount: '地区合同',
-    image: 'icons/icon_event.jpg'
+    id: 'r7-welfare', year: 2025, dateStr: '2025年8月〜9月', title: '健康・福祉の活動を開始しました', category: 'event', categoryLabel: '健康・福祉',
+    summary: '75歳以上の区民へ「新・私の健康人生設計ノート」を配布し、9月から「筋ちゃん体操」を開始しました。', image: 'icons/icon_event.jpg'
+  },
+  {
+    id: 'r7-festival', year: 2025, dateStr: '2025年10月', title: 'つくし野区祭典を開催しました', category: 'event', categoryLabel: '行事',
+    summary: 'つくし野区祭典は例年になく盛り上がり、無事に終了しました。世代を超えた交流と地域のつながりを深める機会となりました。', image: 'icons/icon_event.jpg'
   }
 ];
 
@@ -104,10 +73,10 @@ export const mockArchiveDocuments: ArchiveDocument[] = [
     id: 'doc-3',
     year: 2025,
     monthStr: '2025年12月',
-    title: '【サンプル（仮）】令和7年度 地域防災訓練 実施結果報告',
+    title: '令和7年度 事業報告',
     category: 'report',
     categoryLabel: '活動報告',
-    summary: '12月実施の地域一斉防災訓練の参加状況、避難経路の安全点検報告。'
+    summary: '安全対策、防災、公会堂・公園整備、生活支援、健康福祉、祭典などの実施内容。'
   },
   {
     id: 'doc-4',

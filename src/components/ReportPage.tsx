@@ -7,7 +7,7 @@ interface ReportPageProps {
 
 export const ReportPage = ({ onNavigate }: ReportPageProps) => {
   const [activeTab, setActiveTab] = useState<'report' | 'archive'>('report');
-  const [selectedYear, setSelectedYear] = useState<number>(2026);
+  const [selectedYear, setSelectedYear] = useState<number>(2025);
 
   const filteredReports = mockActivityReports.filter(r => r.year === selectedYear);
   const filteredArchives = mockArchiveDocuments.filter(a => a.year === selectedYear);
@@ -16,7 +16,7 @@ export const ReportPage = ({ onNavigate }: ReportPageProps) => {
     <div className="page-container">
       <header className="page-header">
         <span className="eyebrow">自治会の記録とご報告</span>
-        <h1>活動レポート・資料アーカイブ（仮）</h1>
+        <h1>活動レポート・資料アーカイブ</h1>
       </header>
 
       {/* タブ切り替え */}
@@ -35,7 +35,7 @@ export const ReportPage = ({ onNavigate }: ReportPageProps) => {
             fontSize: '0.9rem'
           }}
         >
-          📸 活動レポート（実績報告）（仮）
+          📸 活動レポート（実績報告）
         </button>
         <button
           onClick={() => setActiveTab('archive')}
@@ -51,14 +51,14 @@ export const ReportPage = ({ onNavigate }: ReportPageProps) => {
             fontSize: '0.9rem'
           }}
         >
-          📚 資料・記録（年度別）（仮）
+          📚 資料・記録（年度別）
         </button>
       </div>
 
       {/* 年度選択フィルター */}
       <div style={{ display: 'flex', gap: '8px', marginBottom: '16px', alignItems: 'center' }}>
         <span style={{ fontSize: '0.9rem', fontWeight: 700, color: 'var(--text-muted)' }}>対象年度:</span>
-        {[2026, 2025].map(yr => (
+        {[2025, 2026].map(yr => (
           <button
             key={yr}
             onClick={() => setSelectedYear(yr)}

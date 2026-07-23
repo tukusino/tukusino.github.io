@@ -156,11 +156,10 @@ export const Home = ({ onNavigate }: HomeProps) => {
         <div className="activity-copy">
           <span className="section-kicker">ACTIVITY</span>
           <h2 id="activity-heading">活動レポート</h2>
-          <span className="sample-label">サンプル掲載</span>
-          <time>2026.07.15</time>
-          <h3>夏季一斉草刈り奉仕作業を実施しました</h3>
+          <time>令和7年度 事業報告</time>
+          <h3>安心・安全で活力のある自治会を目指した取り組み</h3>
           <p>
-            区内の各組にて一斉草刈りを実施。通学路や主要道路沿いの視界確保と美化を推進いたしました。（約120名参加）
+            防犯・交通安全、防災、公会堂・公園整備、健康・福祉、生活支援など、14項目の地域改善を実施しました。
           </p>
           <button className="text-button" onClick={() => onNavigate('reports')}>活動レポートを見る <span aria-hidden="true">→</span></button>
         </div>
@@ -177,13 +176,13 @@ export const Home = ({ onNavigate }: HomeProps) => {
             onClick={() => setShowAchievements((shown) => !shown)}
             aria-expanded={showAchievements}
           >
-            {showAchievements ? '実績を閉じる' : '12件の実績を見る'}
+            {showAchievements ? '実績を閉じる' : '14件の実績を見る'}
           </button>
         </div>
 
         <div className="achievement-summary">
-          <strong>12</strong>
-          <span>防犯カメラ設置、防災用品整備、公園設備改善など、暮らしを支える取り組みを進めています。</span>
+          <strong>14</strong>
+          <span>令和7年度に実施した、防犯・防災・施設・生活支援・健康福祉の地域改善実績です。</span>
         </div>
 
         {showAchievements && (
@@ -202,9 +201,9 @@ export const Home = ({ onNavigate }: HomeProps) => {
               <span className="achievement-mark indigo">備</span>
               <h3>防災・施設・環境整備</h3>
               <ul>
-                <li>防災用テントを購入（6月）</li>
-                <li>公園の滑り台を塗装、ベンチ1台を設置</li>
-                <li>公会堂の網戸・掲示板を修理</li>
+                <li>市の補助金を活用し、防災用テントを購入（6月）</li>
+                <li>公園の滑り台を塗装、ベンチ1台を設置（3月）</li>
+                <li>公会堂の網戸・掲示板を修理、座敷用ジョイントマットを購入</li>
                 <li>ゴミ集積所の施錠解除と環境維持</li>
               </ul>
             </article>
@@ -213,7 +212,7 @@ export const Home = ({ onNavigate }: HomeProps) => {
               <h3>健康・福祉・生活支援</h3>
               <ul>
                 <li>移動スーパー「とくし丸」の販売開始（7月）</li>
-                <li>「筋ちゃん体操」の定期実施開始（9月）</li>
+                <li>「筋ちゃん体操」を開始（9月）</li>
                 <li>75歳以上の区民へ健康人生設計ノートを配布</li>
               </ul>
             </article>
