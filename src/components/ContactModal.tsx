@@ -25,81 +25,43 @@ export const ContactModal = ({ isOpen, onClose }: ContactModalProps) => {
   };
 
   return (
-    <div style={{
-      position: 'fixed',
-      top: 0,
-      left: 0,
-      right: 0,
-      bottom: 0,
-      background: 'rgba(0, 0, 0, 0.55)',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      zIndex: 1000,
-      padding: '16px'
-    }}>
-      <div style={{
-        background: 'var(--white)',
-        borderRadius: '5px',
-        maxWidth: '500px',
-        width: '100%',
-        padding: '24px',
-        boxShadow: 'var(--shadow-lg)',
-        maxHeight: '90vh',
-        overflowY: 'auto'
-      }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
-          <h2 style={{ fontSize: '1.15rem', color: 'var(--primary-dark)', margin: 0, display: 'flex', alignItems: 'center', gap: '6px' }}>
+    <div className="contact-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="contact-modal-title">
+      <div className="contact-modal">
+        <div className="contact-modal-header">
+          <h2 id="contact-modal-title" className="contact-modal-title">
             <span>✉️</span> お問い合わせ・ご意見窓口（仮）
           </h2>
-          <button onClick={onClose} style={{ background: 'none', border: 'none', fontSize: '1.2rem', cursor: 'pointer', color: 'var(--text-muted)' }}>✕</button>
+          <button onClick={onClose} className="contact-modal-close" aria-label="お問い合わせ画面を閉じる">✕</button>
         </div>
 
         {isSubmitted ? (
-          <div style={{ textAlign: 'center', padding: '20px 0' }}>
-            <span style={{ fontSize: '3rem' }}>✅</span>
-            <h3 style={{ color: 'var(--primary-dark)', margin: '12px 0 8px' }}>送信が完了いたしました</h3>
-            <p style={{ fontSize: '0.9rem', color: 'var(--text-muted)', lineHeight: 1.5 }}>
+          <div className="contact-modal-complete">
+            <span className="contact-modal-complete-icon">✅</span>
+            <h3>送信が完了いたしました</h3>
+            <p>
               自治会役員にて内容を確認の上、対応・ご連絡させていただきます。<br />ご意見・ご連絡をいただきありがとうございました。
             </p>
             <button
               onClick={handleReset}
-              style={{
-                marginTop: '16px',
-                padding: '10px 24px',
-                background: 'var(--primary)',
-                color: 'var(--white)',
-                border: 'none',
-                borderRadius: '5px',
-                fontWeight: 700,
-                cursor: 'pointer'
-              }}
+              className="contact-modal-button contact-modal-button-primary contact-modal-complete-button"
             >
               閉じる
             </button>
           </div>
         ) : (
           <form onSubmit={handleSubmit}>
-            <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', marginBottom: '14px', lineHeight: 1.45 }}>
+            <p className="contact-modal-intro">
               自治会に関するご意見、防犯灯の不点灯連絡、ゴミ集積所の確認、サイトの誤記指摘などをお気軽にお寄せください。
             </p>
 
-            <div style={{ marginBottom: '14px' }}>
-              <label style={{ display: 'block', fontSize: '0.88rem', fontWeight: 700, marginBottom: '6px', color: 'var(--text)' }}>
+            <div className="contact-modal-field">
+              <label>
                 お問い合わせ内容の分類
               </label>
               <select
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
-                style={{
-                  width: '100%',
-                  padding: '10px 12px',
-                  borderRadius: '5px',
-                  border: '1px solid var(--border)',
-                  fontSize: '0.92rem',
-                  outline: 'none',
-                  background: 'var(--bg)'
-                }}
+                className="contact-modal-control"
               >
                 <option value="防犯灯・道路">💡 防犯灯の球切れ・道路破損</option>
                 <option value="ごみ集積所">🧹 ごみ集積所・衛生環境</option>
@@ -111,9 +73,9 @@ export const ContactModal = ({ isOpen, onClose }: ContactModalProps) => {
               </select>
             </div>
 
-            <div style={{ marginBottom: '16px' }}>
-              <label style={{ display: 'block', fontSize: '0.88rem', fontWeight: 700, marginBottom: '6px', color: 'var(--text)' }}>
-                具体的内容・メッセージ <span style={{ color: 'var(--danger)' }}>*</span>
+            <div className="contact-modal-field contact-modal-field-last">
+              <label>
+                具体的内容・メッセージ <span className="contact-modal-required">*</span>
               </label>
               <textarea
                 rows={4}
@@ -121,46 +83,21 @@ export const ContactModal = ({ isOpen, onClose }: ContactModalProps) => {
                 placeholder="場所（組番号・電柱番号等）や状況をご記入ください..."
                 value={content}
                 onChange={(e) => setContent(e.target.value)}
-                style={{
-                  width: '100%',
-                  padding: '10px 12px',
-                  borderRadius: '5px',
-                  border: '1px solid var(--border)',
-                  fontSize: '0.92rem',
-                  outline: 'none',
-                  fontFamily: 'inherit',
-                  resize: 'vertical'
-                }}
+                className="contact-modal-control contact-modal-textarea"
               />
             </div>
 
-            <div style={{ display: 'flex', gap: '8px', justifyContent: 'flex-end' }}>
+            <div className="contact-modal-actions">
               <button
                 type="button"
                 onClick={onClose}
-                style={{
-                  padding: '10px 16px',
-                  borderRadius: '5px',
-                  border: '1px solid var(--border)',
-                  background: 'var(--white)',
-                  color: 'var(--text-muted)',
-                  fontWeight: 700,
-                  cursor: 'pointer'
-                }}
+                className="contact-modal-button contact-modal-button-secondary"
               >
                 キャンセル
               </button>
               <button
                 type="submit"
-                style={{
-                  padding: '10px 20px',
-                  borderRadius: '5px',
-                  border: 'none',
-                  background: 'var(--primary)',
-                  color: 'var(--white)',
-                  fontWeight: 700,
-                  cursor: 'pointer'
-                }}
+                className="contact-modal-button contact-modal-button-primary"
               >
                 送信する
               </button>

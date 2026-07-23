@@ -998,7 +998,7 @@ main {
   color: var(--accent);
 }
 
-/* Existing detail pages: preserve content, unify visual language */
+/* Detail pages: shared wa-modern information-page language */
 
 .page-container {
   padding: 16px 0 24px;
@@ -1335,7 +1335,7 @@ main {
   .event-tab {
     min-height: 44px;
     padding: 8px 9px !important;
-    font-size: 0.73rem !important;
+    font-size: 0.8125rem !important;
     letter-spacing: 0.01em;
   }
 
@@ -1348,6 +1348,170 @@ main {
     padding: 10px;
     font-size: 0.83rem;
   }
+}
+
+/* --------------------------------------------------------------------------
+   Accessibility and mobile information density
+   -------------------------------------------------------------------------- */
+@media (max-width: 720px) {
+  /* Keep the image-led hero while allowing the practical information rail in sooner. */
+  .hero-copy {
+    min-height: 218px;
+    padding: 24px 20px 20px;
+  }
+
+  .hero-copy h1 {
+    margin: 11px 0 10px;
+    font-size: clamp(1.28rem, 6.5vw, 1.7rem);
+    line-height: 1.42;
+  }
+
+  .hero-copy p {
+    font-size: 0.8125rem;
+    line-height: 1.65;
+  }
+
+  .hero-actions {
+    margin-top: 15px;
+  }
+
+  .hero-visual,
+  .hero-visual img {
+    height: 164px;
+    min-height: 164px;
+  }
+
+  /* Dates, labels and supporting copy stay at a readable 13px minimum. */
+  .hero-kicker,
+  .hero-year,
+  .rail-date,
+  .rail-content small,
+  .rail-content > span,
+  .news-date,
+  .news-category,
+  .section-kicker,
+  .eyebrow,
+  .notice-tag,
+  .badge-tag,
+  .sample-note,
+  .footer-meta,
+  .footer-links,
+  .page-container .unified-card :is(small, time) {
+    font-size: 0.8125rem !important;
+  }
+
+  .text-button,
+  .primary-button,
+  .back-btn,
+  .external-link-btn,
+  .page-container button {
+    font-size: 0.8125rem;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Shared modal primitives (moved from ContactModal.tsx)
+   -------------------------------------------------------------------------- */
+.contact-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  background: rgba(0, 0, 0, 0.55);
+}
+
+.contact-modal {
+  width: min(100%, 500px);
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 24px;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 0;
+  box-shadow: var(--shadow-lg);
+}
+
+.contact-modal-header,
+.contact-modal-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.contact-modal-header { margin-bottom: 16px; }
+
+.contact-modal-title {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  margin: 0;
+  color: var(--primary-dark);
+  font-size: 1.15rem;
+}
+
+.contact-modal-close {
+  padding: 4px;
+  border: 0;
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+.contact-modal-intro,
+.contact-modal-complete p {
+  color: var(--text-muted);
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+.contact-modal-intro { margin: 0 0 14px; }
+.contact-modal-field { margin-bottom: 14px; }
+.contact-modal-field-last { margin-bottom: 16px; }
+.contact-modal-field label { display: block; margin-bottom: 6px; color: var(--text); font-size: 0.875rem; font-weight: 700; }
+.contact-modal-required { color: var(--danger); }
+
+.contact-modal-control {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 0;
+  outline: 0;
+  background: var(--bg);
+  color: var(--text);
+  font: inherit;
+  font-size: 0.9375rem;
+}
+.contact-modal-textarea { resize: vertical; background: var(--white); }
+.contact-modal-actions { justify-content: flex-end; gap: 8px; }
+
+.contact-modal-button {
+  min-height: 42px;
+  padding: 10px 18px;
+  border: 1px solid var(--border);
+  border-radius: 0;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+.contact-modal-button-primary { border-color: var(--primary); background: var(--primary); color: var(--white); }
+.contact-modal-button-secondary { background: var(--white); color: var(--text-muted); }
+.contact-modal-complete { padding: 20px 0; text-align: center; }
+.contact-modal-complete-icon { font-size: 3rem; }
+.contact-modal-complete h3 { margin: 12px 0 8px; color: var(--primary-dark); }
+.contact-modal-complete-button { margin-top: 16px; }
+
+@media (max-width: 720px) {
+  .contact-modal { padding: 20px; }
+  .contact-modal-intro,
+  .contact-modal-complete p,
+  .contact-modal-field label,
+  .contact-modal-control,
+  .contact-modal-button { font-size: 0.8125rem; }
 }
 
 /* Footer */
@@ -1893,4 +2057,34 @@ main {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
+}
+
+/* Final mobile overrides: kept last so they remain effective after legacy rules. */
+@media (max-width: 720px) {
+  .hero-copy {
+    min-height: 218px;
+    padding: 24px 20px 20px;
+  }
+
+  .hero-copy h1 {
+    margin: 11px 0 10px;
+    font-size: clamp(1.28rem, 6.5vw, 1.7rem);
+    line-height: 1.42;
+  }
+
+  .hero-copy p { font-size: 0.8125rem; line-height: 1.65; }
+  .hero-actions { margin-top: 15px; }
+
+  .hero-visual,
+  .hero-visual img {
+    height: 164px;
+    min-height: 164px;
+  }
+
+  .primary-button,
+  .outline-button { font-size: 0.8125rem; }
+
+  .mobile-nav-label,
+  .site-footer .footer-meta,
+  .site-footer .footer-links { font-size: 0.75rem; }
 }

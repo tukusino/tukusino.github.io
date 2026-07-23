@@ -45,7 +45,7 @@ export const Home = ({ onNavigate }: HomeProps) => {
           <span className="hero-kicker">TSUKUSHINO COMMUNITY</span>
           <h1 id="home-heading">暮らしをわかりやすく、<br />身近に。</h1>
           <p>
-            つくし野区での暮らしに必要な情報を、ここからわかりやすくお届けします。
+            暮らしに必要な情報を、わかりやすくお届けします。
           </p>
           <div className="hero-actions">
             <button className="primary-button" onClick={() => onNavigate('notices')}>最新のお知らせ</button>
@@ -79,7 +79,7 @@ export const Home = ({ onNavigate }: HomeProps) => {
 
         <button className="rail-item rail-garbage" onClick={() => onNavigate('duty')}>
           <span className="rail-number">02</span>
-          <span className="rail-icon" aria-hidden="true">暮</span>
+          <span className="rail-icon rail-icon-garbage" aria-hidden="true">🗑</span>
           <span className="rail-content">
             <small>次のゴミ収集</small>
             <strong>{garbage.category}</strong>

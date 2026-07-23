@@ -19,11 +19,10 @@ test.describe('つくし野区自治会サイト スマホ対応検証テスト'
     await checkNoHorizontalScroll(page);
   });
 
-  test('ホーム画面のダッシュボードボタンから各画面へ遷移でき、戻れること', async ({ page }) => {
+  test('ホームの暮らしの予定から各画面へ遷移でき、戻れること', async ({ page }) => {
     // 1. 行事予定ページへの遷移
-    await page.locator('.home-status-card.accent').scrollIntoViewIfNeeded();
-    await page.locator('.home-status-card.accent').click();
-    await expect(page).toHaveTitle(/行事予定/);
+    await page.locator('.rail-event').click();
+    await expect(page.getByRole('heading', { name: '行事予定' })).toBeVisible();
     await checkNoHorizontalScroll(page);
     
     // ホームへ戻る
@@ -31,9 +30,8 @@ test.describe('つくし野区自治会サイト スマホ対応検証テスト'
     await expect(page).toHaveTitle(/つくし野区自治会/);
 
     // 2. ゴミの日カレンダーページへの遷移
-    await page.locator('.home-status-card.primary').scrollIntoViewIfNeeded();
-    await page.locator('.home-status-card.primary').click();
-    await expect(page).toHaveTitle(/ゴミの日/);
+    await page.locator('.rail-garbage').click();
+    await expect(page.getByRole('heading', { name: 'ゴミの日・分別案内' })).toBeVisible();
     await checkNoHorizontalScroll(page);
     
     // ホームへ戻る
@@ -57,8 +55,8 @@ test.describe('つくし野区自治会サイト スマホ対応検証テスト'
     await expect(page).toHaveTitle(/加入案内/);
     await checkNoHorizontalScroll(page);
     
-    // 名簿画像のプレビューリンクが機能すること
-    const previewLink = page.locator('a:has-text("タップして拡大・ダウンロード")');
+    // 入会申込書はPDFとして開けること
+    const previewLink = page.locator('a:has-text("区民名簿個票変更届（PDF）を開く")');
     await expect(previewLink).toBeVisible();
 
     // ホームに戻る
@@ -111,13 +109,10 @@ test.describe('つくし野区自治会サイト スマホ対応検証テスト'
   });
 
   test('DisasterPage (防災) に掛川市のハザードマップリンクが設置されていること', async ({ page }) => {
-    // 下部固定ナビの「メニュー」ボタンをクリック
-    const menuNav = page.locator('.bottom-nav-btn:has-text("メニュー"), .bottom-nav button:has-text("メニュー")').first();
-    await menuNav.click();
-    
-    // メニュー内の防災ボタンをクリック
-    await page.click('text=防災・安全情報');
-    await expect(page).toHaveTitle(/防災・安全/);
+    // 現行のメニュー画面から防災ページへ遷移
+    await page.goto('/?view=home_menu');
+    await page.getByRole('button', { name: /防災・安全/ }).first().click();
+    await expect(page.getByRole('heading', { name: '防災・安全情報' })).toBeVisible();
     
     // ハザードマップのリンクを確認
     const mapLink = page.locator('a:has-text("掛川市 洪水・土砂災害ハザードマップ")');
