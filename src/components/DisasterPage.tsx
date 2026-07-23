@@ -52,7 +52,7 @@ export const DisasterPage: React.FC<DisasterPageProps> = ({ onNavigate }) => {
       </header>
 
       {/* 1. 現在の防災情報バナー（最上部） */}
-      <div 
+        <div className="emergency-status"
         style={{ 
           background: 'linear-gradient(135deg, #1b365d 0%, #2b4c7e 100%)', 
           color: '#ffffff', 
@@ -102,7 +102,7 @@ export const DisasterPage: React.FC<DisasterPageProps> = ({ onNavigate }) => {
       </div>
 
       {/* 2. 4大クイックアクセスボタン (2列×2段) */}
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px', marginBottom: '20px' }}>
+      <div className="quick-access-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px', marginBottom: '20px' }}>
         <button 
           onClick={() => { setMainTab('emergency'); setTimeout(() => scrollToSection('sec-shelter'), 100); }}
           style={{ background: '#fff', border: '2px solid var(--primary)', borderRadius: '10px', padding: '12px', display: 'flex', alignItems: 'center', gap: '10px', cursor: 'pointer', textAlign: 'left', boxShadow: '0 2px 6px rgba(0,0,0,0.04)' }}
@@ -149,8 +149,8 @@ export const DisasterPage: React.FC<DisasterPageProps> = ({ onNavigate }) => {
       </div>
 
       {/* 3. メインカテゴリ切り替えタブ（［災害が起きたとき］ ［日頃の備え］） */}
-      <div style={{ display: 'flex', background: '#e2e8f0', borderRadius: '10px', padding: '4px', marginBottom: '20px' }}>
-        <button
+      <div className="tab-bar disaster-main-tabs" style={{ display: 'flex', background: '#e2e8f0', borderRadius: '10px', padding: '4px', marginBottom: '20px' }}>
+        <button className={`tab-btn${mainTab === 'emergency' ? ' active' : ''}`}
           onClick={() => setMainTab('emergency')}
           style={{
             flex: 1,
@@ -168,7 +168,7 @@ export const DisasterPage: React.FC<DisasterPageProps> = ({ onNavigate }) => {
         >
           🚨 災害が起きたとき (緊急時)
         </button>
-        <button
+        <button className={`tab-btn${mainTab === 'stock' ? ' active' : ''}`}
           onClick={() => setMainTab('stock')}
           style={{
             flex: 1,

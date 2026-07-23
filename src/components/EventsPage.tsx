@@ -627,7 +627,7 @@ export const EventsPage = ({ onNavigate }: EventsPageProps) => {
             cursor: 'pointer'
           }}
         >
-          <div style={{ position: 'relative', maxWidth: '100%', maxHeight: '90vh' }} onClick={(e) => e.stopPropagation()}>
+          <div style={{ position: 'relative', maxWidth: 'calc(100vw - 24px)', maxHeight: 'calc(100vh - 20px)' }} onClick={(e) => e.stopPropagation()}>
             <button
               onClick={() => setSelectedPosterImage(null)}
               style={{
@@ -656,14 +656,14 @@ export const EventsPage = ({ onNavigate }: EventsPageProps) => {
               alt="ポスター全画面表示"
               style={{
                 maxWidth: '100%',
-                maxHeight: '85vh',
-                borderRadius: '8px',
+                maxHeight: 'calc(100vh - 64px)',
+                borderRadius: '2px',
                 boxShadow: '0 8px 32px rgba(0, 0, 0, 0.5)',
                 objectFit: 'contain',
                 display: 'block'
               }}
             />
-            <p style={{ color: '#ffffff', textAlign: 'center', fontSize: '0.85rem', marginTop: '8px', opacity: 0.9 }}>
+            <p style={{ color: '#ffffff', textAlign: 'center', fontSize: '0.75rem', marginTop: '4px', opacity: 0.72 }}>
               画面をタップすると閉じます
             </p>
           </div>

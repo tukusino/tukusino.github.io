@@ -99,13 +99,16 @@ export default function App() {
   }, [contactModalOpen, dropdownOpen]);
 
   function navigate(nextView: ViewType | string) {
-    const target = nextView === 'home_menu' ? 'menu' : nextView as ViewType;
+    const noticeMatch = typeof nextView === 'string' ? nextView.match(/^notice:(.+)$/) : null;
+    const target = noticeMatch ? 'notices' : (nextView === 'home_menu' ? 'menu' : nextView as ViewType);
     setView(target);
     setDropdownOpen(false);
 
     const url = new URL(window.location.href);
     if (target === 'home') url.searchParams.delete('view');
     else url.searchParams.set('view', target);
+    if (noticeMatch) url.searchParams.set('notice', noticeMatch[1]);
+    else url.searchParams.delete('notice');
     window.history.pushState(null, '', url.toString());
     window.scrollTo({ top: 0, behavior: 'smooth' });
 
@@ -158,7 +161,7 @@ export default function App() {
         <div className="container header-main">
           <button className="brand" onClick={() => navigate('home')} aria-label="つくし野区自治会 ホームへ">
             <span className="brand-mark" aria-hidden="true">
-              <img src={`${import.meta.env.BASE_URL}logo.jpg`} alt="" />
+              <img src={`${import.meta.env.BASE_URL}tulogo.png`} alt="" />
             </span>
             <span className="brand-copy">
               <small>TSUKUSHINO COMMUNITY</small>
@@ -223,7 +226,7 @@ export default function App() {
           <div className="footer-brand">
             <div className="footer-logo-row">
               <span className="brand-mark" aria-hidden="true">
-                <img src={`${import.meta.env.BASE_URL}logo.jpg`} alt="" />
+                <img src={`${import.meta.env.BASE_URL}tulogo.png`} alt="" />
               </span>
               <div>
                 <small>TSUKUSHINO COMMUNITY</small>

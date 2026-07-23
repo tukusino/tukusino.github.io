@@ -192,13 +192,13 @@ export const FacilityPage: React.FC<FacilityPageProps> = ({ onNavigate }) => {
             padding: '20px'
           }}
         >
-          <div style={{ position: 'relative', maxWidth: '90vw', maxHeight: '80vh' }}>
+          <div style={{ position: 'relative', maxWidth: 'calc(100vw - 24px)', maxHeight: 'calc(100vh - 20px)' }}>
             <img
               src={selectedImage.url}
               alt={selectedImage.caption}
-              style={{ width: '100%', height: 'auto', maxHeight: '75vh', objectFit: 'contain', borderRadius: '8px', boxShadow: '0 8px 24px rgba(0,0,0,0.5)' }}
+              style={{ width: 'auto', maxWidth: 'calc(100vw - 24px)', height: 'auto', maxHeight: 'calc(100vh - 72px)', objectFit: 'contain', borderRadius: '2px', boxShadow: '0 8px 24px rgba(0,0,0,0.5)' }}
             />
-            <p style={{ color: '#ffffff', textAlign: 'center', marginTop: '12px', fontSize: '0.95rem', fontWeight: 600 }}>
+            <p style={{ color: '#ffffff', textAlign: 'center', marginTop: '4px', fontSize: '0.8rem', fontWeight: 600, opacity: 0.8 }}>
               {selectedImage.caption}
             </p>
           </div>

@@ -107,6 +107,8 @@ textarea:focus-visible {
   position: sticky;
   top: 0;
   z-index: 500;
+  height: auto !important;
+  padding: 0 !important;
   background: rgba(255, 253, 247, 0.96);
   border-bottom: 1px solid rgba(29, 43, 72, 0.12);
   backdrop-filter: blur(14px);
@@ -325,8 +327,9 @@ main {
 
 .editorial-hero {
   display: grid;
-  grid-template-columns: minmax(0, 0.94fr) minmax(0, 1.06fr);
-  min-height: 520px;
+  grid-template-columns: minmax(0, 0.72fr) minmax(0, 1.28fr);
+  height: 450px;
+  min-height: 0;
   overflow: hidden;
   background: var(--primary-dark);
   box-shadow: var(--shadow-md);
@@ -338,7 +341,7 @@ main {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: clamp(44px, 6vw, 78px);
+  padding: clamp(34px, 4.5vw, 58px);
   color: #fffdf7;
 }
 
@@ -363,27 +366,32 @@ main {
 }
 
 .hero-copy h1 {
-  margin: 20px 0 24px;
+  margin: 16px 0 18px;
   color: #fffdf7;
   font-family: var(--font-serif);
-  font-size: clamp(2.5rem, 5vw, 4.65rem);
+  font-size: clamp(1.55rem, 2.55vw, 2.35rem);
+  line-height: 1.45;
   font-weight: 900;
   line-height: 1.34;
   letter-spacing: 0.04em;
 }
 
+.hero-first-line {
+  white-space: nowrap;
+}
+
 .hero-copy p {
   max-width: 32rem;
   color: rgba(255, 253, 247, 0.76);
-  font-size: 0.98rem;
-  line-height: 2;
+  font-size: 0.86rem;
+  line-height: 1.9;
 }
 
 .hero-actions {
   display: flex;
   align-items: center;
   gap: 22px;
-  margin-top: 30px;
+  margin-top: 22px;
 }
 
 .primary-button,
@@ -428,7 +436,7 @@ main {
 
 .hero-visual {
   position: relative;
-  min-height: 520px;
+  min-height: 0;
   overflow: hidden;
 }
 
@@ -444,7 +452,7 @@ main {
 .hero-visual img {
   width: 100%;
   height: 100%;
-  min-height: 520px;
+  min-height: 0;
   display: block;
   object-fit: cover;
 }
@@ -1134,6 +1142,214 @@ main {
   border-radius: 0 !important;
 }
 
+/* Shared interface language for every information page */
+.page-container .unified-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.page-container .unified-card > h2:first-child,
+.page-container .unified-card > h3:first-child {
+  margin-top: 0;
+}
+
+.page-container .unified-card p,
+.page-container .unified-card li {
+  line-height: 1.85;
+}
+
+.page-container .unified-card ul {
+  padding-left: 1.2em;
+}
+
+.page-container .unified-card li + li {
+  margin-top: 0.38em;
+}
+
+.tab-bar {
+  display: flex;
+  gap: 0 !important;
+  padding: 0 !important;
+  overflow: hidden;
+  background: transparent !important;
+  border: 1px solid var(--border);
+  border-radius: 0 !important;
+}
+
+.tab-bar .tab-btn,
+.tab-bar > button,
+.tab-button,
+.main-tab,
+.category-tab,
+.event-tab {
+  min-height: 48px;
+  padding: 10px 16px !important;
+  border: 0 !important;
+  border-right: 1px solid var(--border) !important;
+  background: rgba(255, 253, 247, 0.56) !important;
+  color: var(--primary) !important;
+  font-family: var(--font-serif);
+  font-size: 0.84rem !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.04em;
+  box-shadow: none !important;
+}
+
+.tab-bar > :last-child,
+.tab-button:last-child,
+.main-tab:last-child,
+.category-tab:last-child,
+.event-tab:last-child {
+  border-right: 0 !important;
+}
+
+.tab-bar .tab-btn.active,
+.tab-bar > button.active,
+.tab-button.active,
+.main-tab.active,
+.category-tab.active,
+.event-tab.active {
+  background: var(--primary-dark) !important;
+  color: var(--white) !important;
+}
+
+.tab-bar .tab-btn:hover:not(.active),
+.tab-bar > button:hover:not(.active),
+.tab-button:hover:not(.active),
+.main-tab:hover:not(.active),
+.category-tab:hover:not(.active),
+.event-tab:hover:not(.active) {
+  background: var(--primary-soft) !important;
+}
+
+.page-container input:not([type="checkbox"]),
+.page-container select,
+.page-container textarea {
+  min-height: 46px;
+  border: 1px solid var(--border) !important;
+  border-radius: 0 !important;
+  background: var(--card-bg) !important;
+  color: var(--text) !important;
+  box-shadow: none !important;
+}
+
+.page-container input:not([type="checkbox"]):focus,
+.page-container select:focus,
+.page-container textarea:focus {
+  outline: 2px solid rgba(183, 71, 53, 0.28);
+  outline-offset: 2px;
+  border-color: var(--accent) !important;
+}
+
+.page-container :is(div, a, button)[style*="border-radius"] {
+  border-radius: 0 !important;
+}
+
+.page-container :is(div, a, button)[style*="box-shadow"] {
+  box-shadow: none !important;
+}
+
+.quick-access-grid > button {
+  min-height: 96px;
+  border-color: var(--border) !important;
+  background: var(--card-bg) !important;
+}
+
+.quick-access-grid > button:hover {
+  border-color: var(--accent) !important;
+  background: var(--paper) !important;
+}
+
+.emergency-status {
+  border: 1px solid var(--primary-dark) !important;
+  background: var(--primary-dark) !important;
+  box-shadow: none !important;
+}
+
+.notice-tag,
+.badge-tag {
+  border-radius: 0 !important;
+  font-size: 0.7rem !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.07em;
+}
+
+.timeline-row {
+  min-height: 76px;
+  border-left-width: 3px;
+}
+
+.timeline-row .date,
+.timeline-row .category {
+  color: var(--primary-dark);
+  font-family: var(--font-serif);
+  font-weight: 800;
+}
+
+.circular-grid,
+.links-grid,
+.detail-cards {
+  gap: 12px !important;
+}
+
+.org-chart {
+  border: 1px solid var(--border);
+  border-radius: 0 !important;
+  background: rgba(255, 253, 247, 0.46) !important;
+}
+
+.org-box-top,
+.org-box {
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+.page-container table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid var(--border);
+  background: var(--card-bg);
+}
+
+.page-container th {
+  background: var(--primary-dark);
+  color: var(--white);
+  font-family: var(--font-serif);
+  font-weight: 800;
+}
+
+.page-container th,
+.page-container td {
+  padding: 12px 14px;
+  border: 1px solid var(--border);
+  text-align: left;
+  vertical-align: top;
+}
+
+@media (max-width: 720px) {
+  .tab-bar .tab-btn,
+  .tab-bar > button,
+  .tab-button,
+  .main-tab,
+  .category-tab,
+  .event-tab {
+    min-height: 44px;
+    padding: 8px 9px !important;
+    font-size: 0.73rem !important;
+    letter-spacing: 0.01em;
+  }
+
+  .quick-access-grid > button {
+    min-height: 84px;
+  }
+
+  .page-container th,
+  .page-container td {
+    padding: 10px;
+    font-size: 0.83rem;
+  }
+}
+
 /* Footer */
 
 .site-footer {
@@ -1262,15 +1478,26 @@ main {
 
   .editorial-hero {
     grid-template-columns: 1fr;
+    height: auto;
+    min-height: 0;
+  }
+
+  .hero-visual {
+    order: -1;
   }
 
   .hero-copy {
-    min-height: 430px;
+    order: 0;
+  }
+
+  .hero-copy {
+    min-height: 350px;
   }
 
   .hero-visual,
   .hero-visual img {
-    min-height: 380px;
+    height: 280px;
+    min-height: 280px;
   }
 
   .today-rail {
@@ -1338,7 +1565,12 @@ main {
   }
 
   .brand-copy small {
-    display: none;
+    display: block;
+    margin-bottom: 2px;
+    font-size: 0.47rem;
+    letter-spacing: 0.12em;
+    line-height: 1;
+    white-space: nowrap;
   }
 
   .brand-copy strong {
@@ -1370,8 +1602,8 @@ main {
   }
 
   .hero-copy {
-    min-height: 390px;
-    padding: 54px 25px 46px;
+    min-height: 250px;
+    padding: 30px 20px 28px;
   }
 
   .hero-copy::before {
@@ -1380,11 +1612,12 @@ main {
   }
 
   .hero-copy h1 {
-    font-size: clamp(2.2rem, 12vw, 3.35rem);
+    font-size: clamp(1.35rem, 7vw, 2.2rem);
   }
 
   .hero-copy p {
-    font-size: 0.86rem;
+    font-size: 0.78rem;
+    line-height: 1.65;
   }
 
   .hero-actions {
@@ -1393,7 +1626,8 @@ main {
 
   .hero-visual,
   .hero-visual img {
-    min-height: 290px;
+    height: 190px;
+    min-height: 190px;
   }
 
   .today-rail {
@@ -1597,6 +1831,11 @@ main {
 }
 
 @media (max-width: 390px) {
+  .brand-copy small {
+    font-size: 0.42rem;
+    letter-spacing: 0.1em;
+  }
+
   .brand-copy strong {
     font-size: 0.92rem;
   }
@@ -1610,8 +1849,16 @@ main {
   }
 
   .hero-actions {
-    align-items: flex-start;
-    flex-direction: column;
+    align-items: center;
+    flex-direction: row;
+    gap: 14px;
+    margin-top: 16px;
+  }
+
+  .primary-button {
+    min-height: 42px;
+    padding-inline: 14px;
+    font-size: 0.72rem;
   }
 
   .rail-item {

@@ -10,7 +10,7 @@ type View =
   | 'links' | 'faq' | 'circular' | 'reports';
 
 interface HomeProps {
-  onNavigate: (page: View) => void;
+  onNavigate: (page: View | string) => void;
 }
 
 const QUICK_LINKS: { icon: string; label: string; note: string; page: View }[] = [
@@ -43,9 +43,8 @@ export const Home = ({ onNavigate }: HomeProps) => {
       <section className="editorial-hero" aria-labelledby="home-heading">
         <div className="hero-copy">
           <span className="hero-kicker">TSUKUSHINO COMMUNITY</span>
-          <h1 id="home-heading">暮らしのそばに、<br />季節の真ん中に。</h1>
+          <h1 id="home-heading">暮らしをわかりやすく、<br />身近に。</h1>
           <p>
-            日々のごみ収集から地域の行事、防災情報まで。
             つくし野区での暮らしに必要な情報を、ここからわかりやすくお届けします。
           </p>
           <div className="hero-actions">
@@ -56,10 +55,6 @@ export const Home = ({ onNavigate }: HomeProps) => {
 
         <div className="hero-visual">
           <img src={`${import.meta.env.BASE_URL}festival-wide.jpg`} alt="つくし野区のお祭り屋台" />
-          <div className="hero-caption">
-            <span>地域の風景</span>
-            <strong>受け継ぐものと、これからの暮らし。</strong>
-          </div>
           <span className="hero-year" aria-hidden="true">2026</span>
         </div>
       </section>
@@ -108,7 +103,7 @@ export const Home = ({ onNavigate }: HomeProps) => {
             {notices.length === 0 ? (
               <p className="empty-message">現在お知らせはありません。</p>
             ) : notices.map((notice) => (
-              <button key={notice.id} className="news-row" onClick={() => onNavigate('notices')}>
+              <button key={notice.id} className="news-row" onClick={() => onNavigate(`notice:${notice.id}`)}>
                 <span className="news-date">{notice.publishDate.replaceAll('.', '/')}</span>
                 <span className={`news-category category-${notice.category}`}>{notice.categoryLabel}</span>
                 <strong>{notice.title}</strong>
@@ -154,7 +149,7 @@ export const Home = ({ onNavigate }: HomeProps) => {
 
       <section className="activity-section" aria-labelledby="activity-heading">
         <div className="activity-photo">
-          <img src={`${import.meta.env.BASE_URL}festival-wide.jpg`} alt="地域活動の様子" />
+          <img src={`${import.meta.env.BASE_URL}hall.jpg`} alt="つくし野区公会堂の様子" />
           <span>COMMUNITY REPORT</span>
         </div>
 

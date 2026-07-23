@@ -8,6 +8,10 @@ interface NoticesPageProps {
 export const NoticesPage = ({ onNavigate }: NoticesPageProps) => {
   const [notices] = useState<NoticeItem[]>(() => getActiveNotices(new Date()));
   const [selectedNoticeImage, setSelectedNoticeImage] = useState<string | null>(null);
+  const selectedNoticeId = new URLSearchParams(window.location.search).get('notice');
+  const visibleNotices = selectedNoticeId
+    ? notices.filter((notice) => notice.id === selectedNoticeId)
+    : notices;
 
   return (
     <div className="page-container">
@@ -21,7 +25,7 @@ export const NoticesPage = ({ onNavigate }: NoticesPageProps) => {
           <p style={{ textAlign: 'center', color: 'var(--text-muted)' }}>現在お知らせはありません。</p>
         </div>
       ) : (
-        notices.map((notice) => (
+        visibleNotices.map((notice) => (
           <div key={notice.id} className="unified-card">
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
               <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)', fontWeight: 700 }}>{notice.publishDate}</span>
@@ -67,6 +71,15 @@ export const NoticesPage = ({ onNavigate }: NoticesPageProps) => {
         ))
       )}
 
+      {selectedNoticeId && visibleNotices.length === 0 && (
+        <div className="unified-card">
+          <p style={{ textAlign: 'center', color: 'var(--text-muted)' }}>このお知らせは見つかりませんでした。</p>
+          <div style={{ textAlign: 'center' }}>
+            <button className="back-btn secondary" onClick={() => onNavigate('notices')}>お知らせ一覧へ戻る</button>
+          </div>
+        </div>
+      )}
+
       <div className="back-btn-action" style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' }}>
         <button onClick={() => onNavigate('home_menu')} className="back-btn secondary">📋 自治会メニューに戻る</button>
         <button onClick={() => onNavigate('home')} className="back-btn">🏠 ホームに戻る</button>
@@ -92,7 +105,7 @@ export const NoticesPage = ({ onNavigate }: NoticesPageProps) => {
             cursor: 'pointer'
           }}
         >
-          <div style={{ position: 'relative', maxWidth: '100%', maxHeight: '90vh' }} onClick={(e) => e.stopPropagation()}>
+          <div style={{ position: 'relative', maxWidth: 'calc(100vw - 24px)', maxHeight: 'calc(100vh - 20px)' }} onClick={(e) => e.stopPropagation()}>
             <button
               onClick={() => setSelectedNoticeImage(null)}
               style={{
@@ -121,14 +134,14 @@ export const NoticesPage = ({ onNavigate }: NoticesPageProps) => {
               alt="ポスター全画面表示"
               style={{
                 maxWidth: '100%',
-                maxHeight: '85vh',
-                borderRadius: '8px',
+                maxHeight: 'calc(100vh - 64px)',
+                borderRadius: '2px',
                 boxShadow: '0 8px 32px rgba(0, 0, 0, 0.5)',
                 objectFit: 'contain',
                 display: 'block'
               }}
             />
-            <p style={{ color: '#ffffff', textAlign: 'center', fontSize: '0.85rem', marginTop: '8px', opacity: 0.9 }}>
+            <p style={{ color: '#ffffff', textAlign: 'center', fontSize: '0.75rem', marginTop: '4px', opacity: 0.72 }}>
               画面をタップすると閉じます
             </p>
           </div>
