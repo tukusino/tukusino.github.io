@@ -167,14 +167,14 @@ export const FacilityPage: React.FC<FacilityPageProps> = ({ onNavigate }) => {
             zIndex: 9999,
             display: 'block',
             overflowY: 'auto',
-            padding: '64px 12px 16px'
+            padding: 0
           }}
         >
-          <div style={{ position: 'relative', width: '100%', maxWidth: '960px', margin: '0 auto' }}>
+          <div style={{ position: 'relative', width: '100%', height: '100dvh' }}>
             <img
               src={selectedImage.url}
               alt={selectedImage.caption}
-              style={{ width: '100%', height: 'auto', display: 'block', borderRadius: '4px', boxShadow: '0 2px 12px rgba(0,0,0,0.16)' }}
+              style={{ width: '100%', height: '100dvh', display: 'block', objectFit: 'cover', objectPosition: 'center', borderRadius: 0 }}
             />
             <button
               onClick={() => setSelectedImage(null)}
