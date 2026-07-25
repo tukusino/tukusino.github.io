@@ -135,8 +135,7 @@ export const tsukushinoEvents: SimpleEvent[] = [
     time: "8:30〜",
     location: "屋台保管庫前",
     target: "祭り青年・自治会役員",
-    categoryType: "resident",
-    image: "icons/event_mushiboshi.jpg"
+    categoryType: "resident"
   },
   {
     dateStr: "8月16日（日）",
@@ -147,8 +146,7 @@ export const tsukushinoEvents: SimpleEvent[] = [
     time: "10:00〜12:00",
     location: "つくし野公会堂",
     target: "シニア世代・区民の皆様",
-    categoryType: "resident",
-    image: "icons/event_nagomi.jpg"
+    categoryType: "resident"
   },
   {
     dateStr: "8月15日（土）",
@@ -199,8 +197,7 @@ export const tsukushinoEvents: SimpleEvent[] = [
     time: "10:00〜12:00",
     location: "対象者宅へ配布 / 公会堂",
     target: "75歳以上の区民の皆様",
-    categoryType: "resident",
-    image: "icons/event_bousai.jpg"
+    categoryType: "resident"
   },
   {
     dateStr: "9月19日（土）",
@@ -232,8 +229,7 @@ export const tsukushinoEvents: SimpleEvent[] = [
     time: "終日",
     location: "つくし野区全域・公会堂周辺",
     target: "全区民・ご家族",
-    categoryType: "resident",
-    image: "icons/event_saiten.jpg"
+    categoryType: "resident"
   },
   {
     dateStr: "10月17日（土）",
@@ -262,8 +258,7 @@ export const tsukushinoEvents: SimpleEvent[] = [
     time: "7:00〜8:30",
     location: "各組の担当区域・公園・区内道路",
     target: "全区民",
-    categoryType: "resident",
-    image: "icons/event_kusakari.jpg"
+    categoryType: "resident"
   },
   {
     dateStr: "11月21日（土）",
