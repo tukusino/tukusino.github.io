@@ -62,7 +62,7 @@ export const HomeMenuPage: React.FC<HomeMenuPageProps> = ({ onNavigate, onOpenCo
             }}
           >
             <span style={{ fontSize: '1.6rem' }}>🏠</span>
-            <span style={{ fontSize: '0.88rem', fontWeight: 700, color: 'var(--primary-dark)' }}>公会堂予約</span>
+            <span style={{ fontSize: '0.88rem', fontWeight: 700, color: 'var(--primary-dark)' }}>公会堂について</span>
           </button>
 
           <button 

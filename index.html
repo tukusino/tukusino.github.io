@@ -30,38 +30,58 @@
     <script type="module" src="/src/main.tsx"></script>
   
 <style id="tsukushino-season-style">
-  .season-note{display:flex;align-items:center;gap:12px;margin:18px 0 0;padding:13px 16px;border:1px solid #d6e8ec;border-radius:12px;background:#f7fbfc;color:#164461;font-size:15px;line-height:1.55}
-  .season-note__symbol{font-size:25px;line-height:1}.season-note strong{display:block;color:#17365d;font-size:13px;letter-spacing:.06em}.season-note p{margin:0}
+  .season-note{display:flex;align-items:flex-start;gap:10px;margin:14px 0 0;padding:12px 14px;border:1px solid rgba(81,88,95,.16);border-radius:14px;background:linear-gradient(180deg,rgba(214,232,236,.36),rgba(255,255,255,.92));color:#51585f;font-size:14px;line-height:1.65;box-shadow:0 6px 18px rgba(54,60,66,.05)}
+  .season-note__symbol{font-size:18px;line-height:1;padding-top:1px;opacity:.9}.season-note strong{display:block;color:#363c42;font-size:12px;letter-spacing:.08em;margin-bottom:2px}.season-note p{margin:0}
   .rail-item.is-checked{outline:3px solid #b7c4c5;outline-offset:2px}.rail-check{display:block;margin-top:5px;color:#1b6a54;font-size:12px;font-weight:700}
   .festival-mode .editorial-hero{position:relative;overflow:hidden}.festival-mode .editorial-hero:after{content:"🏮　🏮　🏮";position:absolute;right:18px;top:12px;letter-spacing:7px;font-size:20px;pointer-events:none}
-  @media (max-width:600px){.season-note{margin-top:14px;padding:12px 13px;font-size:14px}.festival-mode .editorial-hero:after{font-size:16px;right:8px;top:7px}}
+  @media (max-width:600px){.season-note{margin-top:12px;padding:11px 12px;font-size:13px;line-height:1.6}.festival-mode .editorial-hero:after{font-size:16px;right:8px;top:7px}}
 </style>
 <script id="tsukushino-season-script">
 (function(){
+  var observer;
   function seasonInfo(now){
     var m=now.getMonth()+1,d=now.getDate(),festival=m===9||(m===10&&d<=5);
-    if(festival)return{symbol:"🏮",title:"つくし野区 祭りの季節です",message:"祭典に向けて、予定と持ち物を早めに確認しておきましょう。",festival:true};
-    if(m<=2)return{symbol:"🌱",title:"季節のおたより",message:"足元に気をつけながら、春の予定を確認しましょう。"};
-    if(m<=5)return{symbol:"🌿",title:"季節のおたより",message:"屋外の予定は、帽子と飲み物をお忘れなく。"};
-    if(m<=8)return{symbol:"🎐",title:"季節のおたより",message:"暑い日は無理をせず、水分をとりながら過ごしましょう。"};
-    if(m<=11)return{symbol:"🍂",title:"季節のおたより",message:"朝夕は冷えます。行事の前に持ち物を確認しましょう。"};
-    return{symbol:"❄️",title:"季節のおたより",message:"年末年始のごみの日は、紙の案内もあわせてご確認ください。"};
+    if(festival)return{symbol:"🏮",title:"暮らしメモ",message:"祭典が近づく時期です。行事の時間や持ち物を、早めにご確認ください。",festival:true};
+    if(m<=2)return{symbol:"❄️",title:"暮らしメモ",message:"朝晩の冷え込みに気をつけながら、回覧板とあわせて予定をご確認ください。"};
+    if(m<=5)return{symbol:"🌿",title:"暮らしメモ",message:"屋外の予定が増える時期です。帽子や飲み物の準備があると安心です。"};
+    if(m<=8){
+      var summerNotes=[
+        "暑さが強い日が続いています。外の作業や外出は、無理をせず水分をとりながらお過ごしください。",
+        "日差しの強い季節です。帽子や日陰も使いながら、体調に気をつけてお過ごしください。",
+        "にわか雨や雷に気をつけたい時期です。行事や外出の前に、空模様もご確認ください。"
+      ];
+      return{symbol:"🎐",title:"暮らしメモ",message:summerNotes[now.getDate()%summerNotes.length]};
+    }
+    if(m<=11)return{symbol:"🍂",title:"暮らしメモ",message:"朝夕は少し冷えやすくなります。お出かけ前に予定と持ち物をご確認ください。"};
+    return{symbol:"❄️",title:"暮らしメモ",message:"年末年始の予定やごみの日は、紙の案内もあわせてご確認ください。"};
   }
   function applyPlay(){
-    var home=document.querySelector(".home-page");if(!home||document.querySelector(".season-note"))return;
-    var info=seasonInfo(new Date()),hero=home.querySelector(".editorial-hero"),rail=home.querySelector(".today-rail");
-    if(!hero||!rail)return;
-    var note=document.createElement("section");note.className="season-note";note.setAttribute("aria-label","季節のおたより");
-    note.innerHTML='<span class="season-note__symbol" aria-hidden="true">'+info.symbol+'</span><div><strong>'+info.title+'</strong><p>'+info.message+'</p></div>';
-    hero.insertAdjacentElement("afterend",note);if(info.festival)document.body.classList.add("festival-mode");
-    var event=home.querySelector(".rail-event"),eventText=event&&event.innerText||"";
-    if(event&&/(祭|屋台)/.test(eventText)){var icon=event.querySelector(".rail-icon");if(icon)icon.textContent="🏮";}
-    var garbage=home.querySelector(".rail-garbage");if(garbage){
-      var refresh=function(){var done=localStorage.getItem("tsukushino-garbage-check")==="done";garbage.classList.toggle("is-checked",done);var old=garbage.querySelector(".rail-check");if(old)old.remove();if(done){var mark=document.createElement("span");mark.className="rail-check";mark.textContent="✓ 確認しました";garbage.querySelector(".rail-content").appendChild(mark)}};
-      garbage.addEventListener("click",function(){localStorage.setItem("tsukushino-garbage-check","done");refresh()});refresh();
+    observer.disconnect();
+    try{
+      var home=document.querySelector(".home-page");if(!home)return;
+      var info=seasonInfo(new Date()),news=home.querySelector(".news-section"),newsList=news&&news.querySelector(".news-list");
+      var note=home.querySelector(".season-note");
+      if(news&&newsList&&!note){
+        note=document.createElement("section");note.className="season-note";note.setAttribute("aria-label","暮らしメモ");
+        note.innerHTML='<span class="season-note__symbol" aria-hidden="true">'+info.symbol+'</span><div><strong>'+info.title+'</strong><p>'+info.message+'</p></div>';
+        newsList.insertAdjacentElement("afterend",note);
+      }
+      document.body.classList.toggle("festival-mode",!!info.festival);
+      var event=document.querySelector(".rail-event"),eventText=event&&event.innerText||"";
+      if(event&&/(祭|屋台)/.test(eventText)){var icon=event.querySelector(".rail-icon");if(icon)icon.textContent="🏮";}
+      var garbage=document.querySelector(".rail-garbage");if(garbage){
+        var refresh=function(){var done=localStorage.getItem("tsukushino-garbage-check")==="done";garbage.classList.toggle("is-checked",done);var old=garbage.querySelector(".rail-check");if(old)old.remove();if(done){var mark=document.createElement("span");mark.className="rail-check";mark.textContent="✓ 確認しました";garbage.querySelector(".rail-content").appendChild(mark)}};
+        if(garbage.dataset.playBound!=="true"){
+          garbage.dataset.playBound="true";
+          garbage.addEventListener("click",function(){localStorage.setItem("tsukushino-garbage-check","done");refresh()});
+        }
+        refresh();
+      }
+    }finally{
+      observer.observe(document.documentElement,{childList:true,subtree:true});
     }
   }
-  var observer=new MutationObserver(applyPlay);observer.observe(document.documentElement,{childList:true,subtree:true});applyPlay();
+  observer=new MutationObserver(applyPlay);applyPlay();
 }());
 </script>
 </body>
