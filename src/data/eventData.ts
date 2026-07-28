@@ -14,7 +14,6 @@ export interface NextEventResult {
   belongings?: string;
   application?: string;
   rain?: string;
-  image?: string;
 }
 
 export interface SimpleEvent {
@@ -36,7 +35,6 @@ export interface SimpleEvent {
   application?: string;   // 申込み（例: "不要（直接会場へ）"）
   rain?: string;          // 雨天時（例: "体育館にて開催"）
   categoryType?: 'resident' | 'management'; // 'resident': みんなの行事 / 'management': 自治会運営予定
-  image?: string;         // 水彩イラスト等の画像パス
 }
 
 export interface OrgActivity {
@@ -52,7 +50,7 @@ export interface MonthlyOrgActivity {
 }
 
 // つくし野区の予定一覧 (マスターデータ)
-export const tsukushinoEvents: SimpleEvent[] = [
+const tsukushinoEventsRaw: SimpleEvent[] = [
   // ─── 過去の行事 ───
   {
     dateStr: "4月12日（日）",
@@ -136,7 +134,6 @@ export const tsukushinoEvents: SimpleEvent[] = [
     location: "屋台保管庫前",
     target: "祭り青年・自治会役員",
     categoryType: "resident",
-    image: "icons/event_mushiboshi.jpg"
   },
   {
     dateStr: "8月16日（日）",
@@ -148,7 +145,6 @@ export const tsukushinoEvents: SimpleEvent[] = [
     location: "つくし野公会堂",
     target: "シニア世代・区民の皆様",
     categoryType: "resident",
-    image: "icons/event_nagomi.jpg"
   },
   {
     dateStr: "8月15日（土）",
@@ -200,7 +196,6 @@ export const tsukushinoEvents: SimpleEvent[] = [
     location: "対象者宅へ配布 / 公会堂",
     target: "75歳以上の区民の皆様",
     categoryType: "resident",
-    image: "icons/event_bousai.jpg"
   },
   {
     dateStr: "9月19日（土）",
@@ -233,7 +228,6 @@ export const tsukushinoEvents: SimpleEvent[] = [
     location: "つくし野区全域・公会堂周辺",
     target: "全区民・ご家族",
     categoryType: "resident",
-    image: "icons/event_saiten.jpg"
   },
   {
     dateStr: "10月17日（土）",
@@ -263,7 +257,6 @@ export const tsukushinoEvents: SimpleEvent[] = [
     location: "各組の担当区域・公園・区内道路",
     target: "全区民",
     categoryType: "resident",
-    image: "icons/event_kusakari.jpg"
   },
   {
     dateStr: "11月21日（土）",
@@ -358,18 +351,25 @@ export const tsukushinoEvents: SimpleEvent[] = [
   }
 ];
 
+// 自治会運営予定は、役員会・総会の時間と会場を共通表示にそろえる。
+export const tsukushinoEvents: SimpleEvent[] = tsukushinoEventsRaw.map((event) => (
+  event.categoryType === 'management'
+    ? { ...event, time: event.time ?? '19:00〜', location: event.location ?? 'つくし野公会堂' }
+    : event
+));
+
 // 和田岡地区の予定一覧
 export const wadaokaEvents: SimpleEvent[] = [
   { dateStr: "4月10日（金）", date: "4月10日（金）", title: "まち協常任理事会・区長会", dateVal: "2026-04-10", startDate: "2026-04-10" },
   { dateStr: "4月11日（土）", date: "4月11日（土）", title: "福祉協議会総会", dateVal: "2026-04-11", startDate: "2026-04-11" },
   { dateStr: "4月18日（土）", date: "4月18日（土）", title: "まち協総会・親水公園総会", dateVal: "2026-04-18", startDate: "2026-04-18" },
   { dateStr: "5月15日（金）", date: "5月15日（金）", title: "まち協常任理事会・区長会", dateVal: "2026-05-15", startDate: "2026-05-15" },
-  { dateStr: "6月（日付未定）", date: "6月（日付未定）", title: "親水公園草刈り作業（1回目）", startDate: "2026-06-01" },
+  { dateStr: "6月（日付未定）", date: "6月（日付未定）", title: "親水公園草刈り作業（1回目）", isDateUndecided: true },
   { dateStr: "6月12日（金）", date: "6月12日（金）", title: "まち協常任理事会・区長会", dateVal: "2026-06-12", startDate: "2026-06-12" },
   { dateStr: "7月7日（火）",  date: "7月7日（火）",  title: "地域出前講座", dateVal: "2026-07-07", startDate: "2026-07-07" },
   { dateStr: "7月10日（金）", date: "7月10日（金）", title: "まち協常任理事会・区長会", dateVal: "2026-07-10", startDate: "2026-07-10" },
   { dateStr: "7月12日（日）", date: "7月12日（日）", title: "スポーツ交流会", dateVal: "2026-07-12", startDate: "2026-07-12" },
-  { dateStr: "7月（日付未定）", date: "7月（日付未定）", title: "親水公園草刈り作業（2回目）", startDate: "2026-07-01" },
+  { dateStr: "7月（日付未定）", date: "7月（日付未定）", title: "親水公園草刈り作業（2回目）", isDateUndecided: true },
   {
     dateStr: "8月9日（日）",
     date: "8月9日（日）",
@@ -383,7 +383,6 @@ export const wadaokaEvents: SimpleEvent[] = [
     belongings: "上履き、くつ袋、手持ち花火（指定エリア用）",
     application: "申込み不要（直接会場へお越しください）",
     rain: "雨天時は体育館内で開催",
-    image: "icons/nouryousai_poster.jpg"
   },
   { dateStr: "8月14日（金）", date: "8月14日（金）", title: "まち協常任理事会・区長会", dateVal: "2026-08-14", startDate: "2026-08-14" },
   { dateStr: "9月5日（土）",  date: "9月5日（土）",  title: "広域避難所運営訓練", dateVal: "2026-09-05", startDate: "2026-09-05" },
@@ -391,7 +390,7 @@ export const wadaokaEvents: SimpleEvent[] = [
   { dateStr: "10月3日（土）・4日（日）", date: "10月3日（土）・4日（日）", title: "和田岡地区祭典", dateVal: "2026-10-03", startDate: "2026-10-03", endDate: "2026-10-04" },
   { dateStr: "10月16日（金）", date: "10月16日（金）", title: "まち協常任理事会・区長会", dateVal: "2026-10-16", startDate: "2026-10-16" },
   { dateStr: "10月18日（日）", date: "10月18日（日）", title: "新体力測定", dateVal: "2026-10-18", startDate: "2026-10-18" },
-  { dateStr: "11月（日付未定）", date: "11月（日付未定）", title: "親水公園草刈り作業（3回目）", startDate: "2026-11-01" },
+  { dateStr: "11月（日付未定）", date: "11月（日付未定）", title: "親水公園草刈り作業（3回目）", isDateUndecided: true },
   { dateStr: "11月8日（日）", date: "11月8日（日）", title: "文化交流会・歩け歩け大会", dateVal: "2026-11-08", startDate: "2026-11-08" },
   { dateStr: "11月13日（金）", date: "11月13日（金）", title: "まち協常任理事会・区長会", dateVal: "2026-11-13", startDate: "2026-11-13" },
   { dateStr: "11月29日（日）", date: "11月29日（日）", title: "和田岡地区「和会」", dateVal: "2026-11-29", startDate: "2026-11-29" },
@@ -609,7 +608,6 @@ export function getNextHomeEvent(now: Date): NextEventResult {
     belongings: event.belongings,
     application: event.application,
     rain: event.rain,
-    image: event.image
   };
 }
 

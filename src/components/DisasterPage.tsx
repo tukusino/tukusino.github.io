@@ -371,7 +371,7 @@ export const DisasterPage: React.FC<DisasterPageProps> = ({ onNavigate }) => {
               ].map(tab => (
                 <button
                   key={tab.id}
-                  onClick={() => setHouseholdTab(tab.id as any)}
+                  onClick={() => setHouseholdTab(tab.id as 'basic' | 'home' | 'senior' | 'baby' | 'pet')}
                   style={{
                     padding: '6px 12px',
                     borderRadius: '20px',

@@ -96,34 +96,13 @@ export const EventsPage = ({ onNavigate }: EventsPageProps) => {
                 </span>
               )}
               <span style={{ fontSize: '0.82rem', color: 'var(--primary-dark)', fontWeight: 700 }}>{event.dateStr}</span>
-              {event.time && <span style={{ fontSize: '0.78rem', color: 'var(--text-muted)' }}>({event.time})</span>}
+              {event.time && <span style={{ fontSize: '0.78rem', color: 'var(--text-muted)' }}>｜{event.time}</span>}
+              {event.location && <span style={{ fontSize: '0.78rem', color: 'var(--text-muted)' }}>｜📍 {event.location}</span>}
             </div>
             <h3 style={{ fontSize: '1.05rem', margin: '2px 0 4px', color: 'var(--text)', border: 'none', padding: 0, fontWeight: 700 }}>
               {event.title}
             </h3>
-            {event.location && (
-              <p style={{ margin: 0, fontSize: '0.8rem', color: 'var(--text-muted)' }}>
-                📍 {event.location}
-              </p>
-            )}
           </div>
-
-          {/* 自治会行事の水彩サンプル画像サムネイル */}
-          {event.image && (
-            <img
-              src={`${import.meta.env.BASE_URL}${event.image}`}
-              alt={event.title}
-              style={{
-                width: '72px',
-                height: '54px',
-                borderRadius: '6px',
-                objectFit: 'cover',
-                border: '1px solid var(--border)',
-                flexShrink: 0,
-                cursor: 'default'
-              }}
-            />
-          )}
 
           <span style={{ color: 'var(--text-muted)', fontSize: '0.9rem', transition: 'transform 0.2s', transform: isExpanded ? 'rotate(180deg)' : 'rotate(0deg)' }}>
             ▼
@@ -143,23 +122,6 @@ export const EventsPage = ({ onNavigate }: EventsPageProps) => {
               color: 'var(--text)'
             }}
           >
-            {event.image && (
-              <div style={{ marginBottom: '12px', textAlign: 'center' }}>
-                <img
-                  src={`${import.meta.env.BASE_URL}${event.image}`}
-                  alt={event.title}
-                  style={{
-                    maxWidth: '100%',
-                    maxHeight: '350px',
-                    borderRadius: '8px',
-                    border: '1px solid var(--border)',
-                    boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
-                    cursor: 'default'
-                  }}
-                />
-              </div>
-            )}
-            {event.location && <p style={{ margin: '0 0 4px 0' }}>📍 <strong>会場:</strong> {event.location}</p>}
             {event.target && <p style={{ margin: '0 0 4px 0' }}>👥 <strong>対象:</strong> {event.target}</p>}
             {event.fee && <p style={{ margin: '0 0 4px 0' }}>💰 <strong>参加費:</strong> {event.fee}</p>}
             {event.belongings && <p style={{ margin: '0 0 4px 0' }}>🎒 <strong>持ち物:</strong> {event.belongings}</p>}
@@ -206,41 +168,16 @@ export const EventsPage = ({ onNavigate }: EventsPageProps) => {
             </span>
           </div>
 
-          {/* 添付ポスター画像 ＋ 行事タイトル */}
+          {/* 行事タイトルと開催情報 */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', alignItems: 'center' }}>
             <h2 style={{ color: 'var(--white)', border: 'none', padding: 0, margin: 0, fontSize: '1.5rem', fontFamily: 'var(--font-sans)', fontWeight: 800, textAlign: 'center' }}>
               {nextEvent.title}
             </h2>
 
-            {/* 和田岡地区「2026 納涼祭」にのみ2026納涼祭.pngを動的表示 */}
-            {nextEvent.image && (
-              <div style={{ width: '100%', maxWidth: '320px', margin: '4px 0', textAlign: 'center' }}>
-                <img
-                  src={`${import.meta.env.BASE_URL}${nextEvent.image}`}
-                  alt={`${nextEvent.title} ポスター`}
-                  style={{
-                    width: '100%',
-                    borderRadius: '10px',
-                    boxShadow: '0 6px 16px rgba(0,0,0,0.35)',
-                    border: '2px solid rgba(255,255,255,0.3)',
-                    display: 'block',
-                    cursor: 'default'
-                  }}
-                />
-                <span style={{ fontSize: '0.76rem', color: 'rgba(255,255,255,0.85)', display: 'block', marginTop: '4px' }}>
-                </span>
-              </div>
-            )}
-
             <div style={{ width: '100%', background: 'rgba(255,255,255,0.12)', padding: '12px', borderRadius: '8px', fontSize: '0.88rem', lineHeight: 1.6 }}>
               <p style={{ margin: '0 0 4px 0', color: '#fff', fontWeight: 700 }}>
-                📅 <strong>日時:</strong> {nextEvent.date} {nextEvent.time ? `${nextEvent.time}` : ''}
+                📅 <strong>日時・会場:</strong> {nextEvent.date}{nextEvent.time ? `｜${nextEvent.time}` : ''}{nextEvent.location ? `｜📍 ${nextEvent.location}` : ''}
               </p>
-              {nextEvent.location && (
-                <p style={{ margin: '0 0 4px 0', color: '#fff', fontWeight: 700 }}>
-                  📍 <strong>会場:</strong> {nextEvent.location}
-                </p>
-              )}
               {nextEvent.target && (
                 <p style={{ margin: 0, color: 'rgba(255,255,255,0.92)' }}>
                   👥 <strong>対象:</strong> {nextEvent.target}
@@ -465,26 +402,6 @@ export const EventsPage = ({ onNavigate }: EventsPageProps) => {
                 <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--primary-dark)', margin: '0 0 10px 0' }}>
                   2026 和田岡地区 納涼祭
                 </h3>
-
-                {/* ユーザー添付ポスター画像ダイレクト全幅表示 */}
-                <div style={{ width: '100%', textAlign: 'center', marginBottom: '10px' }}>
-                  <img
-                    src={`${import.meta.env.BASE_URL}icons/nouryousai_poster.jpg`}
-                    alt="8/9 納涼祭 公式チラシ・ポスター"
-                    style={{
-                      width: '100%',
-                      maxWidth: '360px',
-                      borderRadius: '8px',
-                      boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
-                      border: '1px solid var(--border)',
-                      display: 'block',
-                      margin: '0 auto',
-                      cursor: 'default'
-                    }}
-                  />
-                  <span style={{ fontSize: '0.78rem', color: 'var(--text-muted)', display: 'block', marginTop: '4px' }}>
-                  </span>
-                </div>
 
                 <div style={{ fontSize: '0.88rem', lineHeight: 1.5, color: 'var(--text)' }}>
                   <p style={{ margin: '0 0 4px 0' }}>📍 <strong>会場:</strong> 和田岡小学校 体育館・グラウンド</p>

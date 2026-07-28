@@ -44,9 +44,6 @@ export const Home = ({ onNavigate }: HomeProps) => {
         <div className="hero-copy">
           <span className="hero-kicker">TSUKUSHINO COMMUNITY</span>
           <h1 id="home-heading">暮らしをわかりやすく、<br />身近に。</h1>
-          <p>
-            暮らしに必要な情報を、わかりやすくお届けします。
-          </p>
           <div className="hero-actions">
             <button className="primary-button" onClick={() => onNavigate('notices')}>最新のお知らせ</button>
             <button className="text-button" onClick={() => onNavigate('about')}>自治会について <span aria-hidden="true">→</span></button>
@@ -167,7 +164,7 @@ export const Home = ({ onNavigate }: HomeProps) => {
 
       <aside className="sample-note">
         <span aria-hidden="true">※</span>
-        <p>掲載中の一部情報は、構成確認用のサンプルです。</p>
+        <p>「回覧板・配布物」ページの一部資料は、構成確認用のサンプル（仮）です。</p>
       </aside>
     </div>
   );

@@ -1,3 +1,5 @@
+import { useCallback, useEffect, useRef } from 'react';
+
 interface ContactModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -8,16 +10,74 @@ const CONTACT_FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSfYD9P_6WIpnI
 const CONTACT_MAIL_URL = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent('つくし野区自治会へのお問い合わせ')}`;
 
 export const ContactModal = ({ isOpen, onClose }: ContactModalProps) => {
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
+  const previouslyFocusedRef = useRef<HTMLElement | null>(null);
+
+  useEffect(() => {
+    if (!isOpen) previouslyFocusedRef.current?.focus();
+  }, [isOpen]);
+
+  const closeModal = useCallback(() => {
+    previouslyFocusedRef.current?.focus();
+    onClose();
+  }, [onClose]);
+
+  useEffect(() => {
+    if (!isOpen) return;
+
+    previouslyFocusedRef.current = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    closeButtonRef.current?.focus();
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        event.preventDefault();
+        closeModal();
+        return;
+      }
+      if (event.key !== 'Tab') return;
+
+      const dialog = closeButtonRef.current?.closest('[role="dialog"]');
+      if (!dialog) return;
+      const focusable = Array.from(dialog.querySelectorAll<HTMLElement>(
+        'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
+      ));
+      if (focusable.length === 0) return;
+
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [isOpen, closeModal]);
+
   if (!isOpen) return null;
 
   return (
-    <div className="contact-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="contact-modal-title">
-      <div className="contact-modal">
+    <div
+      className="contact-modal-overlay"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="contact-modal-title"
+      onMouseDown={(event) => {
+        if (event.target === event.currentTarget) closeModal();
+      }}
+    >
+      <div className="contact-modal" onMouseDown={(event) => event.stopPropagation()}>
         <div className="contact-modal-header">
           <h2 id="contact-modal-title" className="contact-modal-title">
             <span aria-hidden="true">✉️</span> お問い合わせ・ご意見窓口
           </h2>
-          <button type="button" onClick={onClose} className="contact-modal-close" aria-label="お問い合わせ画面を閉じる">✕</button>
+          <button ref={closeButtonRef} type="button" onClick={closeModal} className="contact-modal-close" aria-label="お問い合わせ画面を閉じる">✕</button>
         </div>
 
         <p className="contact-modal-intro">
@@ -36,7 +96,7 @@ export const ContactModal = ({ isOpen, onClose }: ContactModalProps) => {
           <a className="contact-modal-option" href={CONTACT_MAIL_URL}>
             <span className="contact-modal-option-icon" aria-hidden="true">✉️</span>
             <span>
-              <strong>メールでお問い合わせ</strong>
+              <strong>フォームが使えない場合（メール）</strong>
               <small>{CONTACT_EMAIL}</small>
             </span>
             <span aria-hidden="true">→</span>
@@ -44,7 +104,7 @@ export const ContactModal = ({ isOpen, onClose }: ContactModalProps) => {
         </div>
 
         <div className="contact-modal-actions">
-          <button type="button" onClick={onClose} className="contact-modal-button contact-modal-button-secondary">閉じる</button>
+          <button type="button" onClick={closeModal} className="contact-modal-button contact-modal-button-secondary">閉じる</button>
         </div>
       </div>
     </div>

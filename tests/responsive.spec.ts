@@ -116,4 +116,35 @@ test.describe('つくし野区自治会サイト スマホ対応検証テスト'
     await expect(mapLink).toHaveAttribute('href', /kakegawa/);
     await expect(mapLink).toHaveAttribute('target', '_blank');
   });
+
+  test('問い合わせモーダルがキーボード操作と背景クリックで閉じられること', async ({ page, browserName }) => {
+    const openButton = page.getByRole('button', { name: /ご意見・お問い合わせ/ });
+    await openButton.focus();
+    await openButton.click();
+
+    const dialog = page.getByRole('dialog', { name: /お問い合わせ・ご意見窓口/ });
+    await expect(dialog).toBeVisible();
+    await expect(page.getByRole('button', { name: 'お問い合わせ画面を閉じる' })).toBeFocused();
+
+    await page.keyboard.press('Escape');
+    await expect(dialog).toBeHidden();
+    // WebKitのモバイルエミュレーションは、タップ後のフォーカス保持を行わないためChromiumで確認する。
+    if (browserName === 'chromium') await expect(openButton).toBeFocused();
+
+    await openButton.focus();
+    await openButton.click();
+    await page.locator('.contact-modal-overlay').click({ position: { x: 2, y: 2 } });
+    await expect(dialog).toBeHidden();
+  });
+
+  test('ホーム画面からPWAマニフェストを参照できること', async ({ page }) => {
+    const manifestLink = page.locator('link[rel="manifest"]');
+    await expect(manifestLink).toHaveAttribute('href', /manifest\.webmanifest/);
+    const manifestResponse = await page.request.get('/manifest.webmanifest');
+    expect(manifestResponse.ok()).toBe(true);
+    expect(await manifestResponse.json()).toMatchObject({
+      short_name: 'つくし野区',
+      display: 'standalone',
+    });
+  });
 });

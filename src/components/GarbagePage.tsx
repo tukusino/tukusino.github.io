@@ -5,11 +5,13 @@ interface GarbagePageProps {
   onNavigate: (page: string) => void;
 }
 
+type GarbageCategory = 'burnable' | 'plastic' | 'recycle' | 'nonburnable';
+
 export const GarbagePage = ({ onNavigate }: GarbagePageProps) => {
   const now = new Date();
 
   // 種類別の出し方タップ切替 (デフォルト: 燃えるごみ 'burnable')
-  const [activeCategoryTab, setActiveCategoryTab] = useState<'burnable' | 'plastic' | 'recycle' | 'nonburnable'>('burnable');
+  const [activeCategoryTab, setActiveCategoryTab] = useState<GarbageCategory>('burnable');
 
   // ゴミ分別検索ステート
   const [searchQuery, setSearchQuery] = useState('');
@@ -17,6 +19,10 @@ export const GarbagePage = ({ onNavigate }: GarbagePageProps) => {
 
   const nextGarbage = garbageData.getNextGarbageDay(now);
   const yearGarbageMonths = garbageData.yearGarbageMonths;
+  const currentAnnualMonth = yearGarbageMonths.findIndex(
+    (month) => month.year === now.getFullYear() && month.month === now.getMonth(),
+  );
+  const [expandedAnnualMonth, setExpandedAnnualMonth] = useState(currentAnnualMonth >= 0 ? currentAnnualMonth : 0);
   const upcomingItems = garbageData.getUpcomingGarbageDays(now, 6);
   const isPlasticsChanged = now >= new Date(2026, 9, 1);
 
@@ -232,7 +238,7 @@ export const GarbagePage = ({ onNavigate }: GarbagePageProps) => {
             return (
               <button
                 key={tab.id}
-                onClick={() => setActiveCategoryTab(tab.id as any)}
+                onClick={() => setActiveCategoryTab(tab.id as GarbageCategory)}
                 style={{
                   padding: '10px 6px',
                   borderRadius: '8px',
@@ -311,12 +317,22 @@ export const GarbagePage = ({ onNavigate }: GarbagePageProps) => {
             const burnableDays = garbageData.getRegularCollectionDays(monthData.year, monthData.month, [2, 5]);
             const plasticDays  = garbageData.getRegularCollectionDays(monthData.year, monthData.month, [3]);
             return (
-              <div key={idx} className="annual-garbage-month">
-                <strong>{monthData.label}</strong>
-                <span className="annual-garbage-type annual-garbage-burnable">燃える {burnableDays}</span>
-                <span className="annual-garbage-type annual-garbage-plastic">プラ {plasticDays}</span>
-                <span className="annual-garbage-type annual-garbage-recycle">資源 {monthData.recycle}日</span>
-                <span className="annual-garbage-type annual-garbage-nonburnable">不燃 {monthData.nonburnable}日</span>
+              <div key={idx} className={`annual-garbage-month${expandedAnnualMonth === idx ? ' is-expanded' : ''}`}>
+                <button
+                  type="button"
+                  className="annual-garbage-month-toggle"
+                  aria-expanded={expandedAnnualMonth === idx}
+                  onClick={() => setExpandedAnnualMonth((current) => current === idx ? -1 : idx)}
+                >
+                  <strong>{monthData.label}</strong>
+                  <span aria-hidden="true">{expandedAnnualMonth === idx ? '−' : '＋'}</span>
+                </button>
+                <div className="annual-garbage-month-details">
+                  <span className="annual-garbage-type annual-garbage-burnable">燃える {burnableDays}</span>
+                  <span className="annual-garbage-type annual-garbage-plastic">プラ {plasticDays}</span>
+                  <span className="annual-garbage-type annual-garbage-recycle">資源 {monthData.recycle}日</span>
+                  <span className="annual-garbage-type annual-garbage-nonburnable">不燃 {monthData.nonburnable}日</span>
+                </div>
               </div>
             );
           })}

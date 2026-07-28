@@ -327,7 +327,7 @@ main {
 
 .editorial-hero {
   display: grid;
-  grid-template-columns: minmax(0, 0.72fr) minmax(0, 1.28fr);
+  grid-template-columns: minmax(0, 0.86fr) minmax(0, 1.14fr);
   height: 450px;
   min-height: 0;
   overflow: hidden;
@@ -348,10 +348,10 @@ main {
 .hero-copy::before {
   content: "";
   position: absolute;
-  top: 0;
+  top: 24px;
   left: 42px;
-  width: 1px;
-  height: 60px;
+  width: 72px;
+  height: 1px;
   background: var(--gold);
 }
 
@@ -1686,6 +1686,26 @@ main {
   font-family: var(--font-serif);
   font-size: 0.9375rem;
 }
+.annual-garbage-month-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+.annual-garbage-month-toggle > span {
+  display: none;
+  color: var(--primary);
+  font-size: 1rem;
+  line-height: 1;
+}
+.annual-garbage-month-details { display: grid; gap: 3px; }
 .annual-garbage-month span { overflow-wrap: anywhere; }
 .annual-garbage-type {
   display: block;
@@ -1769,6 +1789,9 @@ main {
   .regional-improvement-item p { font-size: 0.8125rem; }
   .annual-garbage-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px; }
   .annual-garbage-month { padding: 8px; font-size: 0.75rem; }
+  .annual-garbage-month-toggle > span { display: inline; }
+  .annual-garbage-month-details { display: none; }
+  .annual-garbage-month.is-expanded .annual-garbage-month-details { display: grid; margin-top: 5px; }
   .disaster-official-links { grid-template-columns: 1fr; }
   .disaster-tips-grid { grid-template-columns: 1fr; }
 }
@@ -1907,6 +1930,12 @@ main {
   to { opacity: 1; translate: 0; }
 }
 
+@keyframes bottomNavIconSelect {
+  0% { transform: scale(1); }
+  60% { transform: scale(1.4); }
+  100% { transform: scale(1.4); }
+}
+
 @media (max-width: 980px) {
   .primary-nav {
     display: none;
@@ -2007,7 +2036,7 @@ main {
   }
 
   .brand-mark {
-    width: 42px;
+    width: 64px;
     height: 42px;
     flex-basis: 42px;
   }
@@ -2055,8 +2084,10 @@ main {
   }
 
   .hero-copy::before {
-    left: 25px;
-    height: 38px;
+    top: 16px;
+    left: 20px;
+    width: 42px;
+    height: 1px;
   }
 
   .hero-copy h1 {
@@ -2236,7 +2267,8 @@ main {
     border-radius: 0;
     background: transparent;
     color: var(--text-muted);
-    font-size: 0.64rem;
+    /* 下部ナビは高齢者にも読めるよう、約13pxを確保 */
+    font-size: 0.8rem;
     font-weight: 800;
     cursor: pointer;
   }
@@ -2260,6 +2292,18 @@ main {
     background: var(--accent);
   }
 
+  .bottom-nav-btn.active img {
+    transform: scale(1.4);
+    animation: bottomNavIconSelect 260ms var(--ease) both;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .bottom-nav-btn.active img {
+      animation: none;
+      transform: scale(1.4);
+    }
+  }
+
   .bottom-nav-btn.active::after {
     display: none;
   }
@@ -2273,7 +2317,6 @@ main {
   }
 
   .bottom-nav-btn.active img {
-    transform: none;
     filter: saturate(1);
   }
 }
