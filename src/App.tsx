@@ -13,19 +13,27 @@ import { FaqPage } from './components/FaqPage';
 import { CircularPage } from './components/CircularPage';
 import { ReportPage } from './components/ReportPage';
 import { HomeMenuPage } from './components/HomeMenuPage';
+import { FestivalPage } from './components/FestivalPage';
+import { FestivalOrganizationPage } from './components/FestivalOrganizationPage';
 import { ContactModal } from './components/ContactModal';
 import { CURRENT_YEAR, LAST_UPDATED as DEFAULT_LAST_UPDATED } from './config';
+import { fetchGSSData, type GSSDataResponse } from './services/gssService';
 
 const LAST_UPDATED = typeof __BUILD_DATE__ !== 'undefined' ? __BUILD_DATE__ : DEFAULT_LAST_UPDATED;
 
 type ViewType =
-  | 'home' | 'notices' | 'duty' | 'events'
+  | 'home' | 'notices' | 'duty' | 'events' | 'festival' | 'festival_organization'
   | 'about' | 'roles' | 'rules'
   | 'join' | 'disaster' | 'facility' | 'organization'
   | 'links' | 'menu' | 'faq' | 'circular' | 'reports';
 
+interface RouteState {
+  view: ViewType;
+  noticeId?: string;
+}
+
 const VALID_VIEWS: ViewType[] = [
-  'home', 'notices', 'duty', 'events',
+  'home', 'notices', 'duty', 'events', 'festival', 'festival_organization',
   'about', 'roles', 'rules',
   'join', 'disaster', 'facility', 'organization',
   'links', 'menu', 'faq', 'circular', 'reports',
@@ -37,6 +45,8 @@ const VIEW_TITLES: Record<ViewType, string> = {
   reports: '活動レポート・資料｜つくし野区自治会',
   duty: 'ゴミの日｜つくし野区自治会',
   events: '行事予定｜つくし野区自治会',
+  festival: 'つくし野区祭典｜つくし野区自治会',
+  festival_organization: '祭典の組織・準備｜つくし野区自治会',
   about: '自治会概要｜つくし野区自治会',
   roles: '役員・組織｜つくし野区自治会',
   rules: '規約｜つくし野区自治会',
@@ -55,25 +65,39 @@ const GUIDE_VIEWS: ViewType[] = [
   'facility', 'organization', 'links', 'faq', 'circular', 'menu',
 ];
 
-function getViewFromUrl(): ViewType {
-  const value = new URLSearchParams(window.location.search).get('view') as ViewType;
-  return VALID_VIEWS.includes(value) ? value : 'home';
+function getRouteFromUrl(): RouteState {
+  const params = new URLSearchParams(window.location.search);
+  const value = params.get('view') as ViewType;
+  const view = VALID_VIEWS.includes(value) ? value : 'home';
+  return view === 'notices' ? { view, noticeId: params.get('notice') ?? undefined } : { view };
 }
 
 export default function App() {
-  const [view, setView] = useState<ViewType>(getViewFromUrl);
+  const [route, setRoute] = useState<RouteState>(getRouteFromUrl);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [contactModalOpen, setContactModalOpen] = useState(false);
+  const [remoteData, setRemoteData] = useState<GSSDataResponse | null>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const view = route.view;
 
   useEffect(() => {
     document.title = VIEW_TITLES[view];
   }, [view]);
 
   useEffect(() => {
-    const handlePopState = () => setView(getViewFromUrl());
+    const handlePopState = () => setRoute(getRouteFromUrl());
     window.addEventListener('popstate', handlePopState);
     return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
+
+  useEffect(() => {
+    let isCurrent = true;
+    fetchGSSData().then((data) => {
+      if (isCurrent) setRemoteData(data);
+    });
+    return () => {
+      isCurrent = false;
+    };
   }, []);
 
   useEffect(() => {
@@ -102,7 +126,7 @@ export default function App() {
   function navigate(nextView: ViewType | string) {
     const noticeMatch = typeof nextView === 'string' ? nextView.match(/^notice:(.+)$/) : null;
     const target = noticeMatch ? 'notices' : (nextView === 'home_menu' ? 'menu' : nextView as ViewType);
-    setView(target);
+    setRoute({ view: target, noticeId: noticeMatch?.[1] });
     setDropdownOpen(false);
 
     const url = new URL(window.location.href);
@@ -124,10 +148,12 @@ export default function App() {
 
   function renderPage() {
     switch (view) {
-      case 'home': return <Home onNavigate={navigate} />;
+      case 'home': return <Home onNavigate={navigate} notices={remoteData?.notices} events={remoteData?.events} />;
       case 'duty': return <GarbagePage onNavigate={navigate} />;
-      case 'events': return <EventsPage onNavigate={navigate} />;
-      case 'notices': return <NoticesPage onNavigate={navigate} />;
+      case 'events': return <EventsPage onNavigate={navigate} events={remoteData?.events} />;
+      case 'festival': return <FestivalPage onNavigate={navigate} />;
+      case 'festival_organization': return <FestivalOrganizationPage onNavigate={navigate} />;
+      case 'notices': return <NoticesPage onNavigate={navigate} notices={remoteData?.notices} selectedNoticeId={route.noticeId} />;
       case 'about':
       case 'roles':
       case 'rules': return <InfoPages page={view} onNavigate={navigate} />;
@@ -141,7 +167,7 @@ export default function App() {
       case 'menu':
         return <HomeMenuPage onNavigate={navigate} onOpenContact={() => setContactModalOpen(true)} />;
       case 'reports': return <ReportPage onNavigate={navigate} />;
-      default: return <Home onNavigate={navigate} />;
+      default: return <Home onNavigate={navigate} notices={remoteData?.notices} events={remoteData?.events} />;
     }
   }
 
@@ -177,7 +203,7 @@ export default function App() {
             <button className={view === 'home' ? 'active' : ''} onClick={() => navigate('home')} aria-current={view === 'home' ? 'page' : undefined}>ホーム</button>
             <button className={view === 'notices' ? 'active' : ''} onClick={() => navigate('notices')} aria-current={view === 'notices' ? 'page' : undefined}>お知らせ</button>
             <button className={view === 'duty' ? 'active' : ''} onClick={() => navigate('duty')} aria-current={view === 'duty' ? 'page' : undefined}>ゴミの日</button>
-            <button className={view === 'events' ? 'active' : ''} onClick={() => navigate('events')} aria-current={view === 'events' ? 'page' : undefined}>行事予定</button>
+            <button className={view === 'events' || view === 'festival' || view === 'festival_organization' ? 'active' : ''} onClick={() => navigate('events')} aria-current={view === 'events' || view === 'festival' || view === 'festival_organization' ? 'page' : undefined}>行事予定</button>
             <button className={view === 'disaster' ? 'active' : ''} onClick={() => navigate('disaster')} aria-current={view === 'disaster' ? 'page' : undefined}>防災・安全</button>
 
             <div className="nav-guide" ref={dropdownRef}>

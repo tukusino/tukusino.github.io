@@ -189,6 +189,7 @@ export interface GarbageSearchItem {
   category: string;
   schedule: string;
   note: string;
+  availableFrom?: string;
 }
 
 export const garbageSearchMaster: GarbageSearchItem[] = [
@@ -208,7 +209,7 @@ export const garbageSearchMaster: GarbageSearchItem[] = [
   { name: 'レジ袋・お菓子袋・冷凍食品の袋', category: 'プラスチック', schedule: '毎週水曜日', note: 'プラマークのついたプラスチックフィルム・袋類' },
   { name: 'ペットボトルのキャップ・ラベル', category: 'プラスチック', schedule: '毎週水曜日', note: 'ペットボトル本体と分別して出してください' },
   { name: 'シャンプー・洗剤容器・チューブ類', category: 'プラスチック', schedule: '毎週水曜日', note: '水洗いして中身を空にして出してください' },
-  { name: 'プラスチック製バケツ・ハンガー・洗面器', category: 'プラスチック', schedule: '毎週水曜日', note: '100%プラスチック素材の生活用品全般' },
+  { name: 'プラスチック製バケツ・ハンガー・洗面器', category: 'プラスチック', schedule: '毎週水曜日', note: '100%プラスチック素材の生活用品全般', availableFrom: '2026-10-01' },
 
   // 資源ごみ（びん・かん・ペットボトル・食用油）
   { name: 'アルミ缶・スチール缶（飲料・缶詰）', category: '資源ごみ（びん・かん・ペットボトル）', schedule: '毎月第3水曜日', note: '中を洗って潰さずに出してください' },

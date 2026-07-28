@@ -557,14 +557,18 @@ export const organizationMonths: MonthlyOrgActivity[] = [
   }
 ];
 
-export function getNextHomeEvent(now: Date): NextEventResult {
+export function getNextHomeEvent(
+  now: Date,
+  primaryEvents: SimpleEvent[] = tsukushinoEvents,
+  secondaryEvents: SimpleEvent[] = wadaokaEvents,
+): NextEventResult {
   const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
   
   // 今日の17時を閾値とする
   const cutoffTime = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 17, 0, 0);
 
   // 地区をまたいで開催日の近い順に並べ、直近の行事を選ぶ
-  const event = [...tsukushinoEvents, ...wadaokaEvents]
+  const event = [...primaryEvents, ...secondaryEvents]
     .filter(item => {
       const endStr = item.endDate || item.startDate || item.dateVal;
       if (!endStr) return false;

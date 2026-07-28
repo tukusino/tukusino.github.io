@@ -1,32 +1,33 @@
-# React + TypeScript + Vite
+# つくし野区自治会サイト
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+つくし野区自治会の住民向けWebサイトです。ごみの日、行事予定、お知らせ、防災情報を、スマートフォンでも読みやすく案内します。
 
-Currently, two official plugins are available:
+## 普段の確認
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
-
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the Oxlint configuration
-
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
-
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
+```powershell
+npm.cmd run dev
 ```
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+ブラウザで `http://127.0.0.1:5173/` を開きます。
+
+## 公開前の確認
+
+```powershell
+npm.cmd run lint
+npm.cmd run test:e2e
+npm.cmd run build
+```
+
+`build` は型チェックを含みます。スマートフォン表示の確認は、iPhone SE・iPhone 12・Pixel 5相当のE2Eテストで行います。
+
+## お知らせ・行事の更新
+
+通常は Google スプレッドシートとApps Scriptを使用します。設定方法は [docs/google_sheets_setup.md](docs/google_sheets_setup.md) を確認してください。
+
+Apps ScriptのURLは `.env.local` の `VITE_GAS_API_URL` にだけ保存します。未設定・通信失敗時には、サイトに同梱された確認用データを表示します。
+
+## 公開方法
+
+公開はGitHub Actionsで行います。`main`へ反映された内容が、検証後にGitHub Pagesへ公開されます。
+
+ローカルの`dist`を直接公開したり、強制pushしたりしないでください。公開前には、Gitの状態と`origin/main`との差分を必ず確認します。

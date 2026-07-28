@@ -40,6 +40,11 @@ export const GarbagePage = ({ onNavigate }: GarbagePageProps) => {
     return match ? `${match.dateStr}（${match.weekday.substring(0, 1)}）` : '近日中';
   };
 
+  const getAvailableFromLabel = (availableFrom: string) => {
+    const [year, month, day] = availableFrom.split('-').map(Number);
+    return `${year}年${month}月${day}日から開始`;
+  };
+
   return (
     <div className="page-container">
       {/* ─── ページヘッダー (水彩アイコン付き) ─── */}
@@ -152,7 +157,9 @@ export const GarbagePage = ({ onNavigate }: GarbagePageProps) => {
 
         {searchResults.length > 0 ? (
           <div style={{ marginTop: '14px', display: 'flex', flexDirection: 'column', gap: '10px' }}>
-            {searchResults.map((item, i) => (
+            {searchResults.map((item, i) => {
+              const isAvailable = !item.availableFrom || now >= new Date(`${item.availableFrom}T00:00:00`);
+              return (
               <div key={i} style={{ background: 'var(--card-bg)', border: '1px solid var(--border)', borderRadius: '8px', padding: '12px 14px' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px', gap: '8px' }}>
                   <strong style={{ fontSize: '1rem', color: 'var(--text)' }}>{item.name}</strong>
@@ -161,11 +168,16 @@ export const GarbagePage = ({ onNavigate }: GarbagePageProps) => {
                   </span>
                 </div>
                 <div style={{ fontSize: '0.88rem', color: 'var(--text-muted)', lineHeight: 1.5 }}>
-                  📅 <strong>次回収集日目安:</strong> {getCategoryNextDate(item.category)} <br />
+                  {isAvailable ? (
+                    <>📅 <strong>次回収集日目安:</strong> {getCategoryNextDate(item.category)} <br /></>
+                  ) : (
+                    <><strong style={{ color: 'var(--accent-dark)' }}>📌 回収開始:</strong> {getAvailableFromLabel(item.availableFrom!)} <br /></>
+                  )}
                   💡 <strong>出し方の注意:</strong> {item.note}
                 </div>
               </div>
-            ))}
+              );
+            })}
           </div>
         ) : searchQuery.trim() !== '' ? (
           <div style={{ marginTop: '12px', padding: '14px', background: 'var(--bg)', borderRadius: '8px', color: 'var(--text-muted)', fontSize: '0.9rem', lineHeight: 1.5 }}>

@@ -10,6 +10,10 @@ export interface NoticeItem {
   startDate: Date;      // 公開開始日時
   endDate: Date;        // 公開終了日時
   image?: string;       // チラシ・ポスター画像パス
+  /** 正式掲載前の情報だけに付ける。通常の正式情報には指定しない。 */
+  status?: 'sample' | 'preparing';
+  /** ホーム最上部に表示する場合だけ明示的に指定する。 */
+  priority?: 'urgent' | 'normal';
 }
 
 // 令和8年度（2026年）の自治会活動に即した正確なお知らせデータ
@@ -92,8 +96,8 @@ export const noticeList: NoticeItem[] = defaultNotices;
 /**
  * 現在日時において「公開期間中」のお知らせを取得する
  */
-export function getActiveNotices(now: Date): NoticeItem[] {
-  return noticeList
+export function getActiveNotices(now: Date, source: NoticeItem[] = noticeList): NoticeItem[] {
+  return source
     .filter(item => now >= item.startDate && now <= item.endDate)
     .sort((a, b) => b.startDate.getTime() - a.startDate.getTime()); // 新しい順（降順）にソート
 }
@@ -101,6 +105,11 @@ export function getActiveNotices(now: Date): NoticeItem[] {
 /**
  * HOME画面表示用（公開中の最新3件）を取得する
  */
-export function getHomeNotices(now: Date, limit: number = 3): NoticeItem[] {
-  return getActiveNotices(now).slice(0, limit);
+export function getHomeNotices(now: Date, limit: number = 3, source: NoticeItem[] = noticeList): NoticeItem[] {
+  return getActiveNotices(now, source).slice(0, limit);
+}
+
+/** 役員が明示的に緊急指定した情報だけを、ホーム最上部へ表示します。 */
+export function getUrgentNotices(now: Date, source: NoticeItem[] = noticeList): NoticeItem[] {
+  return getActiveNotices(now, source).filter((notice) => notice.priority === 'urgent');
 }

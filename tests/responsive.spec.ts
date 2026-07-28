@@ -51,7 +51,9 @@ test.describe('つくし野区自治会サイト スマホ対応検証テスト'
     }
     
     // メニュー内のリンクをクリック
-    await page.click('text=加入案内');
+    const joinGuide = page.getByRole('button', { name: '自治会への加入案内・変更' });
+    await expect(joinGuide).toBeVisible();
+    await joinGuide.click();
     await expect(page).toHaveTitle(/加入案内/);
     await checkNoHorizontalScroll(page);
     
@@ -64,7 +66,7 @@ test.describe('つくし野区自治会サイト スマホ対応検証テスト'
   });
 
   test('EventsPage (行事予定) 各種団体アコーディオンが動作し、NaNバグが発生しないこと', async ({ page }) => {
-    await page.click('button:has-text("次の行事予定")');
+    await page.locator('.rail-event').click();
     await expect(page).toHaveTitle(/行事予定/);
 
     // 各種団体タブをクリック
@@ -146,5 +148,24 @@ test.describe('つくし野区自治会サイト スマホ対応検証テスト'
       short_name: 'つくし野区',
       display: 'standalone',
     });
+
+    const serviceWorkerResponse = await page.request.get('/sw.js');
+    expect(serviceWorkerResponse.ok()).toBe(true);
+  });
+
+  test('お知らせ詳細から一覧へ戻れること', async ({ page }) => {
+    await page.locator('.news-row').first().click();
+    await expect(page).toHaveURL(/notice=/);
+    await page.getByRole('button', { name: 'お知らせ一覧へ戻る' }).click();
+    await expect(page).not.toHaveURL(/notice=/);
+    await expect(page.locator('.news-row')).toHaveCount(0);
+    await expect(page.getByRole('heading', { name: /納涼祭/ })).toHaveCount(1);
+  });
+
+  test('製品プラスチックは回収開始日前に開始日を表示すること', async ({ page }) => {
+    await page.getByRole('button', { name: /ゴミ/ }).first().click();
+    const search = page.getByPlaceholder(/品名を入力/);
+    await search.fill('バケツ');
+    await expect(page.getByText('2026年10月1日から開始')).toBeVisible();
   });
 });

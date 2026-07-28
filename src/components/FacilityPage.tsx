@@ -24,6 +24,7 @@ export const FacilityPage: React.FC<FacilityPageProps> = ({ onNavigate }) => {
         {/* 公会堂写真 */}
         <div style={{ width: '100%', maxWidth: '480px', margin: '0 auto 16px', overflow: 'hidden', borderRadius: '8px', boxShadow: 'var(--shadow-sm)' }}>
           <img
+            loading="lazy"
             src={`${import.meta.env.BASE_URL}hall.jpg`}
             alt="つくし野区公会堂 外観"
             style={{ width: '100%', height: 'auto', display: 'block', objectFit: 'cover' }}
@@ -54,6 +55,7 @@ export const FacilityPage: React.FC<FacilityPageProps> = ({ onNavigate }) => {
           style={{ width: '100%', maxWidth: '520px', margin: '0 auto 14px', overflow: 'hidden', borderRadius: '8px', boxShadow: 'var(--shadow-sm)' }}
         >
           <img
+            loading="lazy"
             src={`${import.meta.env.BASE_URL}icons/facility_park.png`}
             alt="つくしの公園"
             style={{ width: '100%', height: 'auto', display: 'block', objectFit: 'cover' }}
@@ -82,6 +84,7 @@ export const FacilityPage: React.FC<FacilityPageProps> = ({ onNavigate }) => {
           style={{ width: '100%', maxWidth: '520px', margin: '0 auto 14px', overflow: 'hidden', borderRadius: '8px', boxShadow: 'var(--shadow-sm)' }}
         >
           <img
+            loading="lazy"
             src={`${import.meta.env.BASE_URL}icons/facility_yatai.png`}
             alt="屋台小屋"
             style={{ width: '100%', height: 'auto', display: 'block', objectFit: 'cover' }}
@@ -110,6 +113,7 @@ export const FacilityPage: React.FC<FacilityPageProps> = ({ onNavigate }) => {
           style={{ width: '100%', maxWidth: '520px', margin: '0 auto 14px', overflow: 'hidden', borderRadius: '8px', boxShadow: 'var(--shadow-sm)' }}
         >
           <img
+            loading="lazy"
             src={`${import.meta.env.BASE_URL}icons/facility_garbage.png`}
             alt="ゴミ集積所"
             style={{ width: '100%', height: 'auto', display: 'block', objectFit: 'cover' }}

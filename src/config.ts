@@ -4,4 +4,5 @@ export const CURRENT_YEAR = 2026;
 export const LAST_UPDATED = '2026年7月23日';
 
 // Google スプレッドシート(GAS Web App)のAPI URL
-export const GAS_API_URL: string = '';
+// .env.local の VITE_GAS_API_URL で設定します。未設定時は同梱データを表示します。
+export const GAS_API_URL = import.meta.env.VITE_GAS_API_URL?.trim() ?? '';

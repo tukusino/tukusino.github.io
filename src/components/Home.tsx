@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { getNextGarbageDay } from '../data/garbageData';
-import { getNextHomeEvent } from '../data/eventData';
-import { getHomeNotices, type NoticeItem } from '../data/noticeData';
+import { getNextHomeEvent, type SimpleEvent } from '../data/eventData';
+import { getHomeNotices, getUrgentNotices, type NoticeItem } from '../data/noticeData';
 import { CURRENT_YEAR } from '../config';
 
 type View =
@@ -12,6 +12,8 @@ type View =
 
 interface HomeProps {
   onNavigate: (page: View | string) => void;
+  notices?: NoticeItem[];
+  events?: SimpleEvent[];
 }
 
 const QUICK_LINKS: { icon: string; label: string; note: string; page: View }[] = [
@@ -23,23 +25,45 @@ const QUICK_LINKS: { icon: string; label: string; note: string; page: View }[] =
   { icon: 'icon_about.jpg', label: '自治会概要', note: '役割・活動内容', page: 'about' },
 ];
 
-export const Home = ({ onNavigate }: HomeProps) => {
-  const [garbage, setGarbage] = useState(() => getNextGarbageDay(new Date()));
-  const [event, setEvent] = useState(() => getNextHomeEvent(new Date()));
-  const [notices, setNotices] = useState<NoticeItem[]>(() => getHomeNotices(new Date()));
+export const Home = ({ onNavigate, notices: noticesSource, events }: HomeProps) => {
+  const [now, setNow] = useState(() => new Date());
+  const garbage = getNextGarbageDay(now);
+  const event = getNextHomeEvent(now, events);
+  const notices = getHomeNotices(now, 3, noticesSource);
+  const urgentNotices = getUrgentNotices(now, noticesSource);
 
   useEffect(() => {
     const timer = window.setInterval(() => {
-      const now = new Date();
-      setGarbage(getNextGarbageDay(now));
-      setEvent(getNextHomeEvent(now));
-      setNotices(getHomeNotices(now));
+      setNow(new Date());
     }, 60_000);
     return () => window.clearInterval(timer);
   }, []);
 
   return (
     <div className="home-page">
+      {urgentNotices.length > 0 && (
+        <section className="urgent-notice-banner" aria-labelledby="urgent-notice-heading">
+          <div className="urgent-notice-heading">
+            <span className="urgent-notice-icon" aria-hidden="true">⚠️</span>
+            <div>
+              <span className="urgent-notice-kicker">重要なお知らせ・変更情報</span>
+              <h2 id="urgent-notice-heading">先にご確認ください</h2>
+            </div>
+          </div>
+          <div className="urgent-notice-list">
+            {urgentNotices.slice(0, 2).map((notice) => (
+              <button key={notice.id} type="button" onClick={() => onNavigate(`notice:${notice.id}`)}>
+                <span className="urgent-notice-meta">{notice.publishDate.replaceAll('.', '/')}　{notice.categoryLabel}</span>
+                <strong>{notice.title}</strong>
+                <span aria-hidden="true">→</span>
+              </button>
+            ))}
+          </div>
+          <button className="urgent-notice-more" type="button" onClick={() => onNavigate('notices')}>
+            重要なお知らせをすべて見る →
+          </button>
+        </section>
+      )}
       <section className="editorial-hero" aria-labelledby="home-heading">
         <div className="hero-copy">
           <span className="hero-kicker">TSUKUSHINO COMMUNITY</span>
@@ -103,6 +127,11 @@ export const Home = ({ onNavigate }: HomeProps) => {
               <button key={notice.id} className="news-row" onClick={() => onNavigate(`notice:${notice.id}`)}>
                 <span className="news-date">{notice.publishDate.replaceAll('.', '/')}</span>
                 <span className={`news-category category-${notice.category}`}>{notice.categoryLabel}</span>
+                {notice.status && (
+                  <span className={`notice-status notice-status-${notice.status}`}>
+                    {notice.status === 'sample' ? '確認用' : '準備中'}
+                  </span>
+                )}
                 <strong>{notice.title}</strong>
                 <span className="news-arrow" aria-hidden="true">→</span>
               </button>
@@ -146,7 +175,7 @@ export const Home = ({ onNavigate }: HomeProps) => {
 
       <section className="activity-section" aria-labelledby="activity-heading">
         <div className="activity-photo">
-          <img src={`${import.meta.env.BASE_URL}hall.jpg`} alt="つくし野区公会堂の様子" />
+          <img loading="lazy" src={`${import.meta.env.BASE_URL}hall.jpg`} alt="つくし野区公会堂の様子" />
           <span>COMMUNITY REPORT</span>
         </div>
 

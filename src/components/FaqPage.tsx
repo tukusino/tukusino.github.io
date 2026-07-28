@@ -4,7 +4,7 @@ interface FaqPageProps {
   onNavigate: (page: string) => void;
 }
 
-type FaqCategory = 'all' | 'join_fee' | 'officer_duty' | 'garbage_clean' | 'disaster_safety' | 'event_facility' | 'rules_privacy';
+type FaqCategory = 'all' | 'join_fee' | 'officer_duty' | 'garbage_clean' | 'disaster_safety' | 'event_facility' | 'festival_participation' | 'festival_preparation' | 'rules_privacy';
 
 interface FaqItem {
   q: string;
@@ -27,6 +27,8 @@ export const FaqPage = ({ onNavigate }: FaqPageProps) => {
     { key: 'garbage_clean', label: 'ゴミ・清掃' },
     { key: 'disaster_safety', label: '防災・安全' },
     { key: 'event_facility', label: '行事・施設' },
+    { key: 'festival_participation', label: '祭典・参加' },
+    { key: 'festival_preparation', label: '祭典・準備' },
     { key: 'rules_privacy', label: '規約・個人情報' },
   ];
 
@@ -91,6 +93,30 @@ export const FaqPage = ({ onNavigate }: FaqPageProps) => {
     { category: 'event_facility', q: "夏休みの子ども向け行事（ラジオ体操や見守り活動）は行われていますか？", a: "はい。夏休み期間中、つくしの公園等にてラジオ体操を実施しています。子ども会や育成会と連携して地域の見守りを行っています。" },
     { category: 'event_facility', q: "公会堂の駐車場や敷地を利用する際のルールはありますか？", a: "公会堂敷地内の駐車場は、行事や集会、利用手続きを行ったサークル活動の際に利用できます。長時間の無断駐車や近隣の迷惑になる駐車はご遠慮ください。" },
 
+    // 【祭典・参加】（今年の正式日程が決まるまで確認用の案内）
+    { category: 'festival_participation', q: "つくし野区の祭典には神社がありますか？", a: "つくし野区には神社がありません。そのため、区民が力を合わせてつくり、受け継いできた地域の祭典です。" },
+    { category: 'festival_participation', q: "祭典は誰が参加できますか？", a: "つくし野区の区民みんなで楽しむ行事です。子どもから大人まで、できる範囲でご参加ください。詳しい集合場所や参加方法は、今年の正式案内でお知らせします。" },
+    { category: 'festival_participation', q: "祭典の屋台は誰がつくったのですか？", a: "つくし野区の大工さんがつくった屋台です。区民の手で大切に受け継がれている、祭典のシンボルです。" },
+    { category: 'festival_participation', q: "今年の祭典はいつですか？", a: "現在、今年の詳しい日程は準備中です。決まり次第、このサイトと回覧板でお知らせします。昨年度の準備日程は、祭典の組織・準備ページで参考として掲載しています。" },
+    { category: 'festival_participation', q: "祭典当日に気をつけることはありますか？", a: "屋台の運行中は担当者の案内に従い、小さなお子さまは保護者と一緒に参加してください。詳しい安全上のお願いは、今年の正式案内で改めてお知らせします。" },
+    { category: 'festival_participation', q: "子どもだけで参加してもよいですか？", a: "小さなお子さまは、できるだけ保護者と一緒に参加してください。屋台の近くや道路では、係の案内に従って安全を優先してください。" },
+    { category: 'festival_participation', q: "集合時間・服装・持ち物はどこで分かりますか？", a: "今年の詳しい内容が決まり次第、このサイトと回覧板でお知らせします。昨年度の情報は参考としてご覧ください。" },
+    { category: 'festival_participation', q: "雨天や荒天の場合、祭典はどうなりますか？", a: "雨天・荒天時の実施や変更は、今年の正式案内でお知らせします。天候が心配な場合は、当日の最新のお知らせと回覧板をご確認ください。" },
+    { category: 'festival_participation', q: "祭典の最新情報はどこで確認できますか？", a: "このサイトの祭典ページと、各世帯へ回覧される案内でお知らせします。日程や集合場所が決まるまでは、昨年度の参考日程と混同しないようご注意ください。" },
+    { category: 'festival_participation', q: "当日に参加できなくなった場合はどうすればよいですか？", a: "参加方法や連絡が必要かどうかは、今年の正式案内をご確認ください。無理のない範囲での参加をお願いします。" },
+
+    // 【祭典・準備】（昨年度資料をもとにした参考案内）
+    { category: 'festival_preparation', q: "祭典の準備はいつ頃から始まりますか？", a: "昨年度は8月下旬の祭典総会から準備が始まりました。今年の予定は決まり次第お知らせします。" },
+    { category: 'festival_preparation', q: "祭典総会では何を確認しますか？", a: "祭典に向けた準備の進め方や担当などを確認する場です。当年度の具体的な内容は、正式な案内をご確認ください。" },
+    { category: 'festival_preparation', q: "太鼓や踊りの練習はいつからですか？", a: "昨年度は9月ごろから練習が行われました。今年の練習日や参加方法は、決まり次第お知らせします。" },
+    { category: 'festival_preparation', q: "草刈りはなぜ行うのですか？", a: "祭典を安全に行うための準備の一つです。昨年度は9月上旬から中旬にかけて、予備日を含めて実施されました。" },
+    { category: 'festival_preparation', q: "全区民参加の祭典準備とは何ですか？", a: "祭典日の約1週間前に行う準備です。内容や参加方法は年によって変わるため、今年の案内をご確認ください。" },
+    { category: 'festival_preparation', q: "祭典前日は何をしますか？", a: "昨年度は会所内の準備や飾り付けなどが行われました。今年の詳細は、正式なお知らせで確認してください。" },
+    { category: 'festival_preparation', q: "祭典後の片付けはいつ行いますか？", a: "祭典後に片付けを行う流れです。日時や作業内容は今年の案内でお知らせします。" },
+    { category: 'festival_preparation', q: "祭典にはどのような担当がありますか？", a: "祭典委員会、青年会、中老会、子供係などが役割を分担して支えています。詳しくは「祭典の組織・準備」ページをご覧ください。" },
+    { category: 'festival_preparation', q: "準備や片付けに協力したい場合はどうすればよいですか？", a: "ご都合のよい範囲でご協力をお願いします。担当や作業内容は年によって異なるため、今年の案内をご確認ください。" },
+    { category: 'festival_preparation', q: "昨年度の準備日程は、今年も同じですか？", a: "いいえ。掲載している日程は、準備の流れを知るための参考情報です。今年の予定は、正式に決まり次第お知らせします。" },
+
     // 【規約・個人情報】 (10問)
     { category: 'rules_privacy', q: "自治会に提出した個人名簿（名簿個票など）はどのように管理されていますか？", a: "つくし野区個人情報取扱規程に基づき、提出いただいた名簿情報は、行事・防災時の連絡や名簿、回覧板、区費等の管理、掛川市・和田岡地区関係団体への必要な報告、福祉・防災活動など、規程で定めた自治会活動の目的に限って利用します。訂正・利用停止等をご希望の場合は区長へお申し出ください。" },
     { category: 'rules_privacy', q: "自治会の通常総会の決議は、どのように決定されますか？", a: "規約第28条・第29条に基づき、総会の議決は出席した区民（会員）の過半数の賛成によって決定されます。なお、やむを得ず欠席される場合は、事前に配られる「書面表決書」または「委任状」を提出することで意思表示が可能です。" },
@@ -106,6 +132,11 @@ export const FaqPage = ({ onNavigate }: FaqPageProps) => {
 
   // 選択されたカテゴリでフィルタリング
   const filteredFaqs = faqs.filter(faq => selectedCategory === 'all' || faq.category === selectedCategory);
+  const sectionMeta = selectedCategory === 'festival_participation'
+    ? { title: '祭典への参加に関するQ&A', description: '祭典に参加する際の確認事項をまとめています。今年の日時・集合場所などは、正式なお知らせをご確認ください。' }
+    : selectedCategory === 'festival_preparation'
+      ? { title: '祭典の準備・運営に関するQ&A', description: '昨年度の資料をもとに、準備から片付けまでの流れをまとめています。今年の予定ではありません。' }
+      : { title: '自治会運営・ルールに関するQ&A', description: 'つくし野区自治会の規約、細則、内規、個人情報取扱規程等に基づいたQA集です。タップすると回答が開きます。' };
 
   return (
     <div className="page-container">
@@ -150,13 +181,13 @@ export const FaqPage = ({ onNavigate }: FaqPageProps) => {
 
       <div className="unified-card">
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
-          <h2 style={{ margin: 0 }}>❓ 自治会運営・ルールに関するQ&amp;A</h2>
+          <h2 style={{ margin: 0 }}>❓ {sectionMeta.title}</h2>
           <span style={{ fontSize: '0.82rem', background: 'var(--primary-soft)', color: 'var(--primary)', padding: '2px 10px', borderRadius: '5px', fontWeight: 700 }}>
             全 {filteredFaqs.length} 件
           </span>
         </div>
         <p style={{ marginBottom: '20px', fontSize: '0.95rem', color: 'var(--text-muted)', lineHeight: 1.6 }}>
-          つくし野区自治会の規約、細則、内規、個人情報取扱規程等に基づいたQA集です。タップすると回答が開きます。
+          {sectionMeta.description}
         </p>
         <div className="accordion">
           {filteredFaqs.map((faq, idx) => {

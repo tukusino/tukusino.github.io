@@ -3,9 +3,10 @@ import { eventData, type SimpleEvent } from '../data/eventData';
 
 interface EventsPageProps {
   onNavigate: (page: string) => void;
+  events?: SimpleEvent[];
 }
 
-export const EventsPage = ({ onNavigate }: EventsPageProps) => {
+export const EventsPage = ({ onNavigate, events }: EventsPageProps) => {
   const now = new Date();
   const currentMonthNum = now.getMonth() + 1; // 1-12
 
@@ -30,14 +31,15 @@ export const EventsPage = ({ onNavigate }: EventsPageProps) => {
   };
 
   // 直近の「次の行事」を取得
-  const nextEvent = eventData.getNextHomeEvent(now);
+  const tsukushinoEvents = events ?? eventData.tsukushinoEvents;
+  const nextEvent = eventData.getNextHomeEvent(now, tsukushinoEvents);
 
   // つくし野区の行事を分類（みんなの行事 / 自治会運営予定 / 過去行事）
   const tsukushinoResidentEvents: SimpleEvent[] = [];
   const tsukushinoManagementEvents: SimpleEvent[] = [];
   const tsukushinoPastEvents: SimpleEvent[] = [];
 
-  eventData.tsukushinoEvents.forEach((ev) => {
+  tsukushinoEvents.forEach((ev) => {
     const status = eventData.getEventStatus(ev.startDate || ev.dateVal, ev.endDate, ev.isDateUndecided, now);
     if (status === 'finished') {
       tsukushinoPastEvents.push(ev);
@@ -64,6 +66,7 @@ export const EventsPage = ({ onNavigate }: EventsPageProps) => {
   // イベント1件の描画コンポーネント
   const renderEventCard = (event: SimpleEvent, idx: number, prefix: string) => {
     const eventId = `${prefix}-${idx}`;
+    const detailId = `${eventId}-details`;
     const isExpanded = expandedEventId === eventId;
     const status = eventData.getEventStatus(event.startDate || event.dateVal, event.endDate, event.isDateUndecided, now);
     const isToday = status === 'today';
@@ -78,9 +81,18 @@ export const EventsPage = ({ onNavigate }: EventsPageProps) => {
           borderRadius: isToday ? '6px' : '0'
         }}
       >
-        <div
+        <button
+          type="button"
           onClick={() => toggleEventExpand(eventId)}
+          aria-expanded={isExpanded}
+          aria-controls={detailId}
           style={{
+            width: '100%',
+            padding: 0,
+            border: 0,
+            background: 'transparent',
+            color: 'inherit',
+            textAlign: 'left',
             display: 'flex',
             justifyContent: 'space-between',
             alignItems: 'center',
@@ -88,30 +100,32 @@ export const EventsPage = ({ onNavigate }: EventsPageProps) => {
             gap: '8px'
           }}
         >
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+          <span className="event-card-copy" style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+            <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
               {status === 'today' && (
                 <span style={{ background: 'var(--danger)', color: '#fff', fontSize: '0.72rem', padding: '2px 6px', borderRadius: '4px', fontWeight: 800 }}>
                   🚨 本日開催
                 </span>
               )}
-              <span style={{ fontSize: '0.82rem', color: 'var(--primary-dark)', fontWeight: 700 }}>{event.dateStr}</span>
-              {event.time && <span style={{ fontSize: '0.78rem', color: 'var(--text-muted)' }}>｜{event.time}</span>}
-              {event.location && <span style={{ fontSize: '0.78rem', color: 'var(--text-muted)' }}>｜📍 {event.location}</span>}
-            </div>
-            <h3 style={{ fontSize: '1.05rem', margin: '2px 0 4px', color: 'var(--text)', border: 'none', padding: 0, fontWeight: 700 }}>
+            </span>
+            <span style={{ fontSize: '1.05rem', color: 'var(--text)', fontWeight: 700 }}>
               {event.title}
-            </h3>
-          </div>
+            </span>
+            <span className="event-card-meta">
+              <span>日時：{event.dateStr}{event.time ? ` ${event.time}` : ''}</span>
+              {event.location && <span>場所：{event.location}</span>}
+            </span>
+          </span>
 
-          <span style={{ color: 'var(--text-muted)', fontSize: '0.9rem', transition: 'transform 0.2s', transform: isExpanded ? 'rotate(180deg)' : 'rotate(0deg)' }}>
+          <span aria-hidden="true" style={{ color: 'var(--text-muted)', fontSize: '0.9rem', transition: 'transform 0.2s', transform: isExpanded ? 'rotate(180deg)' : 'rotate(0deg)' }}>
             ▼
           </span>
-        </div>
+        </button>
 
         {/* アコーディオン詳細展開部分 */}
         {isExpanded && (
           <div
+            id={detailId}
             style={{
               marginTop: '10px',
               padding: '12px',
@@ -189,8 +203,13 @@ export const EventsPage = ({ onNavigate }: EventsPageProps) => {
       )}
 
       {/* ─── ２．生活者向け3タブ ＋ 補足説明 ─── */}
-      <div className="tab-bar" style={{ display: 'flex', gap: '4px', marginBottom: '6px', background: 'var(--border)', padding: '4px', borderRadius: '8px' }}>
+      <div className="tab-bar" role="tablist" aria-label="行事予定の区分" style={{ display: 'flex', gap: '4px', marginBottom: '6px', background: 'var(--border)', padding: '4px', borderRadius: '8px' }}>
         <button
+          id="events-tab-tsukushino"
+          type="button"
+          role="tab"
+          aria-selected={activeTab === 'tsukushino'}
+          aria-controls="events-tab-panel"
           className={`tab-btn${activeTab === 'tsukushino' ? ' active' : ''}`}
           onClick={() => setActiveTab('tsukushino')}
           style={{
@@ -211,6 +230,11 @@ export const EventsPage = ({ onNavigate }: EventsPageProps) => {
           <span style={{ fontSize: '0.7rem', display: 'block', opacity: 0.85, fontWeight: 500 }}>（つくし野区）</span>
         </button>
         <button
+          id="events-tab-wadaoka"
+          type="button"
+          role="tab"
+          aria-selected={activeTab === 'wadaoka'}
+          aria-controls="events-tab-panel"
           className={`tab-btn${activeTab === 'wadaoka' ? ' active' : ''}`}
           onClick={() => setActiveTab('wadaoka')}
           style={{
@@ -231,6 +255,11 @@ export const EventsPage = ({ onNavigate }: EventsPageProps) => {
           <span style={{ fontSize: '0.7rem', display: 'block', opacity: 0.85, fontWeight: 500 }}>（和田岡地区）</span>
         </button>
         <button
+          id="events-tab-org"
+          type="button"
+          role="tab"
+          aria-selected={activeTab === 'org'}
+          aria-controls="events-tab-panel"
           className={`tab-btn${activeTab === 'org' ? ' active' : ''}`}
           onClick={() => setActiveTab('org')}
           style={{
@@ -260,7 +289,7 @@ export const EventsPage = ({ onNavigate }: EventsPageProps) => {
       </div>
 
       {/* ─── ３．タブコンテンツ ─── */}
-      <div className="tab-content">
+      <div id="events-tab-panel" className="tab-content" role="tabpanel" aria-labelledby={`events-tab-${activeTab}`}>
         {/* === 自治会の行事 タブ === */}
         {activeTab === 'tsukushino' && (
           <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>

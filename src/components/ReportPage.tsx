@@ -105,6 +105,7 @@ export const ReportPage = ({ onNavigate }: ReportPageProps) => {
                 <div style={{ display: 'flex', gap: '12px', alignItems: 'flex-start' }}>
                   {rep.image && (
                     <img
+                      loading="lazy"
                       src={`${import.meta.env.BASE_URL}${rep.image}`}
                       alt=""
                       style={{ width: '64px', height: '64px', borderRadius: '5px', objectFit: 'cover', flexShrink: 0 }}
@@ -165,22 +166,9 @@ export const ReportPage = ({ onNavigate }: ReportPageProps) => {
                   <h4 style={{ fontSize: '0.98rem', color: 'var(--text)', margin: '0 0 4px 0', fontWeight: 700 }}>{doc.title}</h4>
                   <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', margin: 0 }}>{doc.summary}</p>
                 </div>
-                <button
-                  style={{
-                    padding: '6px 12px',
-                    borderRadius: '5px',
-                    border: '1px solid var(--primary)',
-                    background: 'var(--white)',
-                    color: 'var(--primary)',
-                    fontSize: '0.82rem',
-                    fontWeight: 700,
-                    cursor: 'pointer',
-                    flexShrink: 0
-                  }}
-                  onClick={() => alert(`「${doc.title}」の記録概要を確認しました。`)}
-                >
-                  詳細表示
-                </button>
+                <span style={{ color: 'var(--text-muted)', fontSize: '0.78rem', fontWeight: 700, flexShrink: 0 }}>
+                  公開準備中
+                </span>
               </div>
             ))
           )}

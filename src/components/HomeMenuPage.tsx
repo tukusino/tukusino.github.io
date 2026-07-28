@@ -17,6 +17,39 @@ export const HomeMenuPage: React.FC<HomeMenuPageProps> = ({ onNavigate, onOpenCo
         </p>
       </header>
 
+      <details className="install-guide-card">
+        <summary>
+          <span className="install-guide-icon" aria-hidden="true">📱</span>
+          <span>
+            <strong>このサイトをスマホのホーム画面に追加</strong>
+            <small>次回からアイコンを押すだけで開けます</small>
+          </span>
+          <span className="install-guide-chevron" aria-hidden="true">＋</span>
+        </summary>
+        <div className="install-guide-body">
+          <p className="install-guide-note">アプリのインストールや会員登録は必要ありません。無料で、いつでも削除できます。</p>
+          <div className="install-guide-columns">
+            <section>
+              <h2>iPhone（Safari）</h2>
+              <ol>
+                <li>画面下の「共有」ボタンを押す</li>
+                <li>「ホーム画面に追加」を押す</li>
+                <li>右上の「追加」を押す</li>
+              </ol>
+            </section>
+            <section>
+              <h2>Android（Chrome）</h2>
+              <ol>
+                <li>右上の「︙」を押す</li>
+                <li>「ホーム画面に追加」または「アプリをインストール」を押す</li>
+                <li>「追加」または「インストール」を押す</li>
+              </ol>
+            </section>
+          </div>
+          <p className="install-guide-line">LINEの中で開いている場合は、右上のメニューから「ブラウザで開く」を選んでください。</p>
+        </div>
+      </details>
+
       {/* 1. 最上部「よく使うメニュー」4大ショートカット (2x2 グリッド) */}
       <div style={{ marginBottom: '24px' }}>
         <div style={{ fontSize: '0.82rem', fontWeight: 700, color: 'var(--primary-dark)', marginBottom: '8px', letterSpacing: '0.05em' }}>
@@ -113,6 +146,26 @@ export const HomeMenuPage: React.FC<HomeMenuPageProps> = ({ onNavigate, onOpenCo
       <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
         
         {/* グループ① 🏡 暮らし・手続き */}
+        <div className="unified-card">
+          <h2 style={{ fontSize: '1.05rem', color: 'var(--primary-dark)', margin: '0 0 12px', borderBottom: '2px solid var(--primary-soft)', paddingBottom: '8px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <span>🏮</span> 行事・地域
+          </h2>
+          <div className="festival-menu-grid">
+            <button className="external-link-btn festival-menu-link" onClick={() => onNavigate('festival')}>
+              <span style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                <span className="festival-menu-icon" aria-hidden="true">🏮</span>
+                <span><span className="festival-menu-title">つくし野区祭典</span><span className="festival-menu-description">祭典の見どころ・参加の流れ</span></span>
+              </span><span className="icon">→</span>
+            </button>
+            <button className="external-link-btn festival-menu-link" onClick={() => onNavigate('festival_organization')}>
+              <span style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                <span className="festival-menu-icon" aria-hidden="true">📋</span>
+                <span><span className="festival-menu-title">祭典の組織・準備</span><span className="festival-menu-description">役割と昨年度の参考日程</span></span>
+              </span><span className="icon">→</span>
+            </button>
+          </div>
+        </div>
+
         <div className="unified-card">
           <h2 style={{ fontSize: '1.05rem', color: 'var(--primary-dark)', margin: '0 0 12px', borderBottom: '2px solid var(--primary-soft)', paddingBottom: '8px', display: 'flex', alignItems: 'center', gap: '8px' }}>
             <span>🏡</span> 暮らし・手続き
@@ -293,14 +346,15 @@ export const HomeMenuPage: React.FC<HomeMenuPageProps> = ({ onNavigate, onOpenCo
             { q: '💡 防犯灯の不具合を知らせたい', action: '防災・安全情報', target: 'disaster' },
             { q: '💰 会費を確認したい', action: 'よくある質問', target: 'faq' }
           ].map((item, idx) => (
-            <div 
-              key={idx} 
-              onClick={() => onNavigate(item.target)}
-              style={{ background: '#fff', padding: '10px 12px', borderRadius: '8px', border: '1px solid var(--border)', cursor: 'pointer', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
+            <button
+               type="button"
+               key={idx}
+               onClick={() => onNavigate(item.target)}
+               style={{ width: '100%', background: '#fff', padding: '10px 12px', borderRadius: '8px', border: '1px solid var(--border)', cursor: 'pointer', display: 'flex', justifyContent: 'space-between', alignItems: 'center', textAlign: 'left' }}
             >
               <span style={{ fontSize: '0.82rem', fontWeight: 600, color: 'var(--text)' }}>{item.q}</span>
               <span style={{ fontSize: '0.76rem', color: 'var(--primary)', fontWeight: 700 }}>{item.action} ›</span>
-            </div>
+            </button>
           ))}
         </div>
       </div>

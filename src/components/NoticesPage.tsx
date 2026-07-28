@@ -3,11 +3,13 @@ import { getActiveNotices, type NoticeItem } from '../data/noticeData';
 
 interface NoticesPageProps {
   onNavigate: (page: string) => void;
+  notices?: NoticeItem[];
+  selectedNoticeId?: string;
 }
 
-export const NoticesPage = ({ onNavigate }: NoticesPageProps) => {
-  const [notices] = useState<NoticeItem[]>(() => getActiveNotices(new Date()));
-  const selectedNoticeId = new URLSearchParams(window.location.search).get('notice');
+export const NoticesPage = ({ onNavigate, notices: sourceNotices, selectedNoticeId }: NoticesPageProps) => {
+  const [now] = useState(() => new Date());
+  const notices = getActiveNotices(now, sourceNotices);
   const visibleNotices = selectedNoticeId
     ? notices.filter((notice) => notice.id === selectedNoticeId)
     : notices;
@@ -41,6 +43,11 @@ export const NoticesPage = ({ onNavigate }: NoticesPageProps) => {
               >
                 {notice.categoryLabel}
               </span>
+              {notice.status && (
+                <span className={`notice-status notice-status-${notice.status}`}>
+                  {notice.status === 'sample' ? '確認用' : '準備中'}
+                </span>
+              )}
             </div>
             <h2 style={{ border: 'none', padding: 0, margin: '0 0 10px', fontSize: '1.15rem' }}>{notice.title}</h2>
             <p style={{ fontSize: '0.9375rem', lineHeight: 1.55, color: 'var(--text)', whiteSpace: 'pre-wrap', margin: '0 0 12px 0' }}>{notice.content}</p>
@@ -48,6 +55,7 @@ export const NoticesPage = ({ onNavigate }: NoticesPageProps) => {
             {notice.image && (
               <div style={{ marginTop: '12px', textAlign: 'center' }}>
                 <img
+                  loading="lazy"
                   src={`${import.meta.env.BASE_URL}${notice.image}`}
                   alt={notice.title}
                   style={{
@@ -62,6 +70,12 @@ export const NoticesPage = ({ onNavigate }: NoticesPageProps) => {
             )}
           </div>
         ))
+      )}
+
+      {selectedNoticeId && visibleNotices.length > 0 && (
+        <div style={{ textAlign: 'center', marginTop: '16px' }}>
+          <button className="back-btn secondary" onClick={() => onNavigate('notices')}>お知らせ一覧へ戻る</button>
+        </div>
       )}
 
       {selectedNoticeId && visibleNotices.length === 0 && (
