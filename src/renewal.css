@@ -1984,6 +1984,72 @@ main {
   60% { transform: scale(1.4); }
   100% { transform: scale(1.4); }
 }
+@keyframes navSelectPop {
+  0% { transform: scale(1); }
+  65% { transform: scale(1.13); }
+  100% { transform: scale(1.1); }
+}
+
+@keyframes navIndicatorIn {
+  from { opacity: 0; transform: scaleX(0.35); }
+  to { opacity: 1; transform: scaleX(1); }
+}
+
+@keyframes gentleEnter {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes importantNoticeIn {
+  0% { opacity: 0; transform: scale(0.9); }
+  70% { opacity: 1; transform: scale(1.05); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+/* Subtle motion: communicate page changes and taps without distracting from information. */
+@media (prefers-reduced-motion: no-preference) {
+  .content-shell > * {
+    animation: gentleEnter 280ms var(--ease) both;
+  }
+
+  .home-page > .today-rail,
+  .home-page > .home-main-grid,
+  .home-page > .service-section,
+  .home-page > .activity-section {
+    animation: gentleEnter 360ms var(--ease) both;
+  }
+
+  .home-page > .home-main-grid { animation-delay: 50ms; }
+  .home-page > .service-section { animation-delay: 90ms; }
+  .home-page > .activity-section { animation-delay: 130ms; }
+
+  .rail-item,
+  .news-row,
+  .service-card,
+  .event-row {
+    transition: transform 180ms var(--ease), box-shadow 180ms var(--ease), background-color 180ms var(--ease);
+  }
+
+  .rail-item:active,
+  .news-row:active,
+  .service-card:active,
+  .event-row:active {
+    transform: scale(0.985);
+  }
+
+  @media (hover: hover) {
+    .rail-item:hover,
+    .news-row:hover,
+    .service-card:hover,
+    .event-row:hover {
+      transform: translateY(-2px);
+    }
+  }
+
+  .notice-tag.important {
+    animation: importantNoticeIn 500ms var(--ease) both;
+  }
+}
 
 @media (max-width: 980px) {
   .primary-nav {
@@ -2284,7 +2350,7 @@ main {
     left: 0;
     z-index: 1000;
     display: block;
-    height: calc(68px + env(safe-area-inset-bottom, 0px));
+    height: calc(76px + env(safe-area-inset-bottom, 0px));
     padding-bottom: env(safe-area-inset-bottom, 0px);
     background: rgba(255, 253, 247, 0.97);
     border-top: 1px solid var(--border);
@@ -2296,7 +2362,7 @@ main {
   .bottom-nav-inner {
     width: 100%;
     max-width: 520px;
-    height: 68px;
+    height: 76px;
     display: flex;
     margin-inline: auto;
   }
@@ -2309,7 +2375,7 @@ main {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 3px;
+    gap: 5px;
     margin: 0;
     padding: 4px 2px;
     border: 0;
@@ -2339,6 +2405,7 @@ main {
 
   .bottom-nav-btn.active::before {
     background: var(--accent);
+    animation: navIndicatorIn 220ms var(--ease) both;
   }
 
   .bottom-nav-btn.active img {
@@ -2358,14 +2425,15 @@ main {
   }
 
   .bottom-nav-btn img {
-    width: 27px;
-    height: 27px;
+    width: 34px;
+    height: 34px;
     border-radius: 50%;
     object-fit: cover;
     filter: saturate(0.65);
   }
 
   .bottom-nav-btn.active img {
+    animation: navSelectPop 220ms var(--ease) both;
     filter: saturate(1);
   }
 }

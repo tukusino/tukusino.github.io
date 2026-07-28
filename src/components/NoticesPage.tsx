@@ -31,7 +31,7 @@ export const NoticesPage = ({ onNavigate, notices: sourceNotices, selectedNotice
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
               <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)', fontWeight: 700 }}>{notice.publishDate}</span>
               <span
-                className="notice-tag"
+                className={`notice-tag${notice.category === 'important' ? ' important' : ''}`}
                 style={{
                   background: notice.category === 'important' ? 'var(--danger)' : 'var(--primary-soft)',
                   color: notice.category === 'important' ? 'var(--white)' : 'var(--primary)',

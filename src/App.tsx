@@ -177,13 +177,6 @@ export default function App() {
     <div className="app-shell">
       <a className="skip-link" href="#main-content">本文へ移動</a>
 
-      <div className="utility-bar">
-        <div className="container utility-inner">
-          <span>静岡県掛川市・和田岡地区</span>
-          <span>地域の暮らしを、わかりやすく。</span>
-        </div>
-      </div>
-
       <header className="site-header">
         <div className="container header-main">
           <button className="brand" onClick={() => navigate('home')} aria-label="つくし野区自治会 ホームへ">
