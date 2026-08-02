@@ -1,0 +1,25 @@
+{
+  "name": "つくし野区自治会",
+  "short_name": "つくし野区",
+  "description": "ゴミの日、行事予定、お知らせを確認できます。",
+  "lang": "ja",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f7f1e6",
+  "theme_color": "#18243d",
+  "icons": [
+    {
+      "src": "tukushino-icon.svg",
+      "sizes": "1254x1254",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "tukushino-icon.svg",
+      "sizes": "1254x1254",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
